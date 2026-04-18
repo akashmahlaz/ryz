@@ -7,7 +7,7 @@ export default function Hero() {
   const [email, setEmail] = useState("");
 
   return (
-    <section className="relative min-h-[760px] md:min-h-[820px] overflow-hidden">
+    <section className="relative min-h-190 md:min-h-205 overflow-hidden">
       {/* Pixel background */}
       <img
         src="https://media.base44.com/images/public/69e38b1d5a737c4dacc714f2/d20eb468a_generated_d6f43358.png"

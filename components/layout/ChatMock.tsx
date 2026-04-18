@@ -34,7 +34,7 @@ export default function ChatMock() {
       </div>
 
       {/* Body */}
-      <div className="flex min-h-[420px]">
+      <div className="flex min-h-105">
         {/* Sidebar */}
         <div className="hidden sm:flex flex-col items-center gap-4 py-4 px-2 border-r border-black/5 text-black/40">
           <Plus className="w-4 h-4" />

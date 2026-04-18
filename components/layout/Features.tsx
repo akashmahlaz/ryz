@@ -3,133 +3,85 @@ import React from "react";
 
 const features = [
   {
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
-      </svg>
-    ),
-    title: "Technical SEO Audits",
-    desc: "Continuously monitors your site for crawl errors, broken links, indexing issues, and sitemap problems — fixes them automatically.",
-    color: "from-green-500 to-green-600",
-    bg: "bg-green-50",
-    iconColor: "text-green-600",
+    title: "Autonomous\nSEO agent",
+    items: ["Technical SEO audits on autopilot", "AI-powered content optimization"],
+    platforms: ["/google-analytics.svg", "/google_ads.png"],
   },
   {
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-      </svg>
-    ),
-    title: "AI Content Optimization",
-    desc: "Rewrites meta titles, descriptions, headers, and body copy to match search intent and maximize CTR and ranking potential.",
-    color: "from-blue-500 to-blue-600",
-    bg: "bg-blue-50",
-    iconColor: "text-blue-600",
+    title: "Autonomous\nrank tracking",
+    items: ["Real-time keyword monitoring", "Competitor position alerts"],
+    platforms: ["/google-analytics.svg"],
   },
   {
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
-      </svg>
-    ),
-    title: "Keyword Rank Tracking",
-    desc: "Monitors your keyword positions across Google in real time. Alerts you the moment you're outranked by a competitor.",
-    color: "from-purple-500 to-purple-600",
-    bg: "bg-purple-50",
-    iconColor: "text-purple-600",
-  },
-  {
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-      </svg>
-    ),
-    title: "Schema Markup Automation",
-    desc: "Automatically adds and validates JSON-LD structured data — FAQ, Product, Organization, Breadcrumb — on every page.",
-    color: "from-amber-500 to-amber-600",
-    bg: "bg-amber-50",
-    iconColor: "text-amber-600",
-  },
-  {
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-      </svg>
-    ),
-    title: "Core Web Vitals",
-    desc: "Diagnoses LCP, FID, and CLS issues and applies fixes — image compression, lazy loading, render-blocking scripts.",
-    color: "from-red-500 to-red-600",
-    bg: "bg-red-50",
-    iconColor: "text-red-600",
-  },
-  {
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-      </svg>
-    ),
-    title: "Internal Linking",
-    desc: "Maps your content graph and auto-inserts contextual internal links, strengthening topical authority and page equity.",
-    color: "from-teal-500 to-teal-600",
-    bg: "bg-teal-50",
-    iconColor: "text-teal-600",
-  },
-  {
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-      </svg>
-    ),
-    title: "Competitor Analysis",
-    desc: "Reverse-engineers what your top 5 competitors rank for, identifies content gaps, and recommends keywords to go after.",
-    color: "from-pink-500 to-pink-600",
-    bg: "bg-pink-50",
-    iconColor: "text-pink-600",
+    title: "Autonomous\nsite optimization",
+    items: ["Core Web Vitals auto-fix", "Schema markup generation"],
+    platforms: ["/google-analytics.svg", "/meta.png"],
   },
 ];
 
 export default function Features() {
   return (
-    <section className="bg-[#F5FAF0] py-20 md:py-28" id="features">
-      <div className="max-w-7xl mx-auto px-6 md:px-10">
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.15em] text-green-600 bg-green-100 rounded-full px-4 py-1.5 mb-4">
-            How It Works
-          </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-black/90 tracking-tight leading-tight">
-            Every SEO task.{" "}
-            <span className="text-gradient-ryze">Fully automated.</span>
-          </h2>
-          <p className="mt-4 text-lg text-black/60 leading-relaxed">
-            Ryze acts as your dedicated SEO specialist — running audits around
-            the clock, optimizing pages in real time, and surfacing only what
-            matters.
-          </p>
-        </div>
-
-        {/* Feature cards grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+    <section className="relative w-full z-10 bg-gradient-to-b from-white to-zinc-50">
+      <div className="max-w-[1600px] mx-auto px-3 md:px-8 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3">
           {features.map((feature, i) => (
             <div
               key={i}
-              className="group bg-white rounded-2xl p-6 ring-1 ring-black/5 hover:ring-green-300/60 card-hover flex flex-col gap-4"
+              className={`relative px-4 md:px-8 py-6 md:py-10 flex flex-col gap-8 group hover:bg-white/50 transition-colors duration-500 items-center lg:items-start text-center lg:text-left ${
+                i < features.length - 1 ? "lg:border-r border-zinc-200/60" : ""
+              }`}
             >
-              {/* Icon */}
-              <div
-                className={`w-12 h-12 rounded-xl ${feature.bg} flex items-center justify-center ${feature.iconColor} group-hover:scale-110 transition-transform duration-300`}
-              >
-                {feature.icon}
-              </div>
-
-              {/* Content */}
-              <div>
-                <h3 className="font-bold text-[15px] text-black/90 leading-snug">
+              <div className="space-y-8">
+                <h3 className="text-[28px] md:text-[32px] lg:text-[36px] font-bold tracking-[-0.02em] text-black leading-tight whitespace-pre-line">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-black/50 mt-2 leading-relaxed">
-                  {feature.desc}
-                </p>
+                <ul className="space-y-4 mt-4 text-left">
+                  {feature.items.map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-[15px] text-zinc-700">
+                      <div className="mt-2 w-1.5 h-1.5 bg-black flex-shrink-0 rounded-full" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Mock audit card */}
+              <div className="relative w-full overflow-hidden rounded-[3px] bg-[#F5FAF0] border border-zinc-200/40 shadow-[0_1px_2px_0_rgba(0,0,0,0.025)] p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest">
+                    {i === 0 ? "Site Health" : i === 1 ? "Rankings" : "Performance"}
+                  </span>
+                  <span className="text-[11px] text-emerald-500 font-semibold">Live</span>
+                </div>
+                {/* Green heatmap grid — matches Ryze's contribution chart */}
+                <div className="grid grid-cols-12 gap-[2px]">
+                  {Array.from({ length: 48 }).map((_, j) => {
+                    const opacity = [0.03, 0.11, 0.18, 0.28, 0.38, 0.48, 0.58, 0.68][
+                      Math.floor(Math.random() * 8)
+                    ];
+                    return (
+                      <div
+                        key={j}
+                        className="heatmap-cell rounded-[1px]"
+                        style={{
+                          backgroundColor:
+                            opacity > 0.1
+                              ? `rgba(52, 211, 153, ${opacity})`
+                              : "rgba(0,0,0,0.03)",
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Platform icons */}
+              <div className="flex items-center gap-3">
+                {feature.platforms.map((src, j) => (
+                  <div key={j} className="h-6 w-8 relative flex items-center justify-center">
+                    <img src={src} alt="" className="h-5 w-5 object-contain opacity-60" />
+                  </div>
+                ))}
               </div>
             </div>
           ))}

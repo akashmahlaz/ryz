@@ -1,38 +1,66 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 
 const navLinks = [
   { label: "AI for SEO", href: "#", active: true },
-  { label: "AI Marketer", href: "#" },
-  { label: "MCP", href: "#" },
-  { label: "Agency", href: "#" },
-  { label: "FAQ", href: "#" },
-  { label: "About Us", href: "#" },
+  { label: "AI Marketer", href: "https://www.get-ryze.ai/" },
+  { label: "MCP", href: "https://www.get-ryze.ai/how-to-connect-claude-to-google-meta-ads-mcp" },
+  { label: "Agency", href: "/agency" },
+  { label: "FAQ", href: "#faq" },
+  { label: "About Us", href: "/about" },
 ];
 
 export default function Navbar() {
-  return (
-    <nav className="absolute top-0 inset-x-0 z-30 px-6 md:px-10 pt-6">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center gap-2.5">
-          <img
-            src="https://media.base44.com/images/public/69e38b1d5a737c4dacc714f2/7fb2485a9_generated_b004d738.png"
-            alt="Ryze"
-            className="w-8 h-8 pixelated"
-          />
-          <span className="text-white font-bold text-xl tracking-tight">Ryze</span>
-        </div>
+  const [scrolled, setScrolled] = useState(false);
 
-        {/* Desktop nav */}
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <nav
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ease-out ${
+        scrolled
+          ? "bg-white/90 backdrop-blur-md border-b border-zinc-200 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-[1400px] mx-auto flex items-center justify-between px-6 md:px-12 h-[60px]">
+        {/* Logo */}
+        <a href="/" className="flex items-center gap-2 translate-y-[2px]">
+          <img
+            src="/main-logo-sun-2.png"
+            alt="Ryze"
+            className={`object-contain transition-all duration-500 ease-out w-[34px] h-[34px] ${
+              scrolled ? "" : "invert"
+            }`}
+          />
+          <span
+            className={`tracking-[-0.01em] transition-all duration-500 ease-out -translate-y-[1px] text-[28px] ${
+              scrolled ? "text-black" : "text-white"
+            }`}
+            style={{ fontFamily: "'Inter', sans-serif", fontWeight: 800 }}
+          >
+            Ryze
+          </span>
+        </a>
+
+        {/* Desktop links */}
         <div className="hidden lg:flex items-center gap-1">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+              className={`px-4 py-2 text-sm font-medium transition-all duration-200 ${
                 link.active
-                  ? "bg-white/20 text-white backdrop-blur-sm ring-1 ring-white/30"
-                  : "text-white/80 hover:text-white hover:bg-white/10"
+                  ? scrolled
+                    ? "text-black font-semibold"
+                    : "text-white font-semibold"
+                  : scrolled
+                  ? "text-zinc-500 hover:text-black"
+                  : "text-white/80 hover:text-white"
               }`}
             >
               {link.label}
@@ -40,22 +68,29 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="hidden lg:flex items-center gap-3">
-          <a
-            href="#cta"
-            className="bg-black text-white rounded-full px-5 py-2.5 text-sm font-semibold flex items-center gap-1.5 hover:bg-black/80 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
-          >
-            Get started
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-        </div>
+        {/* CTA button */}
+        <a
+          href="#cta"
+          className={`hidden sm:flex items-center gap-2 font-medium rounded-[3px] transition-all duration-500 ease-out text-sm px-5 py-2.5 ${
+            scrolled
+              ? "bg-black text-white hover:bg-zinc-800"
+              : "bg-black text-white hover:bg-zinc-800"
+          }`}
+        >
+          Get started
+        </a>
 
-        {/* Mobile menu button */}
-        <button className="lg:hidden text-white text-sm font-medium bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full">
-          Menu
+        {/* Mobile menu */}
+        <button
+          className={`lg:hidden p-2 -mr-2 rounded-[3px] transition-colors ${
+            scrolled ? "text-black hover:bg-black/5" : "text-white hover:bg-white/10"
+          }`}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
         </button>
       </div>
     </nav>

@@ -5,109 +5,134 @@ export default function CTA() {
   const [email, setEmail] = useState("");
 
   return (
-    <section className="relative overflow-hidden py-20 md:py-28" id="cta">
-      {/* Pixel-art background */}
-      <div
-        className="absolute inset-0 w-full h-full pixelated"
-        style={{
-          background: "url(https://media.base44.com/images/public/69e38b1d5a737c4dacc714f2/d20eb468a_generated_d6f43358.png)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
+    <>
+      {/* Stats section — matches Ryze's footer stats exactly */}
+      <section className="relative w-full min-h-[70vh] overflow-hidden ryze-grid bg-[#F5FAF0]">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-20 md:py-28">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+            {/* Left: CTA */}
+            <div className="flex-1 max-w-xl">
+              <h2 className="text-[28px] md:text-[36px] lg:text-[42px] font-bold tracking-[-0.03em] leading-tight text-black">
+                Let AI Run
+                <br />
+                Your SEO
+              </h2>
+              <p className="mt-4 text-[15px] text-zinc-500 leading-relaxed max-w-md">
+                Get your autonomous SEO agent. Connect Google Search Console, Analytics,
+                and let Ryze handle technical audits, content optimization, and rank tracking.
+              </p>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
-        {/* Main CTA card */}
-        <div className="max-w-2xl mx-auto text-center">
-          <span className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 rounded-full px-4 py-1.5 mb-6">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-xs font-semibold text-white/90">Limited early access</span>
-          </span>
+              {/* Email form */}
+              <form
+                onSubmit={(e) => e.preventDefault()}
+                className="mt-6 flex items-center rounded-[3px] bg-white shadow-sm border border-zinc-200 h-[48px] sm:h-[52px] overflow-hidden max-w-md transition-all focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500/40"
+              >
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="name@company.com"
+                  className="flex-1 bg-transparent border-none outline-none px-4 sm:px-5 text-[15px] sm:text-[16px] text-zinc-900 placeholder:text-zinc-400 min-w-0 h-full"
+                />
+                <button
+                  type="submit"
+                  className="shrink-0 bg-zinc-900 text-white px-3.5 sm:px-5 md:px-7 h-full min-h-[50px] font-medium whitespace-nowrap hover:bg-zinc-700 transition-all flex items-center justify-center gap-1.5 sm:gap-2 rounded-[3px] translate-x-[1.5px]"
+                >
+                  <span className="text-[14px] sm:text-[15px]">Get started</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                  </svg>
+                </button>
+              </form>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.06] drop-shadow-[0_4px_16px_rgba(0,0,0,0.4)]">
-            Let AI run your SEO
-          </h2>
-          <p className="mt-5 text-lg md:text-xl text-white/80 max-w-lg mx-auto leading-relaxed">
-            Join the waitlist and be first to experience autonomous SEO — technical audits,
-            content optimization, rank tracking, and competitor analysis, all done for you.
-          </p>
-
-          {/* Email pill form */}
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="mt-8 email-pill max-w-md mx-auto"
-          >
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              className="placeholder-white/40"
-              style={{ color: "white" }}
-            />
-            <button type="submit" className="btn-primary shrink-0">
-              Get started
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </button>
-          </form>
-
-          <p className="mt-4 text-sm text-white/50">
-            Free for the first 100 signups. No credit card required.
-          </p>
-        </div>
-
-        {/* Social proof badges */}
-        <div className="flex flex-wrap items-center justify-center gap-4 mt-10">
-          {[
-            { icon: "✓", text: "No credit card" },
-            { icon: "✓", text: "Cancel anytime" },
-            { icon: "✓", text: "Setup in 2 mins" },
-          ].map((b) => (
-            <div key={b.text} className="flex items-center gap-2 text-white/70 text-sm font-medium bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5">
-              <span className="text-green-400 font-bold">{b.icon}</span>
-              {b.text}
+              <p className="mt-3 text-xs text-zinc-400">
+                Need help?{" "}
+                <a href="mailto:hello@get-ryze.ai" className="underline hover:text-zinc-600 transition-colors">
+                  hello@get-ryze.ai
+                </a>{" "}
+                /{" "}
+                <a href="https://wa.me/16314805598" className="underline hover:text-zinc-600 transition-colors">
+                  Text/WhatsApp +1 631 480 55 98
+                </a>
+              </p>
             </div>
-          ))}
+
+            {/* Right: Live stats */}
+            <div className="flex-1 w-full">
+              <p className="text-[13px] font-medium text-zinc-500 mb-6">
+                Live results across <span className="text-black font-bold">2,000+ clients</span>
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                {/* SEO stats */}
+                <div className="space-y-4">
+                  <p className="text-[11px] font-semibold text-emerald-600 uppercase tracking-widest flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    SEO
+                  </p>
+                  <div>
+                    <p className="text-[11px] text-zinc-400">Organic visits driven</p>
+                    <p className="text-[28px] font-bold text-black tracking-tight">23.5M</p>
+                  </div>
+                  <div>
+                    <p className="text-[11px] text-zinc-400">Keywords on page 1</p>
+                    <p className="text-[28px] font-bold text-black tracking-tight">48k+</p>
+                  </div>
+                </div>
+
+                {/* Content stats */}
+                <div className="space-y-4">
+                  <p className="text-[11px] font-semibold text-blue-600 uppercase tracking-widest flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                    Content
+                  </p>
+                  <div>
+                    <p className="text-[11px] text-zinc-400">AI articles published</p>
+                    <p className="text-[28px] font-bold text-black tracking-tight">12k+</p>
+                  </div>
+                  <div>
+                    <p className="text-[11px] text-zinc-400">Avg. time to rank</p>
+                    <p className="text-[28px] font-bold text-black tracking-tight">14 days</p>
+                  </div>
+                </div>
+
+                {/* Technical stats */}
+                <div className="space-y-4">
+                  <p className="text-[11px] font-semibold text-purple-600 uppercase tracking-widest flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
+                    Technical
+                  </p>
+                  <div>
+                    <p className="text-[11px] text-zinc-400">Issues auto-fixed</p>
+                    <p className="text-[28px] font-bold text-black tracking-tight">250k+</p>
+                  </div>
+                  <div>
+                    <p className="text-[11px] text-zinc-400">Core Web Vitals pass</p>
+                    <p className="text-[28px] font-bold text-black tracking-tight">94%</p>
+                  </div>
+                </div>
+              </div>
+
+              <p className="mt-6 text-[11px] text-zinc-300">
+                Last updated: Apr 18, 2026 · All systems ok
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Footer */}
-      <footer className="relative z-10 bg-black/30 backdrop-blur-sm border-t border-white/10 mt-0">
-        <div className="max-w-7xl mx-auto px-6 md:px-10 py-10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            {/* Logo + tagline */}
-            <div className="flex items-center gap-2.5">
-              <img
-                src="https://media.base44.com/images/public/69e38b1d5a737c4dacc714f2/7fb2485a9_generated_b004d738.png"
-                alt="Ryze"
-                className="w-7 h-7 pixelated"
-              />
-              <span className="text-white font-bold text-lg">Ryze</span>
-              <span className="text-white/40 text-sm ml-2">— AI for SEO</span>
-            </div>
-
-            {/* Links */}
-            <nav className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/50">
-              <a href="#" className="hover:text-white transition-colors">About Us</a>
-              <a href="#" className="hover:text-white transition-colors">Privacy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms</a>
-              <a href="mailto:hello@ryze.ai" className="hover:text-white transition-colors">hello@ryze.ai</a>
-            </nav>
+      <footer className="bg-white border-t border-zinc-100 py-8">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-4 text-sm text-zinc-400">
+            <a href="/about" className="hover:text-zinc-600 transition-colors">About</a>
+            <a href="/privacy" className="hover:text-zinc-600 transition-colors">Privacy Policy</a>
+            <a href="/term-services" className="hover:text-zinc-600 transition-colors">Terms of Service</a>
+            <a href="mailto:hello@get-ryze.ai" className="hover:text-zinc-600 transition-colors">hello@get-ryze.ai</a>
           </div>
-
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mt-6 pt-6 border-t border-white/10">
-            <p className="text-xs text-white/30">
-              © 2026 Ryze AI, Inc. All rights reserved.
-            </p>
-            <p className="text-xs text-white/20">
-              Last updated: April 2026
-            </p>
-          </div>
+          <p className="text-xs text-zinc-300">© 2026 Ryze AI</p>
         </div>
       </footer>
-    </section>
+    </>
   );
 }

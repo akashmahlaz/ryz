@@ -6,18 +6,33 @@ export default function CTA() {
 
   return (
     <>
-      {/* Stats section — matches Ryze's footer stats exactly */}
-      <section className="relative w-full min-h-[70vh] overflow-hidden ryze-grid bg-[#F5FAF0]">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-20 md:py-28">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
-            {/* Left: CTA */}
-            <div className="flex-1 max-w-xl">
-              <h2 className="text-[28px] md:text-[36px] lg:text-[42px] font-bold tracking-[-0.03em] leading-tight text-black">
+      {/* Stats section — with pixel-art landscape background */}
+      <section className="relative w-full min-h-[85vh] overflow-hidden">
+        {/* Pixel-art landscape background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <img
+            src="/last-screen-12.png"
+            alt=""
+            className="w-full h-full object-cover pixelated"
+          />
+          {/* Green grid overlay */}
+          <div className="absolute inset-0 ryze-grid" />
+        </div>
+
+        {/* Content */}
+        <div className="relative max-w-[1400px] mx-auto px-6 md:px-12 py-20 md:py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
+            {/* Left: CTA heading */}
+            <div className="lg:col-span-2">
+              <h2
+                className="text-[22px] md:text-[28px] lg:text-[32px] font-bold tracking-[-0.02em] leading-tight text-black"
+                style={{ fontFamily: "'Press Start 2P', monospace" }}
+              >
                 Let AI Run
                 <br />
                 Your SEO
               </h2>
-              <p className="mt-4 text-[15px] text-zinc-500 leading-relaxed max-w-md">
+              <p className="mt-4 text-[15px] text-zinc-600 leading-relaxed max-w-md">
                 Get your autonomous SEO agent. Connect Google Search Console, Analytics,
                 and let Ryze handle technical audits, content optimization, and rank tracking.
               </p>
@@ -58,12 +73,12 @@ export default function CTA() {
             </div>
 
             {/* Right: Live stats */}
-            <div className="flex-1 w-full">
-              <p className="text-[13px] font-medium text-zinc-500 mb-6">
+            <div className="lg:col-span-1">
+              <p className="text-[13px] font-medium text-zinc-600 mb-6">
                 Live results across <span className="text-black font-bold">2,000+ clients</span>
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 gap-6">
                 {/* SEO stats */}
                 <div className="space-y-4">
                   <p className="text-[11px] font-semibold text-emerald-600 uppercase tracking-widest flex items-center gap-1.5">

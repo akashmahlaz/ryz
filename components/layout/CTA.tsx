@@ -1,13 +1,15 @@
 "use client";
 import React, { useState } from "react";
+import { useScrollReveal } from "@/lib/useScrollReveal";
 
 export default function CTA() {
   const [email, setEmail] = useState("");
+  const ctaHeadingRef = useScrollReveal();
 
   return (
     <>
       {/* Stats section — with pixel-art landscape background */}
-      <section className="relative w-full min-h-[85vh] overflow-hidden">
+      <section className="relative w-full min-h-screen overflow-hidden grid grid-cols-1 lg:grid-cols-3">
         {/* Pixel-art landscape background */}
         <div className="absolute inset-0 pointer-events-none">
           <img
@@ -25,8 +27,8 @@ export default function CTA() {
             {/* Left: CTA heading */}
             <div className="lg:col-span-2">
               <h2
-                className="text-[22px] md:text-[28px] lg:text-[32px] font-bold tracking-[-0.02em] leading-tight text-black"
-                style={{ fontFamily: "'Press Start 2P', monospace" }}
+                ref={ctaHeadingRef}
+                className="fade-in-up text-[22px] md:text-[28px] lg:text-[32px] font-bold tracking-[-0.02em] leading-tight text-black"
               >
                 Let AI Run
                 <br />
@@ -87,11 +89,11 @@ export default function CTA() {
                   </p>
                   <div>
                     <p className="text-[11px] text-zinc-400">Organic visits driven</p>
-                    <p className="text-[28px] font-bold text-black tracking-tight">23.5M</p>
+                    <p className="text-[28px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>23.5M</p>
                   </div>
                   <div>
                     <p className="text-[11px] text-zinc-400">Keywords on page 1</p>
-                    <p className="text-[28px] font-bold text-black tracking-tight">48k+</p>
+                    <p className="text-[28px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>48k+</p>
                   </div>
                 </div>
 
@@ -103,11 +105,11 @@ export default function CTA() {
                   </p>
                   <div>
                     <p className="text-[11px] text-zinc-400">AI articles published</p>
-                    <p className="text-[28px] font-bold text-black tracking-tight">12k+</p>
+                    <p className="text-[28px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>12k+</p>
                   </div>
                   <div>
                     <p className="text-[11px] text-zinc-400">Avg. time to rank</p>
-                    <p className="text-[28px] font-bold text-black tracking-tight">14 days</p>
+                    <p className="text-[28px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>14 days</p>
                   </div>
                 </div>
 
@@ -119,11 +121,11 @@ export default function CTA() {
                   </p>
                   <div>
                     <p className="text-[11px] text-zinc-400">Issues auto-fixed</p>
-                    <p className="text-[28px] font-bold text-black tracking-tight">250k+</p>
+                    <p className="text-[28px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>250k+</p>
                   </div>
                   <div>
                     <p className="text-[11px] text-zinc-400">Core Web Vitals pass</p>
-                    <p className="text-[28px] font-bold text-black tracking-tight">94%</p>
+                    <p className="text-[28px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>94%</p>
                   </div>
                 </div>
               </div>

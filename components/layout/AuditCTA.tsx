@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from "react";
+import { useScrollReveal } from "@/lib/useScrollReveal";
 
 export default function AuditCTA() {
   const [email, setEmail] = useState("");
+  const headingRef = useScrollReveal();
 
   return (
     <section className="py-20 md:py-28 relative overflow-hidden bg-[#FEFEF5]">
@@ -30,7 +32,7 @@ export default function AuditCTA() {
 
           {/* Right: Heading + steps + email form */}
           <div className="flex-1 max-w-xl">
-            <h2 className="text-[28px] md:text-[36px] lg:text-[42px] font-bold tracking-[-0.03em] text-black leading-tight">
+            <h2 ref={headingRef} className="fade-in-up text-[28px] md:text-[36px] lg:text-[42px] font-bold tracking-[-0.03em] text-black leading-tight">
               Get a free audit
               <br />
               of your SEO

@@ -1,25 +1,34 @@
 "use client";
 import React from "react";
+import { useScrollReveal } from "@/lib/useScrollReveal";
 
 const features = [
   {
     title: "Autonomous\nSEO agent",
     items: ["Technical SEO audits on autopilot", "AI-powered content optimization"],
     platforms: ["/google-analytics.svg", "/google_ads.png"],
+    screenshot: "/audit-screen-2-bigger-pixels.png",
   },
   {
     title: "Autonomous\nrank tracking",
     items: ["Real-time keyword monitoring", "Competitor position alerts"],
     platforms: ["/google-analytics.svg"],
+    screenshot: "/mcp-weekly-snapshot.png",
   },
   {
     title: "Autonomous\nsite optimization",
     items: ["Core Web Vitals auto-fix", "Schema markup generation"],
     platforms: ["/google-analytics.svg", "/meta.png"],
+    screenshot: "/mcp-more-charts.png",
   },
 ];
 
 export default function Features() {
+  const ref0 = useScrollReveal();
+  const ref1 = useScrollReveal();
+  const ref2 = useScrollReveal();
+  const colRefs = [ref0, ref1, ref2];
+
   return (
     <section className="relative w-full z-10 bg-gradient-to-b from-white to-zinc-50">
       <div className="max-w-[1600px] mx-auto px-3 md:px-8 lg:px-12">
@@ -27,7 +36,8 @@ export default function Features() {
           {features.map((feature, i) => (
             <div
               key={i}
-              className={`relative px-4 md:px-8 py-6 md:py-10 flex flex-col gap-8 group hover:bg-white/50 transition-colors duration-500 items-center lg:items-start text-center lg:text-left ${
+              ref={colRefs[i]}
+              className={`fade-in-up relative px-4 md:px-8 py-6 md:py-10 flex flex-col gap-8 group hover:bg-white/50 transition-colors duration-500 items-center lg:items-start text-center lg:text-left ${
                 i < features.length - 1 ? "lg:border-r border-zinc-200/60" : ""
               }`}
             >
@@ -43,6 +53,15 @@ export default function Features() {
                     </li>
                   ))}
                 </ul>
+              </div>
+
+              {/* Screenshot */}
+              <div className="relative w-full overflow-hidden rounded-[3px] border border-zinc-200/30 shadow-sm">
+                <img
+                  src={feature.screenshot}
+                  alt={feature.title}
+                  className="w-full h-auto object-cover"
+                />
               </div>
 
               {/* Mock audit card */}

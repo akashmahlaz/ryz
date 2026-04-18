@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useScrollReveal } from "@/lib/useScrollReveal";
 
 const cards = [
   {
@@ -21,6 +22,12 @@ const cards = [
 ];
 
 export default function WhyRyze() {
+  const ref0 = useScrollReveal();
+  const ref1 = useScrollReveal();
+  const ref2 = useScrollReveal();
+  const ref3 = useScrollReveal();
+  const cardRefs = [ref0, ref1, ref2, ref3];
+
   return (
     <section className="py-20 md:py-28 bg-white">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
@@ -29,10 +36,11 @@ export default function WhyRyze() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {cards.map((card) => (
+          {cards.map((card, i) => (
             <div
               key={card.title}
-              className="bg-[#F5FAF0] rounded-[3px] p-8 ring-1 ring-black/5 flex flex-col gap-4"
+              ref={cardRefs[i]}
+              className="fade-in-up bg-[#F5FAF0] rounded-[3px] p-8 ring-1 ring-black/5 flex flex-col gap-4"
             >
               {/* Emerald dot icon */}
               <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center">

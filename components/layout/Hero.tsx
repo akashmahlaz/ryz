@@ -1,9 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
+import { useScrollReveal } from "@/lib/useScrollReveal";
 
 export default function Hero() {
   const [email, setEmail] = useState("");
+  const h1Ref = useScrollReveal();
+  const pRef = useScrollReveal();
+  const formRef = useScrollReveal();
 
   return (
     <div className="relative min-h-screen flex flex-col bg-white w-full min-w-0">
@@ -30,7 +33,8 @@ export default function Hero() {
           {/* Left: Copy */}
           <div className="flex-1 min-w-0 w-full max-w-[1260px] lg:max-w-[45%] xl:max-w-[1260px] mt-0 lg:-mt-[30px] ml-0 lg:ml-[7px]">
             <h1
-              className="font-bold tracking-[-0.03em] text-white leading-[1.1] md:leading-[1.08] mb-8 md:mb-10 text-[42px] md:text-[55px] lg:text-[72px]"
+              ref={h1Ref}
+              className="fade-in-up font-bold tracking-[-0.03em] text-white leading-[1.1] md:leading-[1.08] mb-8 md:mb-10 text-[42px] md:text-[55px] lg:text-[72px]"
               style={{ fontFamily: "'Satoshi', sans-serif" }}
             >
               AI agent that
@@ -40,15 +44,20 @@ export default function Hero() {
               for you
             </h1>
 
-            <p className="text-[18px] md:text-[20px] lg:text-[22px] text-white/85 leading-[1.6] md:leading-relaxed mb-12 lg:mb-10 max-w-[440px] font-medium">
+            <p
+              ref={pRef}
+              className="fade-in-up text-[18px] md:text-[20px] lg:text-[22px] text-white/85 leading-[1.6] md:leading-relaxed mb-12 lg:mb-10 max-w-[440px] font-medium"
+            >
               Autonomous technical audits, content
               <br />
               optimization, and rank tracking — on autopilot
             </p>
 
             {/* Email form — exact production markup */}
-            <div className="w-full max-w-[373px] mt-4 md:mt-6">
-              <form className="flex items-center rounded-[3px] bg-white shadow-sm border border-zinc-200 h-[46px] md:h-[49px] overflow-hidden transition-all focus-within:ring-2 focus-within:ring-[#FF4801]/20 focus-within:border-[#FF4801]/40">
+            <div ref={formRef} className="fade-in-up w-full max-w-[373px] mt-4 md:mt-6">
+              <form
+              className="flex items-center rounded-[3px] bg-white shadow-sm border border-zinc-200 h-[46px] md:h-[49px] overflow-hidden transition-all focus-within:ring-2 focus-within:ring-[#FF4801]/20 focus-within:border-[#FF4801]/40"
+            >
                 <input
                   type="email"
                   required

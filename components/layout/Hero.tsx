@@ -1,73 +1,120 @@
-"use client"
+"use client";
 import React, { useState } from "react";
-import { ChevronRight } from "lucide-react";
 import Navbar from "./Navbar";
-import ChatMock from "./ChatMock";
+import SEOAuditMock from "./SEOAuditMock";
+
+const platformIcons = [
+  {
+    name: "Google Search Console",
+    src: "https://www.gstatic.com/images/branding/product/1x/searchconsole_64dp.png",
+  },
+  {
+    name: "Google Analytics",
+    src: "https://www.gstatic.com/images/branding/product/1x/analytics_64dp.png",
+  },
+  {
+    name: "Ahrefs",
+    src: "https://ahrefs.com/favicon.ico",
+  },
+  {
+    name: "SEMrush",
+    src: "https://www.semrush.com/favicon.ico",
+  },
+  {
+    name: "Screaming Frog",
+    src: "https://www.screamingfrog.co.uk/favicon.ico",
+  },
+];
 
 export default function Hero() {
   const [email, setEmail] = useState("");
 
   return (
-    <section className="relative min-h-190 md:min-h-205 overflow-hidden">
-      {/* Pixel background */}
-      <img
-        src="https://media.base44.com/images/public/69e38b1d5a737c4dacc714f2/d20eb468a_generated_d6f43358.png"
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover pixelated"
+    <section className="relative min-h-[110vh] overflow-hidden flex flex-col">
+      {/* Pixel-art landscape background */}
+      <div
+        className="absolute inset-0 w-full h-full pixelated"
+        style={{
+          background:
+            "url(https://media.base44.com/images/public/69e38b1d5a737c4dacc714f2/d20eb468a_generated_d6f43358.png)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       />
-      <div className="absolute inset-0 bg-black/10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40" />
 
       <Navbar />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 pt-32 md:pt-36 pb-16 grid lg:grid-cols-2 gap-10 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-20 flex-1 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+        {/* Left: copy */}
         <div className="text-white">
-          <img
-            src="https://media.base44.com/images/public/69e38b1d5a737c4dacc714f2/7fb2485a9_generated_b004d738.png"
-            alt=""
-            className="w-16 h-16 mb-6 pixelated"
-          />
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.05] drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)]">
-            Connect your
-            <br />
-            ad accounts to Claude
-            <br />
-            in 1 click
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 rounded-full px-4 py-1.5 mb-6">
+            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+            <span className="text-xs font-semibold text-white/90 tracking-wide">
+              Coming Soon — Join the waitlist
+            </span>
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl md:text-[4rem] font-black tracking-tight leading-[1.06] drop-shadow-[0_4px_16px_rgba(0,0,0,0.4)] max-w-xl">
+            AI agent that{" "}
+            <span className="text-gradient-ryze">does SEO</span>
+            {" "}for you
           </h1>
-          <p className="mt-5 text-lg md:text-xl text-white/90 max-w-lg">
-            Analyze and manage your ads, and schedule actions — all from Claude
+
+          <p className="mt-5 text-lg md:text-xl text-white/85 max-w-lg leading-relaxed">
+            Ryze autonomously audits, optimizes, and ranks your pages — technical
+            SEO, content, keywords, Core Web Vitals. All without you lifting a
+            finger.
           </p>
 
+          {/* Email form */}
           <form
             onSubmit={(e) => e.preventDefault()}
-            className="mt-8 flex flex-col sm:flex-row gap-2 max-w-md bg-white/95 p-1.5 rounded-full shadow-xl"
+            className="mt-8 email-pill max-w-md"
           >
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="flex-1 bg-transparent px-4 py-2 text-black placeholder-black/40 focus:outline-none text-sm"
+              className="placeholder-white/40"
+              style={{ color: "white" }}
             />
-            <button className="bg-black text-white rounded-full px-5 py-2.5 text-sm font-semibold flex items-center justify-center gap-1 hover:bg-black/80 transition">
-              Get started <ChevronRight className="w-4 h-4" />
+            <button type="submit" className="btn-primary shrink-0">
+              Get started
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
             </button>
           </form>
 
-          <div className="mt-8 flex items-center gap-4">
-            {[
-              { src: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg", alt: "Google Ads" },
-              { src: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg", alt: "Meta" },
-              { src: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Google_Analytics_2022_logo.svg", alt: "Google Analytics" },
-            ].map((i) => (
-              <div key={i.alt} className="w-10 h-10 rounded-lg bg-white/15 backdrop-blur flex items-center justify-center ring-1 ring-white/20">
-                <img src={i.src} alt={i.alt} className="w-6 h-6 object-contain" />
-              </div>
-            ))}
+          {/* Platform icons */}
+          <div className="mt-10">
+            <p className="text-xs text-white/60 font-medium uppercase tracking-widest mb-3">
+              Integrates with your stack
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {platformIcons.map((icon) => (
+                <div
+                  key={icon.name}
+                  className="w-11 h-11 rounded-xl bg-white/15 backdrop-blur-sm border border-white/20 flex items-center justify-center hover:bg-white/25 transition-all duration-200 hover:scale-105"
+                  title={icon.name}
+                >
+                  <img
+                    src={icon.src}
+                    alt={icon.name}
+                    className="w-6 h-6 object-contain"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="lg:pl-8">
-          <ChatMock />
+        {/* Right: SEO audit mock */}
+        <div className="lg:pl-4">
+          <SEOAuditMock />
         </div>
       </div>
     </section>

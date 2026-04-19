@@ -3,31 +3,6 @@ import React from "react";
 
 /* ---------------- helpers ---------------- */
 
-const DAYS = ["M", "T", "W", "T", "F", "S", "S"];
-const HOURS = [
-  "12a", "", "2a", "", "4a", "", "6a", "", "8a", "", "10a", "",
-  "12p", "", "2p", "", "4p", "", "6p", "", "8p", "", "10p", "",
-];
-
-// Mimics crawl activity heatmap (low overnight, peak during business hours).
-function heatValue(day: number, hour: number) {
-  const morningRamp = Math.max(0, hour - 4) / 8;
-  const eveningRamp = Math.max(0, 22 - hour) / 8;
-  const base = Math.min(morningRamp, eveningRamp);
-  const dayBoost = day === 1 || day === 3 ? 0.08 : day >= 5 ? -0.1 : 0;
-  const v = Math.max(0, Math.min(0.85, base + dayBoost + (hour > 17 ? -0.1 : 0)));
-  if (hour < 5) return Math.random() < 0.3 ? 0.11 : 0;
-  return v;
-}
-
-function HeatCell({ value }: { value: number }) {
-  const bg =
-    value <= 0
-      ? "rgba(0,0,0,0.03)"
-      : `rgba(52, 211, 153, ${Math.max(0.11, value).toFixed(3)})`;
-  return <div className="aspect-[2/1]" style={{ backgroundColor: bg }} />;
-}
-
 /* ---------------- subcomponents ---------------- */
 
 function Sidebar() {
@@ -277,10 +252,10 @@ function AuditTable() {
 
 /* ---- Content Scores ---- */
 const CONTENT_PAGES = [
-  { src: "/hero-6.png", title: "Skincare Routine Guide", score: 92, words: "2,847", kw: "12 keywords" },
-  { src: "/hero-2-2.png", title: "Anti-Aging Serum Review", score: 78, words: "1,650", kw: "8 keywords" },
-  { src: "/hero-7-2.png", title: "Organic Beauty 2025", score: 85, words: "2,100", kw: "15 keywords" },
-  { src: "/hero-8.png", title: "Wrinkle Prevention Tips", score: 64, words: "980", kw: "5 keywords" },
+  { title: "Skincare Routine Guide", score: 92, words: "2,847", kw: "12 kw", readability: "A", issues: 0 },
+  { title: "Anti-Aging Serum Review", score: 78, words: "1,650", kw: "8 kw", readability: "B+", issues: 3 },
+  { title: "Organic Beauty 2025", score: 85, words: "2,100", kw: "15 kw", readability: "A-", issues: 1 },
+  { title: "Wrinkle Prevention Tips", score: 64, words: "980", kw: "5 kw", readability: "C+", issues: 5 },
 ];
 
 function ContentScores() {
@@ -289,22 +264,31 @@ function ContentScores() {
       <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest block mb-3">
         Content Optimization
       </span>
-      <div className="grid grid-cols-4 gap-[1px] bg-black/[0.04]">
-        {CONTENT_PAGES.map((s) => (
-          <div key={s.title} className="bg-[#f8f9fb] overflow-hidden">
-            <div className="aspect-[3/4] relative overflow-hidden">
-              <img alt={s.title} className="object-cover absolute inset-0 w-full h-full" style={{ objectPosition: "center 15%" }} src={s.src} />
-              <span className="absolute top-1.5 left-1.5 text-[9px] font-semibold text-slate-700 bg-white/80 backdrop-blur-sm px-1.5 py-0.5">{s.score}/100</span>
-            </div>
-            <div className="p-2">
-              <h4 className="text-[11px] font-medium text-slate-700 mb-1.5 truncate">{s.title}</h4>
-              <div className="flex gap-[1px]">
-                <button className="flex-1 text-[10px] text-slate-400 bg-black/[0.03] py-1">Details</button>
-                <button className="flex-1 text-[10px] text-emerald-400 bg-emerald-400/10 py-1">Optimize</button>
+      <div className="space-y-2">
+        {CONTENT_PAGES.map((p) => {
+          const barColor = p.score >= 90 ? "bg-emerald-400" : p.score >= 75 ? "bg-amber-400" : "bg-red-400";
+          return (
+            <div key={p.title} className="bg-[#f8f9fb] p-2">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-[11px] font-medium text-slate-700 truncate flex-1 pr-2">{p.title}</span>
+                <span className={`text-[10px] font-semibold ${p.score >= 90 ? "text-emerald-500" : p.score >= 75 ? "text-amber-500" : "text-red-400"}`}>{p.score}/100</span>
+              </div>
+              <div className="w-full h-[3px] bg-black/[0.04] mb-2 overflow-hidden">
+                <div className={`h-full ${barColor}`} style={{ width: `${p.score}%` }} />
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-[9px] text-slate-400">{p.words} words</span>
+                <span className="text-[9px] text-slate-400">{p.kw}</span>
+                <span className="text-[9px] text-slate-400">Read: {p.readability}</span>
+                {p.issues > 0 ? (
+                  <span className="text-[9px] text-red-400 ml-auto">{p.issues} issues</span>
+                ) : (
+                  <span className="text-[9px] text-emerald-500 ml-auto">Optimized</span>
+                )}
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
@@ -442,27 +426,52 @@ function CompetitorAnalysis() {
   );
 }
 
-function HeatmapBlock() {
+/* ------------- SERP Position Tracker (replaces heatmap) ------------- */
+const SERP_KEYWORDS = [
+  { kw: "best skincare routine", positions: [18, 15, 12, 9, 7, 5, 4, 3, 3, 2] },
+  { kw: "anti aging serum", positions: [32, 28, 22, 18, 14, 11, 8, 6, 5, 4] },
+  { kw: "organic beauty products", positions: [45, 40, 35, 28, 22, 16, 12, 9, 7, 5] },
+  { kw: "wrinkle prevention tips", positions: [50, 48, 42, 35, 30, 24, 18, 14, 10, 8] },
+  { kw: "natural moisturizer face", positions: [24, 20, 16, 13, 10, 8, 6, 5, 4, 3] },
+];
+const SERP_WEEKS = ["W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8", "W9", "W10"];
+
+function SerpPositionTracker() {
+  const maxPos = 50;
+  const colW = 100 / SERP_WEEKS.length;
+  const colors = ["#34d399", "#60a5fa", "#f59e0b", "#f472b6", "#a78bfa"];
   return (
     <div className="bg-white border border-black/[0.06] px-3 py-2">
-      <div className="flex items-center justify-between mb-1.5">
-        <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest">Crawl Activity by Day &amp; Hour</span>
-        <span className="text-[11px] text-slate-400">Googlebot · Last 30d</span>
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest">SERP Position Tracker</span>
+        <span className="text-[11px] text-slate-400">Last 10 weeks</span>
       </div>
-      <div className="grid grid-cols-[24px_repeat(24,1fr)] gap-[2px]">
-        <span />
-        {HOURS.map((h, i) => (
-          <span key={i} className="text-[7px] text-slate-400 text-center leading-none">
-            {h}
-          </span>
+      {/* Chart area */}
+      <div className="relative h-[70px] mb-1.5">
+        <svg className="w-full h-full" viewBox="0 0 100 50" preserveAspectRatio="none">
+          {SERP_KEYWORDS.map((kw, ki) => {
+            const pts = kw.positions.map((p, i) => `${i * colW + colW / 2},${(p / maxPos) * 50}`).join(" ");
+            return <polyline key={ki} points={pts} fill="none" stroke={colors[ki]} strokeWidth="0.7" opacity="0.85" />;
+          })}
+        </svg>
+        {/* Y-axis labels */}
+        <span className="absolute top-0 left-0 text-[7px] text-slate-400">#1</span>
+        <span className="absolute bottom-0 left-0 text-[7px] text-slate-400">#50</span>
+      </div>
+      {/* X-axis */}
+      <div className="flex justify-between px-0.5">
+        {SERP_WEEKS.map((w) => (
+          <span key={w} className="text-[7px] text-slate-400">{w}</span>
         ))}
-        {DAYS.map((d, di) => (
-          <React.Fragment key={di}>
-            <span className="text-[9px] text-slate-400 text-right pr-1 leading-none flex items-center justify-end">{d}</span>
-            {Array.from({ length: 24 }).map((_, hi) => (
-              <HeatCell key={hi} value={heatValue(di, hi)} />
-            ))}
-          </React.Fragment>
+      </div>
+      {/* Legend */}
+      <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2">
+        {SERP_KEYWORDS.map((kw, ki) => (
+          <div key={ki} className="flex items-center gap-1">
+            <span className="w-2 h-[2px] shrink-0" style={{ backgroundColor: colors[ki] }} />
+            <span className="text-[8px] text-slate-500 truncate max-w-[80px]">{kw.kw}</span>
+            <span className="text-[8px] font-medium text-slate-600">#{kw.positions[kw.positions.length - 1]}</span>
+          </div>
         ))}
       </div>
     </div>
@@ -620,7 +629,7 @@ function DashboardScene() {
         <KpiTile l1="Pages Indexed" l2="Avg. Position" v1="847" v2="8.4" d1="+12%" d2="+3.2" />
       </div>
 
-      <HeatmapBlock />
+      <SerpPositionTracker />
 
       <div className="grid grid-cols-2 gap-[1px] bg-black/[0.04]">
         <div className="bg-white p-3">

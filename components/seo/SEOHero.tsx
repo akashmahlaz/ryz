@@ -217,21 +217,19 @@ export default function SEOHero() {
         </div>
       </div>
 
-      {/* Floating Connect Claude pill — fixed bottom-right (SEO version) */}
+      {/* Floating Connect Claude pill — exact match to live site */}
       <a
         href="#"
-        className="hidden md:flex fixed bottom-6 right-6 items-center gap-3 bg-[#FFE9D6] hover:bg-[#FFDDC1] transition-colors text-zinc-900 rounded-full pl-3 pr-4 py-2.5 shadow-[0_8px_28px_rgba(0,0,0,0.12)] border border-white/60 z-50"
-        style={{ animation: "floatPill 4s ease-in-out infinite" }}
+        className="hidden md:flex fixed bottom-6 right-4 z-50 items-center gap-2.5 text-neutral-900 pl-3 pr-4 py-3.5 rounded-full shadow-[0_2px_20px_rgba(0,0,0,0.08),-6px_0_15px_rgba(0,0,0,0.06)] border border-neutral-200 hover:brightness-95 hover:scale-105 transition-all no-underline group"
+        style={{ background: "linear-gradient(135deg, #FFF6EE 0%, #FFEFE2 50%, #FFDDC4 100%)" }}
       >
-        <img src="/claude-logo-pixels.png" alt="Claude" className="w-7 h-7 object-contain" style={{ animation: "claudeSpin 8s linear infinite" }} />
-        <span className="text-[13px] leading-tight font-medium">
+        <img src="/images/mcp-3-steps/claude_logo.png" alt="Claude AI" className="h-[38px] w-[38px] rounded-full object-contain" style={{ animation: "mcpSpin 25s linear infinite" }} />
+        <span className="text-[19px] font-medium leading-tight">
           Audit &amp; optimize your SEO
           <br />
           with Claude in 1 click
         </span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="m9 18 6-6-6-6" />
-        </svg>
+        <span className="text-[#FF4801] font-normal text-5xl leading-none self-center group-hover:translate-x-0.5 transition-transform" style={{ transform: "scaleX(0.5) translateY(-5px)" }}>&gt;</span>
       </a>
     </div>
   );

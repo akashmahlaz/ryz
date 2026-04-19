@@ -699,7 +699,7 @@ function ChatScene() {
       className="pointer-events-none absolute inset-0 flex origin-top-left scale-[0.78] sm:scale-[0.92] md:scale-100"
       style={{ animation: "chatPhase 30s ease-in-out infinite", width: "128%", height: "128%", marginLeft: "-14%" }}
     >
-      <div className="w-10 sm:w-[55px] shrink-0" />
+      <Sidebar />
       <div className="pointer-events-auto flex-1 flex flex-col bg-[#f4f5f7] overflow-hidden">
         <div className="flex-1 overflow-hidden relative">
           <div style={{ animation: "chatScroll 30s ease-in-out infinite" }}>
@@ -727,7 +727,7 @@ function ChatScene() {
                 <div className="flex-1 min-w-0 mr-2 sm:mr-[34px]">
                   <span className="text-[10px] sm:text-[12px] font-semibold text-black mb-1 sm:mb-1.5 block">Ryze SEO agent</span>
                   <div className="rounded-[3px] bg-white p-2.5 sm:p-4 border border-black/[0.06]">
-                    <p className="text-[12px] text-black/65 leading-[1.7] mb-4">
+                    <p className="text-[10px] sm:text-[12px] text-black/65 leading-[1.6] sm:leading-[1.7] mb-3 sm:mb-4">
                       I&apos;ve crawled <strong className="text-black font-semibold">velvetstudio.com</strong> — 912 pages analyzed. Here&apos;s the full audit:
                     </p>
                     <div className="flex gap-2 sm:gap-4 mb-0">
@@ -762,24 +762,24 @@ function ChatScene() {
                         </div>
                       </div>
                     </div>
-                    <div className="h-px bg-black/[0.06] my-4" />
-                    <p className="text-[12px] text-black/60 leading-[1.7]">
+                    <div className="h-px bg-black/[0.06] my-3 sm:my-4" />
+                    <p className="text-[10px] sm:text-[12px] text-black/60 leading-[1.6] sm:leading-[1.7]">
                       Your site has <strong className="text-black">847 indexed pages</strong> with{" "}
                       <strong className="text-black">23,451 monthly organic visits</strong>. Domain rating is{" "}
                       <strong className="text-black">72/100</strong>. But <strong className="text-black">142 issues are holding you back</strong>.
                     </p>
-                    <div className="h-px bg-black/[0.06] my-4" />
-                    <div className="text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-2">The biggest problems</div>
-                    <p className="text-[12px] text-black/60 leading-[1.7] mb-2">
+                    <div className="h-px bg-black/[0.06] my-3 sm:my-4" />
+                    <div className="text-[7px] sm:text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-2">The biggest problems</div>
+                    <p className="text-[10px] sm:text-[12px] text-black/60 leading-[1.6] sm:leading-[1.7] mb-2">
                       <strong className="text-black">12 broken links are losing you link equity</strong> — pages with{" "}
                       <strong className="text-black">3,200 backlinks pointing to 404s</strong>.
                     </p>
                     <p className="text-[12px] text-black/60 leading-[1.7]">
                       <strong className="text-black">34 pages missing meta descriptions</strong> — these get 28% fewer clicks than pages with descriptions.
                     </p>
-                    <div className="h-px bg-black/[0.06] my-4" />
-                    <div className="text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-2">What I&apos;ll do</div>
-                    <div className="space-y-3">
+                    <div className="h-px bg-black/[0.06] my-3 sm:my-4" />
+                    <div className="text-[7px] sm:text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-2">What I&apos;ll do</div>
+                    <div className="space-y-2 sm:space-y-3">
                       {[
                         ["Fix 12 broken links with smart redirects", "Recovers 3,200 backlinks. Auto-redirect to nearest matching page."],
                         ["Generate 34 meta descriptions", "AI-written from page content. Est. +22% CTR on those pages."],
@@ -787,10 +787,10 @@ function ChatScene() {
                         ["Optimize 23 title tags over 60 chars", "Truncated in SERPs — rewrite to 55 chars with target keywords."],
                       ].map(([t, d], i) => (
                         <div key={i} className="flex gap-2">
-                          <span className="text-[11px] font-bold text-black/20 shrink-0 mt-[1px] w-3 tabular-nums">{i + 1}</span>
+                          <span className="text-[9px] sm:text-[11px] font-bold text-black/20 shrink-0 mt-[1px] w-3 tabular-nums">{i + 1}</span>
                           <div>
-                            <p className="text-[12px] text-black leading-snug font-semibold">{t}</p>
-                            <p className="text-[11px] text-black/50 mt-0.5 leading-[1.6]">{d}</p>
+                            <p className="text-[10px] sm:text-[12px] text-black leading-snug font-semibold">{t}</p>
+                            <p className="text-[9px] sm:text-[11px] text-black/50 mt-0.5 leading-[1.5] sm:leading-[1.6]">{d}</p>
                           </div>
                         </div>
                       ))}
@@ -801,9 +801,9 @@ function ChatScene() {
                       4 fixes across <strong className="text-black">142 issues</strong> — est.{" "}
                       <strong className="text-black">+35% organic traffic</strong> in 90 days. Score from 84 to <strong className="text-black">94+</strong>.
                     </p>
-                    <div className="flex justify-end gap-[1px] mt-4">
-                      <button className="text-[10px] font-semibold text-black/50 bg-black/[0.04] px-3 py-1.5 rounded-[3px]">See full report</button>
-                      <button className="text-[10px] font-semibold text-white bg-black px-3 py-1.5 rounded-[3px]">Fix all 142 issues</button>
+                    <div className="flex justify-end gap-px mt-3 sm:mt-4">
+                      <button className="text-[8px] sm:text-[10px] font-semibold text-black/50 bg-black/[0.04] px-2 sm:px-3 py-1.5 rounded-[3px]">See full report</button>
+                      <button className="text-[8px] sm:text-[10px] font-semibold text-white bg-black px-2 sm:px-3 py-1.5 rounded-[3px]">Fix all 142 issues</button>
                     </div>
                   </div>
                 </div>
@@ -908,13 +908,12 @@ export default function SEOHeroMockup() {
               <DashboardScene />
             </div>
           </div>
+          <ChatScene />
         </div>
       </div>
 
-      <ChatScene />
-
       {/* Animated cursor */}
-      <div className="absolute pointer-events-none z-10" style={{ animation: "cursorAnim 30s ease-in-out infinite" }}>
+      <div className="absolute pointer-events-none z-10" style={{ animation: "seoCursorAnim 30s ease-in-out infinite" }}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="white" stroke="black" strokeWidth="1">
           <path d="M5 3l14 8-6 2-4 6z" />
         </svg>

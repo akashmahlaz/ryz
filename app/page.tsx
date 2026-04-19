@@ -1,3 +1,4 @@
+import MCPSection from "@/components/layout/MCPSection";
 import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/layout/Hero";
 import PressLogos from "@/components/layout/PressLogos";
@@ -16,6 +17,8 @@ export default function Home() {
       <main>
         {/* Screen 1: Hero with landscape bg + glassmorphism cards + video mockup */}
         <Hero />
+        {/* MCP — Connect Claude to Google & Meta Ads */}
+        <MCPSection />
         {/* Press logos bar */}
         <PressLogos />
         {/* Client logos trust bar */}

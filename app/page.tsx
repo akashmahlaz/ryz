@@ -43,7 +43,7 @@ export default function Home() {
         {/* Screen 4: FAQ */}
         <Results />
         {/* Screen 5: CTA + live stats + footer */}
-        <CTA />
+        {/* <CTA /> */}
       </main>
     </div>
   );

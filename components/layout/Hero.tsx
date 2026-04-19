@@ -1,23 +1,98 @@
 "use client";
 import React, { useState } from "react";
-import { useScrollReveal } from "@/lib/useScrollReveal";
+import HeroMockup from "./HeroMockup";
+
+const HERO_LOGOS = [
+  { src: "/platform-google-ads-black.png", alt: "Google Ads" },
+  { src: "/meta.png", alt: "Meta Ads" },
+  { src: "/platform-tiktok.png", alt: "TikTok" },
+  { src: "/linkedin-logo.png", alt: "LinkedIn" },
+  { src: "/platform-microsoft.png", alt: "Microsoft Ads" },
+  { src: "/platform-shopify.png", alt: "Shopify" },
+];
+
+type StackCard = {
+  label: string;
+  textColor: string;
+  style: React.CSSProperties;
+};
+
+const STACK_CARDS: StackCard[] = [
+  {
+    label: "Website builder",
+    textColor: "rgba(255,255,255,0.90)",
+    style: {
+      top: -96,
+      left: 28,
+      right: -14,
+      bottom: -14,
+      transform: "rotate(0.6deg)",
+      transformOrigin: "bottom left",
+      backdropFilter: "blur(12px)",
+      WebkitBackdropFilter: "blur(12px)",
+      background: "rgba(255,255,255,0.06)",
+      border: "1px solid rgba(255,255,255,0.18)",
+      borderRadius: 6,
+      boxShadow: "0 8px 32px rgba(0,0,0,0.06)",
+      zIndex: 0,
+      overflow: "hidden",
+    },
+  },
+  {
+    label: "AI for SEO",
+    textColor: "rgba(255,255,255,0.92)",
+    style: {
+      top: -64,
+      left: 14,
+      right: -8,
+      bottom: -10,
+      transform: "rotate(0.3deg)",
+      transformOrigin: "bottom left",
+      backdropFilter: "blur(16px)",
+      WebkitBackdropFilter: "blur(16px)",
+      background: "rgba(255,255,255,0.08)",
+      border: "1px solid rgba(255,255,255,0.25)",
+      borderRadius: 6,
+      boxShadow: "0 10px 40px rgba(0,0,0,0.08)",
+      zIndex: 1,
+      overflow: "hidden",
+    },
+  },
+  {
+    label: "AI for paid ads",
+    textColor: "rgba(255,255,255,0.95)",
+    style: {
+      top: -32,
+      left: 0,
+      right: -2,
+      bottom: -6,
+      transform: "rotate(0deg)",
+      transformOrigin: "bottom left",
+      backdropFilter: "blur(20px)",
+      WebkitBackdropFilter: "blur(20px)",
+      background: "rgba(255,255,255,0.10)",
+      border: "1px solid rgba(255,255,255,0.35)",
+      borderRadius: 6,
+      boxShadow:
+        "0 12px 48px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.40)",
+      zIndex: 2,
+      overflow: "hidden",
+    },
+  },
+];
 
 export default function Hero() {
   const [email, setEmail] = useState("");
-  const h1Ref = useScrollReveal();
-  const pRef = useScrollReveal();
-  const formRef = useScrollReveal();
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-white w-full min-w-0">
-      {/* Background landscape image */}
+    <div className="relative min-h-screen max-h-screen flex flex-col bg-white w-full min-w-0 overflow-hidden">
+      {/* Background landscape + green gradient wash */}
       <div className="absolute inset-0 pointer-events-none">
         <img
           alt=""
           className="object-cover absolute inset-0 w-full h-full"
           src="/landscape-for-landing-3.png"
         />
-        {/* Exact gradient overlay from production */}
         <div
           className="absolute inset-0"
           style={{
@@ -27,36 +102,32 @@ export default function Hero() {
         />
       </div>
 
-      {/* Content */}
-      <div className="relative flex-1 flex items-start lg:items-center pt-[116px] pb-16 lg:pt-20 lg:pb-0 min-w-0">
-        <div className="max-w-[1800px] mx-auto w-full min-w-0 box-border px-5 sm:px-6 md:px-12 flex flex-col lg:flex-row items-stretch lg:items-start gap-12 lg:gap-8 xl:gap-10">
-          {/* Left: Copy */}
-          <div className="flex-1 min-w-0 w-full max-w-[1260px] lg:max-w-[45%] xl:max-w-[1260px] mt-0 lg:-mt-[30px] ml-0 lg:ml-[7px]">
+      {/* Content row */}
+      <div className="relative flex-1 flex items-start lg:items-center pt-[116px] pb-16 max-lg:pt-[8.25rem] max-[399px]:pt-[7.75rem] max-[399px]:pb-12 lg:pt-20 lg:pb-0 min-w-0 min-h-min max-lg:overflow-visible">
+        <div className="max-w-[1400px] mx-auto w-full min-w-0 box-border px-5 min-[400px]:px-6 sm:px-6 md:px-12 flex flex-col max-[399px]:gap-10 lg:flex-row items-stretch max-[399px]:items-stretch lg:items-center gap-12 lg:gap-6 xl:gap-8 max-lg:overflow-visible">
+          {/* LEFT */}
+          <div className="flex-1 min-w-0 w-full lg:max-w-[36%] xl:max-w-[34%] mt-0">
             <h1
-              ref={h1Ref}
-              className="fade-in-up font-bold tracking-[-0.03em] text-white leading-[1.05] md:leading-[1.02] mb-8 md:mb-10 text-[56px] sm:text-[68px] md:text-[80px] lg:text-[96px] xl:text-[100px]"
+              className="hero-fade-up font-bold tracking-[-0.03em] text-white leading-[1.1] md:leading-[1.08] mb-8 md:mb-10 text-[42px] max-[399px]:text-[2.1rem] max-[399px]:leading-[1.12] max-[399px]:break-words md:text-[55px] lg:text-[72px]"
               style={{ fontFamily: "'Satoshi', sans-serif" }}
             >
-              AI agent that
+              AI runs your
               <br />
-              does SEO
+              ads, SEO,
               <br />
-              for you
+              and website
             </h1>
 
-            <p
-              ref={pRef}
-              className="fade-in-up text-[18px] md:text-[20px] lg:text-[22px] text-white/85 leading-[1.6] md:leading-relaxed mb-12 lg:mb-10 max-w-[440px] font-medium"
-            >
-              Autonomous technical audits, content
-              optimization, and rank tracking — on autopilot
+            <p className="hero-fade-up hero-delay-1 text-[18px] max-[399px]:text-[16px] md:text-[20px] lg:text-[22px] text-white/85 leading-[1.6] md:leading-relaxed mb-12 max-[399px]:mb-8 lg:mb-10 max-w-[440px] max-[399px]:max-w-full font-medium max-[399px]:break-words">
+              More customers on autopilot
+              <br />— or let our experts run it for you
             </p>
 
-            {/* Email form — exact production markup */}
-            <div ref={formRef} className="fade-in-up w-full max-w-[373px] mt-4 md:mt-6">
+            <div className="hero-fade-up hero-delay-2 w-full max-w-[373px] max-[399px]:max-w-full mt-4 md:mt-6">
               <form
-              className="flex items-center rounded-[3px] bg-white shadow-sm border border-zinc-200 h-[46px] md:h-[49px] overflow-hidden transition-all focus-within:ring-2 focus-within:ring-[#FF4801]/20 focus-within:border-[#FF4801]/40"
-            >
+                onSubmit={(e) => e.preventDefault()}
+                className="flex items-center rounded-[3px] bg-white shadow-sm border border-zinc-200 h-[46px] md:h-[49px] overflow-hidden transition-all focus-within:ring-2 focus-within:ring-[#FF4801]/20 focus-within:border-[#FF4801]/40"
+              >
                 <input
                   type="email"
                   required
@@ -80,6 +151,7 @@ export default function Hero() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     className="w-5 h-5"
+                    aria-hidden="true"
                   >
                     <path d="m9 18 6-6-6-6" />
                   </svg>
@@ -87,163 +159,79 @@ export default function Hero() {
               </form>
             </div>
 
-            {/* Platform icons — exact production style (brightness-0 invert) */}
-            <div className="flex flex-wrap items-center gap-5 mt-10 md:mt-12">
-              {[
-                { src: "/platform-google-ads-black.png", alt: "Google Ads" },
-                { src: "/meta.png", alt: "Meta" },
-                { src: "/google-analytics.svg", alt: "Google Analytics" },
-              ].map((icon) => (
-                <div key={icon.alt} className="h-7 w-11 relative">
+            {/* Logo strip */}
+            <div className="hero-fade-up hero-delay-3 flex flex-wrap items-center gap-5 max-[399px]:gap-3 mt-10 max-[399px]:mt-8 md:mt-12">
+              {HERO_LOGOS.map((logo) => (
+                <div key={logo.alt} className="h-7 w-11 relative">
                   <img
-                    alt={icon.alt}
+                    alt={logo.alt}
                     className="object-contain brightness-0 invert absolute inset-0 w-full h-full"
-                    src={icon.src}
+                    src={logo.src}
                   />
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right: Stacked glassmorphism cards + video mockup */}
-          <div className="w-full min-w-0 max-w-full lg:flex-1 lg:self-start lg:mt-[60px] flex justify-center lg:justify-start overflow-visible">
-            <div className="relative w-full max-w-[700px]" style={{ minHeight: 550 }}>
-              {/* Background card 1: Website builder */}
-              <div
-                className="absolute pointer-events-none"
-                style={{
-                  top: -88,
-                  left: -4,
-                  right: -24,
-                  bottom: -16,
-                  transform: "rotate(1.8deg)",
-                  transformOrigin: "bottom left",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                  background: "rgba(255,255,255,0.06)",
-                  border: "1px solid rgba(255,255,255,0.18)",
-                  borderRadius: 6,
-                  boxShadow: "0 8px 32px rgba(0,0,0,0.06)",
-                  zIndex: 0,
-                  overflow: "hidden",
-                }}
-              >
+          {/* RIGHT — mockup */}
+          <div className="hero-fade-right w-full min-w-0 lg:flex-1 lg:self-start flex justify-center lg:justify-end mt-6 lg:mt-0 overflow-visible lg:max-h-[calc(100vh-160px)]">
+            <div
+              className="relative w-full lg:max-w-none"
+              style={{ height: "min(550px, calc(100vh - 200px))" }}
+            >
+              {STACK_CARDS.map((c) => (
                 <div
-                  style={{
-                    padding: "5px 12px 0",
-                    fontSize: "10.5px",
-                    fontWeight: 800,
-                    color: "rgba(255,255,255,0.90)",
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 6,
-                  }}
+                  key={c.label}
+                  className="pointer-events-none absolute"
+                  style={c.style}
                 >
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#4ade80]" />
-                  Content optimization
+                  <div
+                    style={{
+                      padding: "5px 12px 0",
+                      fontSize: "10.5px",
+                      fontWeight: 800,
+                      wordSpacing: "1px",
+                      color: c.textColor,
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: 6,
+                        height: 6,
+                        borderRadius: "50%",
+                        backgroundColor: "#4ade80",
+                        flexShrink: 0,
+                      }}
+                    />
+                    {c.label}
+                  </div>
                 </div>
-              </div>
+              ))}
 
-              {/* Background card 2: AI for SEO (highlighted) */}
-              <div
-                className="absolute pointer-events-none"
-                style={{
-                  top: -58,
-                  left: -8,
-                  right: -18,
-                  bottom: -12,
-                  transform: "rotate(1deg)",
-                  transformOrigin: "bottom left",
-                  backdropFilter: "blur(16px)",
-                  WebkitBackdropFilter: "blur(16px)",
-                  background: "rgba(255,255,255,0.08)",
-                  border: "1px solid rgba(255,255,255,0.25)",
-                  borderRadius: 6,
-                  boxShadow: "0 10px 40px rgba(0,0,0,0.08)",
-                  zIndex: 1,
-                  overflow: "hidden",
-                }}
-              >
-                <div
-                  style={{
-                    padding: "5px 12px 0",
-                    fontSize: "10.5px",
-                    fontWeight: 800,
-                    color: "rgba(255,255,255,0.92)",
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 6,
-                  }}
-                >
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#4ade80]" />
-                  AI for SEO
-                </div>
-              </div>
+              <HeroMockup />
 
-              {/* Background card 3: Rank tracking */}
-              <div
-                className="absolute pointer-events-none"
-                style={{
-                  top: -26,
-                  left: -10,
-                  right: -10,
-                  bottom: -10,
-                  transform: "rotate(0deg)",
-                  transformOrigin: "bottom left",
-                  backdropFilter: "blur(20px)",
-                  WebkitBackdropFilter: "blur(20px)",
-                  background: "rgba(255,255,255,0.10)",
-                  border: "1px solid rgba(255,255,255,0.35)",
-                  borderRadius: 6,
-                  boxShadow:
-                    "0 12px 48px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.40)",
-                  zIndex: 2,
-                  overflow: "hidden",
-                }}
+              {/* Floating Connect Claude pill */}
+              <a
+                href="#"
+                className="hero-fade-up hero-delay-3 hidden md:flex absolute -bottom-5 right-4 lg:right-6 items-center gap-3 bg-[#FFE9D6] hover:bg-[#FFDDC1] transition-colors text-zinc-900 rounded-full pl-3 pr-4 py-2 shadow-[0_8px_28px_rgba(0,0,0,0.12)] border border-white/60 z-30"
               >
-                <div
-                  style={{
-                    padding: "5px 12px 0",
-                    fontSize: "10.5px",
-                    fontWeight: 800,
-                    color: "rgba(255,255,255,0.95)",
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 6,
-                  }}
-                >
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#4ade80]" />
-                  Rank tracking
-                </div>
-              </div>
-
-              {/* Main mockup — video playing inside */}
-              <div
-                className="pointer-events-auto rounded-[6px] overflow-hidden bg-[#f8f9fb] relative"
-                style={{
-                  boxShadow: "0 25px 60px -10px rgba(0,0,0,0.20), 0 0 0 1px rgba(0,0,0,0.06)",
-                  height: 550,
-                  zIndex: 3,
-                }}
-              >
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  poster="/audit-screen-2-bigger-pixels.png"
-                  className="w-full h-full object-cover"
-                >
-                  <source src="/videos/mcp-hero-audit.mp4" type="video/mp4" />
-                </video>
-              </div>
+                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white/70">
+                  <img src="/ryze-logo-mark.png" alt="Ryze" className="w-4 h-4 object-contain" onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
+                </span>
+                <span className="text-[13px] leading-tight font-medium">
+                  Connect Claude with
+                  <br />
+                  Google &amp; Meta Ads in 1 click
+                </span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </a>
             </div>
           </div>
         </div>

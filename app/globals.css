@@ -126,3 +126,76 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ---------------- Hero entrance ---------------- */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroFadeRight {
+  from { opacity: 0; transform: translateX(50px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.hero-fade-up {
+  opacity: 0;
+  animation: heroFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.hero-fade-right {
+  opacity: 0;
+  animation: heroFadeRight 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+}
+.hero-delay-1 { animation-delay: 0.15s; }
+.hero-delay-2 { animation-delay: 0.30s; }
+.hero-delay-3 { animation-delay: 0.45s; }
+
+/* ---------------- Hero mockup scene animations (30s loop) ---------------- */
+@keyframes dashPhase {
+  0%   { opacity: 1; }
+  38%  { opacity: 1; }
+  40%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes dashScroll {
+  0%, 1% { transform: translateY(0); }
+  36%    { transform: translateY(calc(-100% + 600px)); }
+  100%   { transform: translateY(calc(-100% + 600px)); }
+}
+@keyframes chatPhase {
+  0%    { opacity: 0; }
+  40%   { opacity: 0; }
+  43%   { opacity: 1; }
+  99%   { opacity: 1; }
+  99.7% { opacity: 0; }
+  100%  { opacity: 0; }
+}
+@keyframes chatScroll {
+  0%, 45% { transform: translateY(0); }
+  48%     { transform: translateY(0); }
+  95%     { transform: translateY(calc(-100% + 600px)); }
+  100%    { transform: translateY(calc(-100% + 600px)); }
+}
+@keyframes cursorAnim {
+  0%   { opacity: 0; top: 50%; left: 50%; }
+  30%  { opacity: 0; top: 50%; left: 50%; }
+  33%  { opacity: 1; top: 50%; left: 50%; }
+  38%  { opacity: 1; top: 30%; left: 3.5%; }
+  39%  { opacity: 1; top: 30%; left: 3.5%; transform: scale(0.75); }
+  40%  { opacity: 1; top: 30%; left: 3.5%; transform: scale(1); }
+  43%  { opacity: 0; top: 30%; left: 3.5%; }
+  100% { opacity: 0; }
+}
+@keyframes dashHighlight {
+  0%   { background: rgba(0,0,0,0.06); }
+  38%  { background: rgba(0,0,0,0.06); }
+  40%  { background: transparent; }
+  99.7%{ background: transparent; }
+  100% { background: rgba(0,0,0,0.06); }
+}
+@keyframes markHighlight {
+  0%   { background: transparent; }
+  38%  { background: transparent; }
+  40%  { background: rgba(0,0,0,0.06); }
+  99%  { background: rgba(0,0,0,0.06); }
+  99.7%{ background: transparent; }
+  100% { background: transparent; }
+}

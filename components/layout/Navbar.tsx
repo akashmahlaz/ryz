@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 const navLinks = [
-  { label: "AI for SEO", href: "#", active: true },
+  { label: "AI for SEO", href: "/ai-for-seo", active: true },
   { label: "AI Marketer", href: "https://www.get-ryze.ai/" },
   { label: "MCP", href: "https://www.get-ryze.ai/how-to-connect-claude-to-google-meta-ads-mcp" },
   { label: "Agency", href: "/agency" },

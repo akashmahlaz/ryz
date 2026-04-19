@@ -35,11 +35,11 @@ export default function Home() {
         {/* Showcase grid — see what Ryze does for SEO */}
         {/* <ShowcaseGrid /> */}
         {/* Mid-page CTA — get a free SEO audit */}
-        <AuditCTA />
+        {/* <AuditCTA /> */}
         {/* Screen 2: 3-column features (matches AI Marketer's "Autonomous PPC / SEO / Website" section) */}
-        <Features />
+        {/* <Features /> */}
         {/* Screen 3: Why Ryze outperforms — 4 feature cards */}
-        <WhyRyze />
+        {/* <WhyRyze /> */}
         {/* Screen 4: FAQ */}
         <Results />
         {/* Screen 5: CTA + live stats + footer */}

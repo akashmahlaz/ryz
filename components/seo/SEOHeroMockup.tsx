@@ -469,11 +469,83 @@ function HeatmapBlock() {
   );
 }
 
+/* ---------------- SEO Score Ring ---------------- */
+
+function SeoScoreRing() {
+  const score = 84;
+  const radius = 20;
+  const stroke = 5;
+  const circumference = radius * 2 * Math.PI;
+  const offset = ((100 - score) / 100) * circumference;
+
+  return (
+    <div className="bg-white border border-black/[0.06] p-3 flex items-center gap-4">
+      {/* Donut ring */}
+      <div className="relative w-[52px] h-[52px] shrink-0">
+        <svg viewBox="0 0 52 52" className="w-full h-full -rotate-90">
+          <circle cx="26" cy="26" r={radius} fill="none" stroke="rgba(0,0,0,0.04)" strokeWidth={stroke} />
+          <circle
+            cx="26" cy="26" r={radius} fill="none"
+            stroke="rgb(52,211,153)" strokeWidth={stroke}
+            strokeDasharray={circumference} strokeDashoffset={offset}
+            strokeLinecap="round"
+          />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-[15px] font-bold text-slate-900 leading-none">{score}</span>
+        </div>
+      </div>
+
+      {/* Metrics row */}
+      <div className="flex-1 min-w-0 flex items-center gap-4">
+        <div className="flex-1 min-w-0">
+          <div className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-0.5">SEO Score</div>
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-[16px] font-semibold text-slate-900">Good</span>
+            <span className="text-[10px] text-emerald-400 font-medium">+12 pts this month</span>
+          </div>
+        </div>
+
+        <div className="w-px h-8 bg-black/[0.06]" />
+
+        <div className="flex-1 min-w-0">
+          <div className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-0.5">Site Health</div>
+          <div className="flex items-center gap-2">
+            <div className="flex-1 h-[5px] bg-black/[0.04] rounded-full overflow-hidden">
+              <div className="h-full bg-emerald-400/60 rounded-full" style={{ width: "84%" }} />
+            </div>
+            <span className="text-[11px] font-medium text-slate-600 shrink-0">84%</span>
+          </div>
+        </div>
+
+        <div className="w-px h-8 bg-black/[0.06]" />
+
+        <div className="shrink-0">
+          <div className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-0.5">Issues</div>
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-[16px] font-semibold text-slate-900">142</span>
+            <div className="flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
+              <span className="text-[10px] text-slate-400">12</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+              <span className="text-[10px] text-slate-400">89</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+              <span className="text-[10px] text-slate-400">41</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ---------------- DASHBOARD scene ---------------- */
 
 function DashboardScene() {
   return (
     <div className="space-y-3 px-4 py-4 bg-[#f8f9fb]">
+      <SeoScoreRing />
+
       <div className="grid grid-cols-3 gap-[1px] bg-black/[0.04]">
         <KpiTile l1="Organic Traffic" l2="Keywords" v1="23,451" v2="4,821" d1="+142%" d2="+18%" />
         <KpiTile l1="Backlinks" l2="Domain Rating" v1="1,284" v2="72" d1="+34" d2="+5" />

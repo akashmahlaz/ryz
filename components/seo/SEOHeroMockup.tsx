@@ -1,9 +1,83 @@
 "use client";
 import React from "react";
 
-/* ---------------- helpers ---------------- */
+/* ================================================================
+   SEO Hero Mockup — fully self-contained, responsive via CSS scale
+   ================================================================
+   • All keyframes are component-scoped (no globals.css dependency)
+   • Inner scene is built at a fixed 450px "design height"
+   • On smaller screens the whole scene scales down proportionally
+   • Desktop shows 1:1, tablet ~0.76x, mobile ~0.53x
+   ================================================================ */
 
-/* ---------------- subcomponents ---------------- */
+/* ---------- Component-scoped keyframes ---------- */
+
+const KEYFRAMES = `
+@keyframes seoDashPhase {
+  0%   { opacity: 1; }
+  38%  { opacity: 1; }
+  40%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes seoDashScroll {
+  0%, 1% { transform: translateY(0); }
+  36%    { transform: translateY(calc(-100% + 600px)); }
+  100%   { transform: translateY(calc(-100% + 600px)); }
+}
+@keyframes seoChatPhase {
+  0%    { opacity: 0; }
+  40%   { opacity: 0; }
+  43%   { opacity: 1; }
+  99%   { opacity: 1; }
+  99.7% { opacity: 0; }
+  100%  { opacity: 0; }
+}
+@keyframes seoChatScroll {
+  0%, 45% { transform: translateY(0); }
+  48%     { transform: translateY(0); }
+  95%     { transform: translateY(calc(-100% + 600px)); }
+  100%    { transform: translateY(calc(-100% + 600px)); }
+}
+@keyframes seoCursorAnim {
+  0%   { opacity: 0; top: 50%; left: 50%; }
+  30%  { opacity: 0; top: 50%; left: 50%; }
+  33%  { opacity: 1; top: 50%; left: 50%; }
+  38%  { opacity: 1; top: 30%; left: 3.5%; }
+  39%  { opacity: 1; top: 30%; left: 3.5%; transform: scale(0.75); }
+  40%  { opacity: 1; top: 30%; left: 3.5%; transform: scale(1); }
+  43%  { opacity: 0; top: 30%; left: 3.5%; }
+  100% { opacity: 0; }
+}
+@keyframes seoDashHL {
+  0%   { background: rgba(0,0,0,0.06); }
+  38%  { background: rgba(0,0,0,0.06); }
+  40%  { background: transparent; }
+  99.7%{ background: transparent; }
+  100% { background: rgba(0,0,0,0.06); }
+}
+@keyframes seoMarkHL {
+  0%   { background: transparent; }
+  38%  { background: transparent; }
+  40%  { background: rgba(0,0,0,0.06); }
+  99%  { background: rgba(0,0,0,0.06); }
+  99.7%{ background: transparent; }
+  100% { background: transparent; }
+}
+@keyframes seoCrawlPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(1.4); }
+}
+@keyframes seoCrawlScan {
+  0%   { top: 0; }
+  100% { top: 100%; }
+}
+@keyframes seoCrawlFeed {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+`;
+
+/* ==================== Sub-components ==================== */
 
 function Sidebar() {
   const Icon = ({ children, animate }: { children: React.ReactNode; animate?: "dash" | "mark" }) => (
@@ -11,9 +85,9 @@ function Sidebar() {
       className="w-9 h-9 rounded-[3px] flex items-center justify-center"
       style={
         animate === "dash"
-          ? { animation: "dashHighlight 30s ease-in-out infinite" }
+          ? { animation: "seoDashHL 30s ease-in-out infinite" }
           : animate === "mark"
-          ? { animation: "markHighlight 30s ease-in-out infinite" }
+          ? { animation: "seoMarkHL 30s ease-in-out infinite" }
           : undefined
       }
     >
@@ -82,9 +156,10 @@ function Sidebar() {
   );
 }
 
+/* ---- KPI tile ---- */
 function KpiTile({
   l1, l2, v1, v2, d1, d2, d1Pos = true, d2Pos = true,
-}: { l1: string; l2: string; v1: string; v2: string; d1: string; d2: string; d1Pos?: boolean; d2Pos?: boolean; }) {
+}: { l1: string; l2: string; v1: string; v2: string; d1: string; d2: string; d1Pos?: boolean; d2Pos?: boolean }) {
   return (
     <div className="bg-white p-3">
       <div className="flex items-center justify-between mb-1">
@@ -105,21 +180,19 @@ function KpiTile({
   );
 }
 
+/* ---- Mini Chart ---- */
 function MiniChart({ heights }: { heights: number[] }) {
   return (
     <div className="relative h-[80px]">
-      <div className="absolute left-0 right-0 top-0 bottom-0">
-        <div className="flex items-end gap-[1px] h-full">
+      <div className="absolute inset-0">
+        <div className="flex items-end gap-px h-full">
           {heights.map((h, i) => (
             <div key={i} className="flex-1 bg-slate-300" style={{ height: `${h}%` }} />
           ))}
         </div>
         <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 180 100">
           <polyline
-            fill="none"
-            stroke="rgb(52, 211, 153)"
-            strokeWidth="1.5"
-            opacity="0.7"
+            fill="none" stroke="rgb(52, 211, 153)" strokeWidth="1.5" opacity="0.7"
             points="5,85 15,78 25,72 35,68 45,60 55,55 65,50 75,42 85,38 95,32 105,28 115,24 125,20 135,18 145,15 155,12 165,10 175,8"
           />
         </svg>
@@ -139,32 +212,26 @@ const KEYWORD_ROWS = [
 
 function KeywordTable() {
   return (
-    <div className="bg-white border border-black/[0.06] overflow-hidden">
-      <div className="grid grid-cols-[1.6fr_0.5fr_0.5fr_0.6fr_0.6fr] text-[10px] font-medium text-slate-400 uppercase tracking-widest px-4 py-2 border-b border-black/[0.06]">
-        <span>Keyword</span>
-        <span>Pos.</span>
-        <span>Vol.</span>
-        <span>URL</span>
-        <span>Difficulty</span>
+    <div className="bg-white border border-black/6 overflow-hidden">
+      <div className="grid grid-cols-[1.6fr_0.5fr_0.5fr_0.6fr_0.6fr] text-[10px] font-medium text-slate-400 uppercase tracking-widest px-4 py-2 border-b border-black/6">
+        <span>Keyword</span><span>Pos.</span><span>Vol.</span><span>URL</span><span>Difficulty</span>
       </div>
       {KEYWORD_ROWS.map((r) => (
-        <div key={r.keyword} className="grid grid-cols-[1.6fr_0.5fr_0.5fr_0.6fr_0.6fr] items-center px-4 py-2.5 border-b border-black/[0.04] last:border-b-0">
+        <div key={r.keyword} className="grid grid-cols-[1.6fr_0.5fr_0.5fr_0.6fr_0.6fr] items-center px-4 py-2.5 border-b border-black/4 last:border-b-0">
           <span className="flex items-center gap-1.5 text-[12px] font-medium text-slate-800 truncate pr-2">
-            <svg className="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke={r.trend === "up" ? "rgb(52,211,153)" : "rgb(148,163,184)"} strokeWidth="2.5">
+            <svg className="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="rgb(52,211,153)" strokeWidth="2.5">
               <path d="M7 17l5-5 5 5" /><path d="M7 12l5-5 5 5" />
             </svg>
             {r.keyword}
           </span>
           <span className="flex items-center gap-1.5">
-            <span className={`text-[12px] font-semibold ${r.pos <= 3 ? "text-emerald-500" : r.pos <= 7 ? "text-amber-500" : "text-slate-500"}`}>#{r.pos}</span>
+            <span className={`text-[12px] font-semibold ${r.pos <= 3 ? "text-emerald-500" : "text-amber-500"}`}>#{r.pos}</span>
             <span className="text-[10px] font-medium text-emerald-400">{r.delta}</span>
           </span>
           <span className="text-[12px] text-slate-500">{r.vol}</span>
           <span className="text-[11px] text-slate-400 truncate">{r.url}</span>
           <span className="flex items-center gap-1.5">
-            <div className="w-12 h-[4px] bg-black/[0.04] overflow-hidden">
-              <div className={`h-full ${r.diffColor}`} style={{ width: `${r.difficulty}%` }} />
-            </div>
+            <div className="w-12 h-1 bg-black/4 overflow-hidden"><div className={`h-full ${r.diffColor}`} style={{ width: `${r.difficulty}%` }} /></div>
             <span className="text-[12px] text-slate-500">{r.difficulty}</span>
           </span>
         </div>
@@ -184,21 +251,15 @@ const BACKLINK_ROWS = [
 
 function BacklinkTable() {
   return (
-    <div className="bg-white border border-black/[0.06] overflow-hidden">
-      <div className="grid grid-cols-[1.4fr_0.5fr_0.5fr_0.8fr_0.5fr] text-[10px] font-medium text-slate-400 uppercase tracking-widest px-4 py-2 border-b border-black/[0.06]">
-        <span>Domain</span>
-        <span>DA</span>
-        <span>Links</span>
-        <span>Type</span>
-        <span>Status</span>
+    <div className="bg-white border border-black/6 overflow-hidden">
+      <div className="grid grid-cols-[1.4fr_0.5fr_0.5fr_0.8fr_0.5fr] text-[10px] font-medium text-slate-400 uppercase tracking-widest px-4 py-2 border-b border-black/6">
+        <span>Domain</span><span>DA</span><span>Links</span><span>Type</span><span>Status</span>
       </div>
       {BACKLINK_ROWS.map((r) => (
-        <div key={r.domain} className="grid grid-cols-[1.4fr_0.5fr_0.5fr_0.8fr_0.5fr] items-center px-4 py-2.5 border-b border-black/[0.04] last:border-b-0">
+        <div key={r.domain} className="grid grid-cols-[1.4fr_0.5fr_0.5fr_0.8fr_0.5fr] items-center px-4 py-2.5 border-b border-black/4 last:border-b-0">
           <span className="text-[12px] font-medium text-slate-800 truncate">{r.domain}</span>
           <span className="flex items-center gap-1.5">
-            <div className="w-10 h-[4px] bg-black/[0.04] overflow-hidden">
-              <div className="h-full bg-emerald-400/50" style={{ width: `${r.da}%` }} />
-            </div>
+            <div className="w-10 h-1 bg-black/4 overflow-hidden"><div className="h-full bg-emerald-400/50" style={{ width: `${r.da}%` }} /></div>
             <span className="text-[11px] text-slate-500">{r.da}</span>
           </span>
           <span className="text-[12px] text-slate-600">{r.links}</span>
@@ -225,23 +286,20 @@ const AUDIT_ITEMS = [
 
 function AuditTable() {
   return (
-    <div className="bg-white border border-black/[0.06] overflow-hidden">
-      <div className="grid grid-cols-[0.4fr_1.6fr_1.2fr_0.5fr] text-[10px] font-medium text-slate-400 uppercase tracking-widest px-4 py-2 border-b border-black/[0.06]">
-        <span>Sev.</span>
-        <span>Issue</span>
-        <span>Action</span>
-        <span />
+    <div className="bg-white border border-black/6 overflow-hidden">
+      <div className="grid grid-cols-[0.4fr_1.6fr_1.2fr_0.5fr] text-[10px] font-medium text-slate-400 uppercase tracking-widest px-4 py-2 border-b border-black/6">
+        <span>Sev.</span><span>Issue</span><span>Action</span><span />
       </div>
       {AUDIT_ITEMS.map((a, i) => (
-        <div key={i} className="grid grid-cols-[0.4fr_1.6fr_1.2fr_0.5fr] items-center px-4 py-2 border-b border-black/[0.04] last:border-b-0">
+        <div key={i} className="grid grid-cols-[0.4fr_1.6fr_1.2fr_0.5fr] items-center px-4 py-2 border-b border-black/4 last:border-b-0">
           <span className="flex items-center gap-1.5">
             <div className={`w-1.5 h-1.5 rounded-full ${a.severity}`} />
             <span className="text-[11px] font-medium text-slate-400">{a.type}</span>
           </span>
           <span className="text-[11px] text-slate-600 pr-2">{a.issue}</span>
           <span className="text-[11px] text-slate-400 pr-2">{a.action}</span>
-          <div className="flex gap-[1px]">
-            <button className="text-[10px] text-slate-400 bg-black/[0.03] px-2 py-0.5">Skip</button>
+          <div className="flex gap-px">
+            <button className="text-[10px] text-slate-400 bg-black/3 px-2 py-0.5">Skip</button>
             <button className="text-[10px] text-emerald-400 bg-emerald-400/10 px-2 py-0.5">Fix</button>
           </div>
         </div>
@@ -260,10 +318,8 @@ const CONTENT_PAGES = [
 
 function ContentScores() {
   return (
-    <div className="bg-white border border-black/[0.06] p-3">
-      <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest block mb-3">
-        Content Optimization
-      </span>
+    <div className="bg-white border border-black/6 p-3">
+      <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest block mb-3">Content Optimization</span>
       <div className="space-y-2">
         {CONTENT_PAGES.map((p) => {
           const barColor = p.score >= 90 ? "bg-emerald-400" : p.score >= 75 ? "bg-amber-400" : "bg-red-400";
@@ -273,9 +329,7 @@ function ContentScores() {
                 <span className="text-[11px] font-medium text-slate-700 truncate flex-1 pr-2">{p.title}</span>
                 <span className={`text-[10px] font-semibold ${p.score >= 90 ? "text-emerald-500" : p.score >= 75 ? "text-amber-500" : "text-red-400"}`}>{p.score}/100</span>
               </div>
-              <div className="w-full h-[3px] bg-black/[0.04] mb-2 overflow-hidden">
-                <div className={`h-full ${barColor}`} style={{ width: `${p.score}%` }} />
-              </div>
+              <div className="w-full h-[3px] bg-black/4 mb-2 overflow-hidden"><div className={`h-full ${barColor}`} style={{ width: `${p.score}%` }} /></div>
               <div className="flex items-center gap-3">
                 <span className="text-[9px] text-slate-400">{p.words} words</span>
                 <span className="text-[9px] text-slate-400">{p.kw}</span>
@@ -294,26 +348,21 @@ function ContentScores() {
   );
 }
 
+/* ---- Funnel / Metric bars ---- */
 function FunnelOrMetric({
   title, sub, subAccent, rows, labelW,
-}: { title: string; sub: string; subAccent: string; rows: { l: string; w: number; v: string }[]; labelW: number; }) {
+}: { title: string; sub: string; subAccent: string; rows: { l: string; w: number; v: string }[]; labelW: number }) {
   return (
     <div className="bg-white p-3">
       <div className="flex items-center justify-between mb-3">
         <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest">{title}</span>
-        <span className="text-[11px] text-slate-400">
-          <span className="text-slate-600">{subAccent}</span> {sub}
-        </span>
+        <span className="text-[11px] text-slate-400"><span className="text-slate-600">{subAccent}</span> {sub}</span>
       </div>
       <div className="space-y-2">
         {rows.map((r) => (
           <div key={r.l} className="flex items-center gap-2">
-            <span className="text-[11px] text-slate-400 shrink-0 truncate" style={{ width: labelW }}>
-              {r.l}
-            </span>
-            <div className="flex-1 h-[4px] bg-black/[0.04] overflow-hidden">
-              <div className="h-full bg-slate-400" style={{ width: `${r.w}%` }} />
-            </div>
+            <span className="text-[11px] text-slate-400 shrink-0 truncate" style={{ width: labelW }}>{r.l}</span>
+            <div className="flex-1 h-1 bg-black/4 overflow-hidden"><div className="h-full bg-slate-400" style={{ width: `${r.w}%` }} /></div>
             <span className="text-[11px] font-medium text-slate-600 w-10 text-right shrink-0">{r.v}</span>
           </div>
         ))}
@@ -322,23 +371,23 @@ function FunnelOrMetric({
   );
 }
 
-/* ---- Core Web Vitals + Page Speed ---- */
+/* ---- Core Web Vitals + Crawl Health ---- */
 const CWV = [
   { l: "LCP (Largest Contentful Paint)", v: "1.2s", w: 85, color: "bg-emerald-400/50" },
   { l: "INP (Interaction to Next Paint)", v: "18ms", w: 95, color: "bg-emerald-400/50" },
   { l: "CLS (Cumulative Layout Shift)", v: "0.05", w: 90, color: "bg-emerald-400/50" },
   { l: "TTFB (Time to First Byte)", v: "0.3s", w: 92, color: "bg-emerald-400/50" },
 ];
-const CRAWL = [
-  { l: "Pages Indexed", v: "847 / 912" , w: 93 },
-  { l: "Crawl Budget Used", v: "78%" , w: 78 },
-  { l: "Orphan Pages", v: "12 found" , w: 15 },
-  { l: "Redirect Chains", v: "3 chains" , w: 8 },
+const CRAWL_STATS = [
+  { l: "Pages Indexed", v: "847 / 912", w: 93 },
+  { l: "Crawl Budget Used", v: "78%", w: 78 },
+  { l: "Orphan Pages", v: "12 found", w: 15 },
+  { l: "Redirect Chains", v: "3 chains", w: 8 },
 ];
 
 function VitalsAndCrawl() {
   return (
-    <div className="grid grid-cols-2 gap-[1px] bg-black/[0.04]">
+    <div className="grid grid-cols-2 gap-px bg-black/4">
       <div className="bg-white p-3">
         <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest block mb-3">Core Web Vitals</span>
         <div className="space-y-2.5">
@@ -348,12 +397,10 @@ function VitalsAndCrawl() {
                 <span className="text-[11px] text-slate-500 truncate pr-2">{r.l}</span>
                 <span className="text-[10px] text-slate-400 shrink-0">{r.v}</span>
               </div>
-              <div className="w-full h-[4px] bg-black/[0.04] overflow-hidden">
-                <div className={`h-full ${r.color}`} style={{ width: `${r.w}%` }} />
-              </div>
+              <div className="w-full h-1 bg-black/4 overflow-hidden"><div className={`h-full ${r.color}`} style={{ width: `${r.w}%` }} /></div>
             </div>
           ))}
-          <div className="border-t border-black/[0.06] pt-2">
+          <div className="border-t border-black/6 pt-2">
             <div className="flex justify-between text-[11px]">
               <span className="text-slate-400">Overall</span>
               <span className="font-medium text-emerald-500">All Passing ✓</span>
@@ -364,18 +411,16 @@ function VitalsAndCrawl() {
       <div className="bg-white p-3">
         <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest block mb-3">Crawl Health</span>
         <div className="space-y-2.5">
-          {CRAWL.map((r) => (
+          {CRAWL_STATS.map((r) => (
             <div key={r.l}>
               <div className="flex items-center justify-between mb-1">
                 <span className="text-[11px] text-slate-500">{r.l}</span>
                 <span className="text-[10px] text-slate-400">{r.v}</span>
               </div>
-              <div className="w-full h-[4px] bg-black/[0.04] overflow-hidden">
-                <div className="h-full bg-emerald-400/50" style={{ width: `${r.w}%` }} />
-              </div>
+              <div className="w-full h-1 bg-black/4 overflow-hidden"><div className="h-full bg-emerald-400/50" style={{ width: `${r.w}%` }} /></div>
             </div>
           ))}
-          <div className="border-t border-black/[0.06] pt-2">
+          <div className="border-t border-black/6 pt-2">
             <div className="flex justify-between text-[11px]">
               <span className="text-slate-400">Index Coverage</span>
               <span className="font-medium text-slate-700">92.8% indexed</span>
@@ -398,24 +443,16 @@ const COMPETITORS = [
 
 function CompetitorAnalysis() {
   return (
-    <div className="bg-white border border-black/[0.06] p-3">
+    <div className="bg-white border border-black/6 p-3">
       <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest block mb-3">Competitor Visibility</span>
-      <div className="grid grid-cols-[1.4fr_1fr_0.6fr_0.6fr] text-[10px] font-medium text-slate-400 uppercase tracking-widest pb-1.5 border-b border-black/[0.06]">
-        <span>Competitor</span>
-        <span>Visibility</span>
-        <span>Keywords</span>
-        <span>Traffic</span>
+      <div className="grid grid-cols-[1.4fr_1fr_0.6fr_0.6fr] text-[10px] font-medium text-slate-400 uppercase tracking-widest pb-1.5 border-b border-black/6">
+        <span>Competitor</span><span>Visibility</span><span>Keywords</span><span>Traffic</span>
       </div>
       {COMPETITORS.map((r) => (
-        <div
-          key={r.name}
-          className={`grid grid-cols-[1.4fr_1fr_0.6fr_0.6fr] py-1.5 ${r.highlight ? "bg-emerald-400/[0.06] -mx-3 px-3" : ""}`}
-        >
+        <div key={r.name} className={`grid grid-cols-[1.4fr_1fr_0.6fr_0.6fr] py-1.5 ${r.highlight ? "bg-emerald-400/[0.06] -mx-3 px-3" : ""}`}>
           <span className={`text-[11px] ${r.highlight ? "font-semibold text-emerald-400" : "text-slate-600"}`}>{r.name}</span>
           <span className="flex items-center gap-1.5">
-            <div className="w-14 h-[4px] bg-black/[0.04] overflow-hidden">
-              <div className={`h-full ${r.highlight ? "bg-emerald-400/50" : "bg-slate-300"}`} style={{ width: `${r.w}%` }} />
-            </div>
+            <div className="w-14 h-1 bg-black/4 overflow-hidden"><div className={`h-full ${r.highlight ? "bg-emerald-400/50" : "bg-slate-300"}`} style={{ width: `${r.w}%` }} /></div>
             <span className="text-[11px] text-slate-400">{r.share}</span>
           </span>
           <span className="text-[11px] text-slate-400">{r.kws}</span>
@@ -426,7 +463,7 @@ function CompetitorAnalysis() {
   );
 }
 
-/* ------------- SERP Position Tracker (replaces heatmap) ------------- */
+/* ---- SERP Position Tracker ---- */
 const SERP_KEYWORDS = [
   { kw: "best skincare routine", positions: [18, 15, 12, 9, 7, 5, 4, 3, 3, 2] },
   { kw: "anti aging serum", positions: [32, 28, 22, 18, 14, 11, 8, 6, 5, 4] },
@@ -441,12 +478,11 @@ function SerpPositionTracker() {
   const colW = 100 / SERP_WEEKS.length;
   const colors = ["#34d399", "#60a5fa", "#f59e0b", "#f472b6", "#a78bfa"];
   return (
-    <div className="bg-white border border-black/[0.06] px-3 py-2">
+    <div className="bg-white border border-black/6 px-3 py-2">
       <div className="flex items-center justify-between mb-2">
         <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest">SERP Position Tracker</span>
         <span className="text-[11px] text-slate-400">Last 10 weeks</span>
       </div>
-      {/* Chart area */}
       <div className="relative h-[70px] mb-1.5">
         <svg className="w-full h-full" viewBox="0 0 100 50" preserveAspectRatio="none">
           {SERP_KEYWORDS.map((kw, ki) => {
@@ -454,17 +490,12 @@ function SerpPositionTracker() {
             return <polyline key={ki} points={pts} fill="none" stroke={colors[ki]} strokeWidth="0.7" opacity="0.85" />;
           })}
         </svg>
-        {/* Y-axis labels */}
         <span className="absolute top-0 left-0 text-[7px] text-slate-400">#1</span>
         <span className="absolute bottom-0 left-0 text-[7px] text-slate-400">#50</span>
       </div>
-      {/* X-axis */}
       <div className="flex justify-between px-0.5">
-        {SERP_WEEKS.map((w) => (
-          <span key={w} className="text-[7px] text-slate-400">{w}</span>
-        ))}
+        {SERP_WEEKS.map((w) => <span key={w} className="text-[7px] text-slate-400">{w}</span>)}
       </div>
-      {/* Legend */}
       <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2">
         {SERP_KEYWORDS.map((kw, ki) => (
           <div key={ki} className="flex items-center gap-1">
@@ -478,8 +509,7 @@ function SerpPositionTracker() {
   );
 }
 
-/* ---------------- Live Crawl Visualizer ---------------- */
-
+/* ---- Live Crawl Visualizer ---- */
 const CRAWL_URLS = [
   { url: "/blog/skincare-routine", status: 200, issues: 0, label: "OK" },
   { url: "/products/serums", status: 200, issues: 2, label: "2 issues" },
@@ -493,50 +523,39 @@ const CRAWL_URLS = [
 
 function CrawlVisualizer() {
   return (
-    <div className="bg-white border border-black/[0.06] overflow-hidden">
-      {/* Mini browser chrome */}
-      <div className="flex items-center gap-2 px-3 py-1.5 bg-[#f3f4f6] border-b border-black/[0.06]">
+    <div className="bg-white border border-black/6 overflow-hidden">
+      <div className="flex items-center gap-2 px-3 py-1.5 bg-[#f3f4f6] border-b border-black/6">
         <div className="flex gap-1">
           <span className="w-[7px] h-[7px] rounded-full bg-[#ff5f57]" />
           <span className="w-[7px] h-[7px] rounded-full bg-[#ffbd2e]" />
           <span className="w-[7px] h-[7px] rounded-full bg-[#28c840]" />
         </div>
-        <div className="flex-1 flex items-center bg-white border border-black/[0.06] rounded-[3px] px-2 py-[2px] gap-1.5">
+        <div className="flex-1 flex items-center bg-white border border-black/6 rounded-[3px] px-2 py-[2px] gap-1.5">
           <svg className="w-2.5 h-2.5 text-slate-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0110 0v4" />
           </svg>
           <span className="text-[9px] text-slate-400 truncate">velvetstudio.com</span>
         </div>
         <div className="flex items-center gap-1.5 shrink-0">
-          <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" style={{ animation: "crawlPulse 1.5s ease-in-out infinite" }} />
+          <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" style={{ animation: "seoCrawlPulse 1.5s ease-in-out infinite" }} />
           <span className="text-[9px] font-medium text-emerald-500">Crawling…</span>
           <span className="text-[9px] text-slate-400">847 / 912</span>
         </div>
       </div>
-
-      {/* Crawl feed — scrolling URLs */}
       <div className="relative h-[72px] overflow-hidden">
-        {/* Scan line overlay */}
-        <div className="absolute inset-x-0 h-[2px] bg-emerald-400/40 z-10 pointer-events-none" style={{ animation: "crawlScan 3s linear infinite" }} />
-
-        <div className="absolute inset-0" style={{ animation: "crawlFeedScroll 12s linear infinite" }}>
-          <div className="px-3 py-1.5 space-y-[1px]">
+        <div className="absolute inset-x-0 h-[2px] bg-emerald-400/40 z-10 pointer-events-none" style={{ animation: "seoCrawlScan 3s linear infinite" }} />
+        <div className="absolute inset-0" style={{ animation: "seoCrawlFeed 12s linear infinite" }}>
+          <div className="px-3 py-1.5 space-y-px">
             {[...CRAWL_URLS, ...CRAWL_URLS].map((u, i) => (
               <div key={i} className="flex items-center gap-2 py-[3px]">
-                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${
-                  u.status === 404 ? "bg-red-400" : u.status === 301 ? "bg-amber-400" : u.issues > 0 ? "bg-amber-300" : "bg-emerald-400"
-                }`} />
+                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${u.status === 404 ? "bg-red-400" : u.status === 301 ? "bg-amber-400" : u.issues > 0 ? "bg-amber-300" : "bg-emerald-400"}`} />
                 <span className="text-[10px] text-slate-500 truncate flex-1 font-mono">{u.url}</span>
-                <span className={`text-[9px] font-medium shrink-0 ${
-                  u.status === 404 ? "text-red-400" : u.status === 301 ? "text-amber-500" : u.issues > 0 ? "text-amber-500" : "text-emerald-400"
-                }`}>{u.label}</span>
+                <span className={`text-[9px] font-medium shrink-0 ${u.status === 404 ? "text-red-400" : u.status === 301 ? "text-amber-500" : u.issues > 0 ? "text-amber-500" : "text-emerald-400"}`}>{u.label}</span>
                 <span className="text-[9px] text-slate-300 shrink-0">{u.status}</span>
               </div>
             ))}
           </div>
         </div>
-
-        {/* Top/bottom fade masks */}
         <div className="absolute inset-x-0 top-0 h-4 bg-gradient-to-b from-white to-transparent pointer-events-none z-[5]" />
         <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-white to-transparent pointer-events-none z-[5]" />
       </div>
@@ -544,34 +563,24 @@ function CrawlVisualizer() {
   );
 }
 
-/* ---------------- SEO Score Ring ---------------- */
-
+/* ---- SEO Score Ring ---- */
 function SeoScoreRing() {
   const score = 84;
   const radius = 20;
-  const stroke = 5;
+  const strokeW = 5;
   const circumference = radius * 2 * Math.PI;
   const offset = ((100 - score) / 100) * circumference;
-
   return (
-    <div className="bg-white border border-black/[0.06] p-3 flex items-center gap-4">
-      {/* Donut ring */}
+    <div className="bg-white border border-black/6 p-3 flex items-center gap-4">
       <div className="relative w-[52px] h-[52px] shrink-0">
         <svg viewBox="0 0 52 52" className="w-full h-full -rotate-90">
-          <circle cx="26" cy="26" r={radius} fill="none" stroke="rgba(0,0,0,0.04)" strokeWidth={stroke} />
-          <circle
-            cx="26" cy="26" r={radius} fill="none"
-            stroke="rgb(52,211,153)" strokeWidth={stroke}
-            strokeDasharray={circumference} strokeDashoffset={offset}
-            strokeLinecap="round"
-          />
+          <circle cx="26" cy="26" r={radius} fill="none" stroke="rgba(0,0,0,0.04)" strokeWidth={strokeW} />
+          <circle cx="26" cy="26" r={radius} fill="none" stroke="rgb(52,211,153)" strokeWidth={strokeW} strokeDasharray={circumference} strokeDashoffset={offset} strokeLinecap="round" />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
           <span className="text-[15px] font-bold text-slate-900 leading-none">{score}</span>
         </div>
       </div>
-
-      {/* Metrics row */}
       <div className="flex-1 min-w-0 flex items-center gap-4">
         <div className="flex-1 min-w-0">
           <div className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-0.5">SEO Score</div>
@@ -580,32 +589,23 @@ function SeoScoreRing() {
             <span className="text-[10px] text-emerald-400 font-medium">+12 pts this month</span>
           </div>
         </div>
-
-        <div className="w-px h-8 bg-black/[0.06]" />
-
+        <div className="w-px h-8 bg-black/6" />
         <div className="flex-1 min-w-0">
           <div className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-0.5">Site Health</div>
           <div className="flex items-center gap-2">
-            <div className="flex-1 h-[5px] bg-black/[0.04] rounded-full overflow-hidden">
-              <div className="h-full bg-emerald-400/60 rounded-full" style={{ width: "84%" }} />
-            </div>
+            <div className="flex-1 h-[5px] bg-black/4 rounded-full overflow-hidden"><div className="h-full bg-emerald-400/60 rounded-full" style={{ width: "84%" }} /></div>
             <span className="text-[11px] font-medium text-slate-600 shrink-0">84%</span>
           </div>
         </div>
-
-        <div className="w-px h-8 bg-black/[0.06]" />
-
+        <div className="w-px h-8 bg-black/6" />
         <div className="shrink-0">
           <div className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-0.5">Issues</div>
           <div className="flex items-baseline gap-1.5">
             <span className="text-[16px] font-semibold text-slate-900">142</span>
             <div className="flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
-              <span className="text-[10px] text-slate-400">12</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-              <span className="text-[10px] text-slate-400">89</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-              <span className="text-[10px] text-slate-400">41</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-red-400" /><span className="text-[10px] text-slate-400">12</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" /><span className="text-[10px] text-slate-400">89</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-400" /><span className="text-[10px] text-slate-400">41</span>
             </div>
           </div>
         </div>
@@ -614,16 +614,15 @@ function SeoScoreRing() {
   );
 }
 
-/* ---------------- DASHBOARD scene ---------------- */
+/* ==================== DASHBOARD scene ==================== */
 
 function DashboardScene() {
   return (
     <div className="space-y-3 px-4 py-4 bg-[#f8f9fb]">
       <CrawlVisualizer />
-
       <SeoScoreRing />
 
-      <div className="grid grid-cols-3 gap-[1px] bg-black/[0.04]">
+      <div className="grid grid-cols-3 gap-px bg-black/4">
         <KpiTile l1="Organic Traffic" l2="Keywords" v1="23,451" v2="4,821" d1="+142%" d2="+18%" />
         <KpiTile l1="Backlinks" l2="Domain Rating" v1="1,284" v2="72" d1="+34" d2="+5" />
         <KpiTile l1="Pages Indexed" l2="Avg. Position" v1="847" v2="8.4" d1="+12%" d2="+3.2" />
@@ -631,22 +630,18 @@ function DashboardScene() {
 
       <SerpPositionTracker />
 
-      <div className="grid grid-cols-2 gap-[1px] bg-black/[0.04]">
+      <div className="grid grid-cols-2 gap-px bg-black/4">
         <div className="bg-white p-3">
           <div className="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
-            <div className="w-2 h-2 bg-slate-500" />
-            <span>TRAFFIC</span>
-            <div className="w-2.5 h-[2px] bg-emerald-400" />
-            <span>RANKINGS</span>
+            <div className="w-2 h-2 bg-slate-500" /><span>TRAFFIC</span>
+            <div className="w-2.5 h-[2px] bg-emerald-400" /><span>RANKINGS</span>
           </div>
           <MiniChart heights={[22, 28, 25, 34, 30, 42, 38, 52, 48, 60, 55, 68, 72, 65, 78, 82, 86, 90]} />
         </div>
         <div className="bg-white p-3">
           <div className="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
-            <div className="w-2 h-2 bg-slate-500" />
-            <span>BACKLINKS</span>
-            <div className="w-2.5 h-[2px] bg-emerald-400" />
-            <span>DOMAIN RATING</span>
+            <div className="w-2 h-2 bg-slate-500" /><span>BACKLINKS</span>
+            <div className="w-2.5 h-[2px] bg-emerald-400" /><span>DOMAIN RATING</span>
           </div>
           <MiniChart heights={[30, 35, 32, 40, 38, 48, 44, 52, 55, 50, 60, 65, 62, 70, 68, 75, 78, 82]} />
         </div>
@@ -654,12 +649,8 @@ function DashboardScene() {
 
       <KeywordTable />
 
-      <div className="grid grid-cols-2 gap-[1px] bg-black/[0.04]">
-        <FunnelOrMetric
-          title="Search Funnel"
-          subAccent="3.6%"
-          sub="avg CTR"
-          labelW={76}
+      <div className="grid grid-cols-2 gap-px bg-black/4">
+        <FunnelOrMetric title="Search Funnel" subAccent="3.6%" sub="avg CTR" labelW={76}
           rows={[
             { l: "Impressions", w: 100, v: "642K" },
             { l: "Clicks", w: 42, v: "23.4K" },
@@ -667,11 +658,7 @@ function DashboardScene() {
             { l: "Conversions", w: 12, v: "1,847" },
           ]}
         />
-        <FunnelOrMetric
-          title="SEO Issues Found"
-          subAccent="142"
-          sub="· auto-fixable"
-          labelW={120}
+        <FunnelOrMetric title="SEO Issues Found" subAccent="142" sub="· auto-fixable" labelW={120}
           rows={[
             { l: "Broken Links", w: 35, v: "12" },
             { l: "Missing Meta Tags", w: 90, v: "34" },
@@ -685,45 +672,38 @@ function DashboardScene() {
       <AuditTable />
       <VitalsAndCrawl />
       <CompetitorAnalysis />
-
       <BacklinkTable />
     </div>
   );
 }
 
-/* ---------------- CHAT scene ---------------- */
+/* ==================== CHAT scene ==================== */
 
 function ChatScene() {
   return (
-    <div className="pointer-events-none absolute inset-0 flex" style={{ animation: "chatPhase 30s ease-in-out infinite" }}>
+    <div className="pointer-events-none absolute inset-0 flex" style={{ animation: "seoChatPhase 30s ease-in-out infinite" }}>
       <div className="w-[55px] shrink-0" />
       <div className="pointer-events-auto flex-1 flex flex-col bg-[#f4f5f7] overflow-hidden">
         <div className="flex-1 overflow-hidden relative">
-          <div style={{ animation: "chatScroll 30s ease-in-out infinite" }}>
+          <div style={{ animation: "seoChatScroll 30s ease-in-out infinite" }}>
             <div className="px-5 py-5 space-y-5">
               {/* User message */}
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 flex-shrink-0" />
+                <div className="w-6 h-6 shrink-0" />
                 <div className="flex-1 flex justify-end items-start gap-2.5">
-                  <div className="bg-black/[0.06] rounded-[3px] px-4 py-2.5 max-w-[440px]">
-                    <p className="text-[13px] text-black leading-relaxed">
-                      Run a full SEO audit on my website and fix everything
-                    </p>
+                  <div className="bg-black/6 rounded-[3px] px-4 py-2.5 max-w-[440px]">
+                    <p className="text-[13px] text-black leading-relaxed">Run a full SEO audit on my website and fix everything</p>
                   </div>
-                  <div className="w-6 h-6 rounded-full bg-black/20 flex-shrink-0 flex items-center justify-center text-white text-[9px] font-bold">
-                    IB
-                  </div>
+                  <div className="w-6 h-6 rounded-full bg-black/20 shrink-0 flex items-center justify-center text-white text-[9px] font-bold">IB</div>
                 </div>
               </div>
 
               {/* Agent SEO audit response */}
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-black flex-shrink-0 flex items-center justify-center text-white text-[9px] font-bold mt-0.5">
-                  R
-                </div>
+                <div className="w-6 h-6 rounded-full bg-black shrink-0 flex items-center justify-center text-white text-[9px] font-bold mt-0.5">R</div>
                 <div className="flex-1 min-w-0 mr-[34px]">
                   <span className="text-[12px] font-semibold text-black mb-1.5 block">Ryze SEO agent</span>
-                  <div className="rounded-[3px] bg-white p-4 border border-black/[0.06]">
+                  <div className="rounded-[3px] bg-white p-4 border border-black/6">
                     <p className="text-[12px] text-black/65 leading-[1.7] mb-4">
                       I&apos;ve crawled <strong className="text-black font-semibold">velvetstudio.com</strong> — 912 pages analyzed. Here&apos;s the full audit:
                     </p>
@@ -742,30 +722,30 @@ function ChatScene() {
                           <div className="text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-1.5">Issues Found</div>
                           {["12 broken internal links (404)", "34 missing meta descriptions", "8 duplicate H1 tags"].map((t) => (
                             <div key={t} className="flex items-start gap-1 mb-1">
-                              <span className="w-1 h-1 bg-black rounded-full shrink-0 mt-[4px]" />
+                              <span className="w-1 h-1 bg-black rounded-full shrink-0 mt-1" />
                               <span className="text-[10px] text-black/70 leading-snug">{t}</span>
                             </div>
                           ))}
                         </div>
-                        <div className="w-px bg-black/[0.06]" />
+                        <div className="w-px bg-black/6" />
                         <div className="flex-1">
                           <div className="text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-1.5">Strong</div>
                           {["Core Web Vitals passing", "SSL + HTTPS configured", "Mobile-first responsive"].map((t) => (
                             <div key={t} className="flex items-start gap-1 mb-1">
-                              <span className="w-1 h-1 bg-[rgb(52,211,153)] rounded-full shrink-0 mt-[4px]" />
+                              <span className="w-1 h-1 bg-[rgb(52,211,153)] rounded-full shrink-0 mt-1" />
                               <span className="text-[10px] text-black/50 leading-snug">{t}</span>
                             </div>
                           ))}
                         </div>
                       </div>
                     </div>
-                    <div className="h-px bg-black/[0.06] my-4" />
+                    <div className="h-px bg-black/6 my-4" />
                     <p className="text-[12px] text-black/60 leading-[1.7]">
                       Your site has <strong className="text-black">847 indexed pages</strong> with{" "}
                       <strong className="text-black">23,451 monthly organic visits</strong>. Domain rating is{" "}
                       <strong className="text-black">72/100</strong>. But <strong className="text-black">142 issues are holding you back</strong>.
                     </p>
-                    <div className="h-px bg-black/[0.06] my-4" />
+                    <div className="h-px bg-black/6 my-4" />
                     <div className="text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-2">The biggest problems</div>
                     <p className="text-[12px] text-black/60 leading-[1.7] mb-2">
                       <strong className="text-black">12 broken links are losing you link equity</strong> — pages with{" "}
@@ -774,7 +754,7 @@ function ChatScene() {
                     <p className="text-[12px] text-black/60 leading-[1.7]">
                       <strong className="text-black">34 pages missing meta descriptions</strong> — these get 28% fewer clicks than pages with descriptions.
                     </p>
-                    <div className="h-px bg-black/[0.06] my-4" />
+                    <div className="h-px bg-black/6 my-4" />
                     <div className="text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-2">What I&apos;ll do</div>
                     <div className="space-y-3">
                       {[
@@ -792,14 +772,14 @@ function ChatScene() {
                         </div>
                       ))}
                     </div>
-                    <div className="h-px bg-black/[0.06] my-4" />
+                    <div className="h-px bg-black/6 my-4" />
                     <div className="text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-2">Bottom line</div>
                     <p className="text-[12px] text-black/60 leading-[1.7]">
                       4 fixes across <strong className="text-black">142 issues</strong> — est.{" "}
                       <strong className="text-black">+35% organic traffic</strong> in 90 days. Score from 84 to <strong className="text-black">94+</strong>.
                     </p>
-                    <div className="flex justify-end gap-[1px] mt-4">
-                      <button className="text-[10px] font-semibold text-black/50 bg-black/[0.04] px-3 py-1.5 rounded-[3px]">See full report</button>
+                    <div className="flex justify-end gap-px mt-4">
+                      <button className="text-[10px] font-semibold text-black/50 bg-black/4 px-3 py-1.5 rounded-[3px]">See full report</button>
                       <button className="text-[10px] font-semibold text-white bg-black px-3 py-1.5 rounded-[3px]">Fix all 142 issues</button>
                     </div>
                   </div>
@@ -808,31 +788,27 @@ function ChatScene() {
 
               {/* User message 2 */}
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 flex-shrink-0" />
+                <div className="w-6 h-6 shrink-0" />
                 <div className="flex-1 flex justify-end items-start gap-2.5">
-                  <div className="bg-black/[0.06] rounded-[3px] px-4 py-2.5 max-w-[440px]">
+                  <div className="bg-black/6 rounded-[3px] px-4 py-2.5 max-w-[440px]">
                     <p className="text-[13px] text-black leading-relaxed">Optimize my top 10 pages for better rankings</p>
                   </div>
-                  <div className="w-6 h-6 rounded-full bg-black/20 flex-shrink-0 flex items-center justify-center text-white text-[9px] font-bold">
-                    IB
-                  </div>
+                  <div className="w-6 h-6 rounded-full bg-black/20 shrink-0 flex items-center justify-center text-white text-[9px] font-bold">IB</div>
                 </div>
               </div>
 
               {/* Agent content optimization response */}
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-black flex-shrink-0 flex items-center justify-center text-white text-[9px] font-bold mt-0.5">
-                  R
-                </div>
+                <div className="w-6 h-6 rounded-full bg-black shrink-0 flex items-center justify-center text-white text-[9px] font-bold mt-0.5">R</div>
                 <div className="flex-1 min-w-0 mr-[34px]">
                   <span className="text-[12px] font-semibold text-black mb-1.5 block">Ryze SEO agent</span>
-                  <div className="rounded-[3px] bg-white p-4 border border-black/[0.06]">
+                  <div className="rounded-[3px] bg-white p-4 border border-black/6">
                     <p className="text-[12px] text-black/65 leading-[1.7] mb-4">
                       I&apos;ve analyzed your top 10 pages against competitors. Here&apos;s the optimization plan:
                     </p>
                     <div className="text-[9px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-1">Content Optimization</div>
                     <h3 className="text-[14px] font-semibold text-black mb-3">Top 10 Pages — Quick Wins</h3>
-                    <div className="grid grid-cols-3 gap-[1px] bg-black/[0.06] mb-4">
+                    <div className="grid grid-cols-3 gap-px bg-black/6 mb-4">
                       {[
                         { k: "Pages to optimize", v: "10", sub: "Top traffic pages" },
                         { k: "Est. traffic gain", v: "+42%", sub: "Based on SERP analysis" },
@@ -852,13 +828,13 @@ function ChatScene() {
                       ["Internal links needed", "8 links from authority pages"],
                       ["Schema to add", "HowTo + FAQ structured data"],
                     ].map(([k, v], i) => (
-                      <div key={k} className={`flex justify-between py-2 text-[11px] ${i < 4 ? "border-b border-black/[0.04]" : ""}`}>
+                      <div key={k} className={`flex justify-between py-2 text-[11px] ${i < 4 ? "border-b border-black/4" : ""}`}>
                         <span className="text-black/40">{k}</span>
                         <span className="font-semibold text-black">{v}</span>
                       </div>
                     ))}
-                    <div className="flex justify-end gap-[1px] mt-4">
-                      <button className="text-[10px] font-semibold text-black/50 bg-black/[0.04] px-3 py-1.5 rounded-[3px]">Review each</button>
+                    <div className="flex justify-end gap-px mt-4">
+                      <button className="text-[10px] font-semibold text-black/50 bg-black/4 px-3 py-1.5 rounded-[3px]">Review each</button>
                       <button className="text-[10px] font-semibold text-white bg-black px-3 py-1.5 rounded-[3px]">Optimize all 10</button>
                     </div>
                   </div>
@@ -867,8 +843,8 @@ function ChatScene() {
             </div>
           </div>
         </div>
-        <div className="border-t border-black/[0.06] px-4 py-2.5 bg-white shrink-0">
-          <div className="flex items-center bg-black/[0.03] border border-black/[0.06] rounded-[3px] px-3 py-2 gap-2">
+        <div className="border-t border-black/6 px-4 py-2.5 bg-white shrink-0">
+          <div className="flex items-center bg-black/3 border border-black/6 rounded-[3px] px-3 py-2 gap-2">
             <span className="flex-1 text-[12px] text-black/30">Ask Ryze anything about your SEO...</span>
             <div className="w-6 h-6 bg-black rounded-[3px] flex items-center justify-center shrink-0">
               <svg className="w-3 h-3 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -882,38 +858,60 @@ function ChatScene() {
   );
 }
 
-/* ---------------- Top-level mockup card ---------------- */
+/* ==================== Top-level mockup ==================== */
 
 export default function SEOHeroMockup() {
   return (
-    <div
-      className="pointer-events-auto rounded-[6px] overflow-hidden bg-[#f8f9fb]"
-      style={{
-        boxShadow: "0 25px 60px -10px rgba(0,0,0,0.20), 0 0 0 1px rgba(0,0,0,0.06)",
-        height: 450,
-        position: "relative",
-        zIndex: 3,
-      }}
-    >
-      <div className="flex" style={{ height: "100%" }}>
-        <Sidebar />
-        <div className="flex-1 relative overflow-hidden">
-          <div style={{ animation: "dashPhase 30s ease-in-out infinite" }}>
-            <div style={{ animation: "dashScroll 30s ease-in-out infinite" }}>
-              <DashboardScene />
+    <>
+      <style dangerouslySetInnerHTML={{ __html: KEYFRAMES }} />
+
+      {/*
+        Outer card — responsive height via Tailwind.
+        The inner scene is fixed at 450px tall, so we scale it to fit.
+        Mobile  (< 640px): card ~240px tall → scale ≈ 0.53
+        Tablet  (640–768): card ~340px tall → scale ≈ 0.76
+        Desktop (768+):    card 450px tall  → scale = 1
+      */}
+      <div
+        className="pointer-events-auto rounded-[6px] overflow-hidden bg-[#f8f9fb] relative
+                   h-[240px] sm:h-[340px] md:h-[450px]"
+        style={{
+          boxShadow: "0 25px 60px -10px rgba(0,0,0,0.20), 0 0 0 1px rgba(0,0,0,0.06)",
+          zIndex: 3,
+        }}
+      >
+        {/*
+          Inner fixed-size scene: always 450px tall.
+          Scaled down with transform on smaller screens.
+          origin-top-left + inverse w/h keeps it filling the card.
+        */}
+        <div
+          className="origin-top-left
+                     scale-[0.53] w-[188.7%] h-[188.7%]
+                     sm:scale-[0.756] sm:w-[132.3%] sm:h-[132.3%]
+                     md:scale-100 md:w-full md:h-full"
+        >
+          <div className="flex" style={{ height: 450 }}>
+            <Sidebar />
+            <div className="flex-1 relative overflow-hidden">
+              <div style={{ animation: "seoDashPhase 30s ease-in-out infinite" }}>
+                <div style={{ animation: "seoDashScroll 30s ease-in-out infinite" }}>
+                  <DashboardScene />
+                </div>
+              </div>
             </div>
+          </div>
+
+          <ChatScene />
+
+          {/* Animated cursor */}
+          <div className="absolute pointer-events-none z-10" style={{ animation: "seoCursorAnim 30s ease-in-out infinite" }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white" stroke="black" strokeWidth="1">
+              <path d="M5 3l14 8-6 2-4 6z" />
+            </svg>
           </div>
         </div>
       </div>
-
-      <ChatScene />
-
-      {/* Animated cursor */}
-      <div className="absolute pointer-events-none z-10" style={{ animation: "cursorAnim 30s ease-in-out infinite" }}>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="white" stroke="black" strokeWidth="1">
-          <path d="M5 3l14 8-6 2-4 6z" />
-        </svg>
-      </div>
-    </div>
+    </>
   );
 }

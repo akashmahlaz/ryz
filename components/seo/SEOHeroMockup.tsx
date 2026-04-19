@@ -874,20 +874,25 @@ export default function SEOHeroMockup() {
       */}
       <div
         className="pointer-events-auto rounded-[6px] overflow-hidden bg-[#f8f9fb] relative
-                   h-[240px] sm:h-[340px] md:h-[450px]"
+                   h-[260px] min-[400px]:h-[280px] sm:h-[340px] md:h-[450px]"
         style={{
           boxShadow: "0 25px 60px -10px rgba(0,0,0,0.20), 0 0 0 1px rgba(0,0,0,0.06)",
           zIndex: 3,
         }}
       >
         {/*
-          Inner fixed-size scene: always 450px tall.
-          Scaled down with transform on smaller screens.
-          origin-top-left + inverse w/h keeps it filling the card.
+          Inner fixed-size scene: always 700×450 "design size".
+          Scaled down with CSS transform on smaller screens.
+          origin-top-left + inverse w/h percentages fill the card.
+          Mobile:  260px / 450 = 0.578  → w = 173%
+          ~400px:  280px / 450 = 0.622  → w = 161%
+          SM:      340px / 450 = 0.756  → w = 132.3%
+          MD+:     1:1
         */}
         <div
           className="origin-top-left
-                     scale-[0.53] w-[188.7%] h-[188.7%]
+                     scale-[0.578] w-[173%] h-[173%]
+                     min-[400px]:scale-[0.622] min-[400px]:w-[161%] min-[400px]:h-[161%]
                      sm:scale-[0.756] sm:w-[132.3%] sm:h-[132.3%]
                      md:scale-100 md:w-full md:h-full"
         >

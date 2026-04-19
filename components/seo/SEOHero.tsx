@@ -6,8 +6,6 @@ const HERO_LOGOS = [
   { src: "/google-analytics.svg", alt: "Google Search Console" },
   { src: "/icons-google-analytics.png", alt: "Google Analytics" },
   { src: "/platform-shopify.png", alt: "Shopify" },
-  { src: "/platform-perplexity.png", alt: "Perplexity" },
-  { src: "/platform-chatgpt.png", alt: "ChatGPT" },
 ];
 
 type StackCard = {

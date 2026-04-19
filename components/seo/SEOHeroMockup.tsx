@@ -155,11 +155,11 @@ function MiniChart({ heights }: { heights: number[] }) {
 
 /* ---- Keyword Rankings Table ---- */
 const KEYWORD_ROWS = [
-  { keyword: "best skincare routine", pos: 3, delta: "+5", vol: "14.8K", url: "/blog/skincare-routine", difficulty: 42, diffColor: "bg-emerald-400/60" },
-  { keyword: "anti aging serum reviews", pos: 7, delta: "+12", vol: "9.2K", url: "/products/serums", difficulty: 56, diffColor: "bg-slate-300" },
-  { keyword: "natural face moisturizer", pos: 1, delta: "+2", vol: "22.1K", url: "/products/moisturizer", difficulty: 38, diffColor: "bg-emerald-400/60" },
-  { keyword: "how to reduce wrinkles", pos: 4, delta: "+8", vol: "18.4K", url: "/blog/reduce-wrinkles", difficulty: 61, diffColor: "bg-slate-300" },
-  { keyword: "organic beauty products", pos: 2, delta: "+3", vol: "12.6K", url: "/collections/organic", difficulty: 45, diffColor: "bg-emerald-400/60" },
+  { keyword: "best skincare routine", pos: 3, delta: "+5", vol: "14.8K", url: "/blog/skincare-routine", difficulty: 42, diffColor: "bg-emerald-400/60", trend: "up" as const },
+  { keyword: "anti aging serum reviews", pos: 7, delta: "+12", vol: "9.2K", url: "/products/serums", difficulty: 56, diffColor: "bg-slate-300", trend: "up" as const },
+  { keyword: "natural face moisturizer", pos: 1, delta: "+2", vol: "22.1K", url: "/products/moisturizer", difficulty: 38, diffColor: "bg-emerald-400/60", trend: "up" as const },
+  { keyword: "how to reduce wrinkles", pos: 4, delta: "+8", vol: "18.4K", url: "/blog/reduce-wrinkles", difficulty: 61, diffColor: "bg-slate-300", trend: "up" as const },
+  { keyword: "organic beauty products", pos: 2, delta: "+3", vol: "12.6K", url: "/collections/organic", difficulty: 45, diffColor: "bg-emerald-400/60", trend: "up" as const },
 ];
 
 function KeywordTable() {
@@ -174,9 +174,14 @@ function KeywordTable() {
       </div>
       {KEYWORD_ROWS.map((r) => (
         <div key={r.keyword} className="grid grid-cols-[1.6fr_0.5fr_0.5fr_0.6fr_0.6fr] items-center px-4 py-2.5 border-b border-black/[0.04] last:border-b-0">
-          <span className="text-[12px] font-medium text-slate-800 truncate pr-2">{r.keyword}</span>
+          <span className="flex items-center gap-1.5 text-[12px] font-medium text-slate-800 truncate pr-2">
+            <svg className="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke={r.trend === "up" ? "rgb(52,211,153)" : "rgb(148,163,184)"} strokeWidth="2.5">
+              <path d="M7 17l5-5 5 5" /><path d="M7 12l5-5 5 5" />
+            </svg>
+            {r.keyword}
+          </span>
           <span className="flex items-center gap-1.5">
-            <span className="text-[12px] font-semibold text-slate-900">#{r.pos}</span>
+            <span className={`text-[12px] font-semibold ${r.pos <= 3 ? "text-emerald-500" : r.pos <= 7 ? "text-amber-500" : "text-slate-500"}`}>#{r.pos}</span>
             <span className="text-[10px] font-medium text-emerald-400">{r.delta}</span>
           </span>
           <span className="text-[12px] text-slate-500">{r.vol}</span>
@@ -223,7 +228,10 @@ function BacklinkTable() {
           </span>
           <span className="text-[12px] text-slate-600">{r.links}</span>
           <span className="text-[12px] text-slate-500">{r.type}</span>
-          <span className="text-[10px] font-medium text-emerald-400">{r.status}</span>
+          <span className="flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            <span className="text-[10px] font-medium text-emerald-400">{r.status}</span>
+          </span>
         </div>
       ))}
     </div>
@@ -482,7 +490,7 @@ function DashboardScene() {
             <div className="w-2.5 h-[2px] bg-emerald-400" />
             <span>RANKINGS</span>
           </div>
-          <MiniChart heights={[20, 22, 25, 30, 35, 42, 48, 55, 60, 68, 72, 78, 82, 85, 88, 90, 92, 95]} />
+          <MiniChart heights={[22, 28, 25, 34, 30, 42, 38, 52, 48, 60, 55, 68, 72, 65, 78, 82, 86, 90]} />
         </div>
         <div className="bg-white p-3">
           <div className="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
@@ -491,7 +499,7 @@ function DashboardScene() {
             <div className="w-2.5 h-[2px] bg-emerald-400" />
             <span>DOMAIN RATING</span>
           </div>
-          <MiniChart heights={[30, 32, 35, 38, 40, 45, 50, 52, 58, 62, 65, 68, 70, 72, 75, 78, 80, 82]} />
+          <MiniChart heights={[30, 35, 32, 40, 38, 48, 44, 52, 55, 50, 60, 65, 62, 70, 68, 75, 78, 82]} />
         </div>
       </div>
 

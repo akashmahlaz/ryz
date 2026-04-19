@@ -22,11 +22,11 @@ const STACK_CARDS: StackCard[] = [
     label: "Website builder",
     textColor: "rgba(255,255,255,0.90)",
     style: {
-      top: -96,
-      left: 28,
-      right: -14,
-      bottom: -14,
-      transform: "rotate(0.6deg)",
+      top: -88,
+      left: -4,
+      right: -24,
+      bottom: -16,
+      transform: "rotate(1.8deg)",
       transformOrigin: "bottom left",
       backdropFilter: "blur(12px)",
       WebkitBackdropFilter: "blur(12px)",
@@ -42,11 +42,11 @@ const STACK_CARDS: StackCard[] = [
     label: "AI for SEO",
     textColor: "rgba(255,255,255,0.92)",
     style: {
-      top: -64,
-      left: 14,
-      right: -8,
-      bottom: -10,
-      transform: "rotate(0.3deg)",
+      top: -58,
+      left: -8,
+      right: -18,
+      bottom: -12,
+      transform: "rotate(1deg)",
       transformOrigin: "bottom left",
       backdropFilter: "blur(16px)",
       WebkitBackdropFilter: "blur(16px)",
@@ -62,10 +62,10 @@ const STACK_CARDS: StackCard[] = [
     label: "AI for paid ads",
     textColor: "rgba(255,255,255,0.95)",
     style: {
-      top: -32,
-      left: 0,
-      right: -2,
-      bottom: -6,
+      top: -26,
+      left: -10,
+      right: -10,
+      bottom: -10,
       transform: "rotate(0deg)",
       transformOrigin: "bottom left",
       backdropFilter: "blur(20px)",
@@ -85,7 +85,7 @@ export default function Hero() {
   const [email, setEmail] = useState("");
 
   return (
-    <div className="relative min-h-screen max-h-screen flex flex-col bg-white w-full min-w-0 overflow-hidden">
+    <div className="relative min-h-screen flex flex-col bg-white w-full min-w-0 overflow-hidden">
       {/* Background landscape + green gradient wash */}
       <div className="absolute inset-0 pointer-events-none">
         <img
@@ -103,12 +103,12 @@ export default function Hero() {
       </div>
 
       {/* Content row */}
-      <div className="relative flex-1 flex items-start lg:items-center pt-[116px] pb-16 max-lg:pt-[8.25rem] max-[399px]:pt-[7.75rem] max-[399px]:pb-12 lg:pt-20 lg:pb-0 min-w-0 min-h-min max-lg:overflow-visible">
+      <div className="relative flex-1 flex items-start lg:items-center pt-[116px] pb-8 max-lg:pt-[8.25rem] max-[399px]:pt-[7.75rem] max-[399px]:pb-12 lg:pt-20 lg:pb-0 min-w-0 min-h-min max-lg:overflow-visible">
         <div className="max-w-[1400px] mx-auto w-full min-w-0 box-border px-5 min-[400px]:px-6 sm:px-6 md:px-12 flex flex-col max-[399px]:gap-10 lg:flex-row items-stretch max-[399px]:items-stretch lg:items-center gap-12 lg:gap-6 xl:gap-8 max-lg:overflow-visible">
           {/* LEFT */}
           <div className="flex-1 min-w-0 w-full lg:max-w-[36%] xl:max-w-[34%] mt-0">
             <h1
-              className="hero-fade-up font-bold tracking-[-0.03em] text-white leading-[1.1] md:leading-[1.08] mb-8 md:mb-10 text-[42px] max-[399px]:text-[2.1rem] max-[399px]:leading-[1.12] max-[399px]:break-words md:text-[55px] lg:text-[72px]"
+              className="hero-fade-up font-bold tracking-[-0.03em] text-white leading-[1.1] md:leading-[1.08] mb-5 md:mb-6 text-[42px] max-[399px]:text-[2.1rem] max-[399px]:leading-[1.12] max-[399px]:break-words md:text-[55px] lg:text-[72px]"
               style={{ fontFamily: "'Satoshi', sans-serif" }}
             >
               AI runs your
@@ -118,7 +118,7 @@ export default function Hero() {
               and website
             </h1>
 
-            <p className="hero-fade-up hero-delay-1 text-[18px] max-[399px]:text-[16px] md:text-[20px] lg:text-[22px] text-white/85 leading-[1.6] md:leading-relaxed mb-12 max-[399px]:mb-8 lg:mb-10 max-w-[440px] max-[399px]:max-w-full font-medium max-[399px]:break-words">
+            <p className="hero-fade-up hero-delay-1 text-[18px] max-[399px]:text-[16px] md:text-[20px] lg:text-[22px] text-white/85 leading-[1.6] md:leading-relaxed mb-6 max-[399px]:mb-4 lg:mb-6 max-w-[440px] max-[399px]:max-w-full font-medium max-[399px]:break-words">
               More customers on autopilot
               <br />— or let our experts run it for you
             </p>
@@ -160,7 +160,7 @@ export default function Hero() {
             </div>
 
             {/* Logo strip */}
-            <div className="hero-fade-up hero-delay-3 flex flex-wrap items-center gap-5 max-[399px]:gap-3 mt-10 max-[399px]:mt-8 md:mt-12">
+            <div className="hero-fade-up hero-delay-3 flex flex-wrap items-center gap-5 max-[399px]:gap-3 mt-6 max-[399px]:mt-4 md:mt-8">
               {HERO_LOGOS.map((logo) => (
                 <div key={logo.alt} className="h-7 w-11 relative">
                   <img
@@ -218,10 +218,10 @@ export default function Hero() {
               {/* Floating Connect Claude pill */}
               <a
                 href="#"
-                className="hero-fade-up hero-delay-3 hidden md:flex absolute -bottom-5 right-4 lg:right-6 items-center gap-3 bg-[#FFE9D6] hover:bg-[#FFDDC1] transition-colors text-zinc-900 rounded-full pl-3 pr-4 py-2 shadow-[0_8px_28px_rgba(0,0,0,0.12)] border border-white/60 z-30"
+                className="hero-fade-up hero-delay-3 hidden md:flex absolute bottom-2 right-4 lg:right-6 items-center gap-3 bg-[#FFE9D6] hover:bg-[#FFDDC1] transition-colors text-zinc-900 rounded-full pl-3 pr-4 py-2 shadow-[0_8px_28px_rgba(0,0,0,0.12)] border border-white/60 z-30"
               >
                 <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white/70">
-                  <img src="/ryze-logo-mark.png" alt="Ryze" className="w-4 h-4 object-contain" onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
+                  <img src="/claude-logo-pixels.png" alt="Claude" className="w-4 h-4 object-contain" />
                 </span>
                 <span className="text-[13px] leading-tight font-medium">
                   Connect Claude with

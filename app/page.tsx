@@ -1,4 +1,5 @@
 import MCPSection from "@/components/layout/MCPSection";
+import WhatYouCanDo from "@/components/layout/WhatYouCanDo";
 import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/layout/Hero";
 import PressLogos from "@/components/layout/PressLogos";
@@ -19,6 +20,8 @@ export default function Home() {
         <Hero />
         {/* MCP — Connect Claude to Google & Meta Ads */}
         <MCPSection />
+        {/* What you can do with Claude Connector */}
+        <WhatYouCanDo />
         {/* Press logos bar */}
         <PressLogos />
         {/* Client logos trust bar */}

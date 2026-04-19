@@ -4,7 +4,8 @@ import SEOHeroMockup from "./SEOHeroMockup";
 
 const HERO_LOGOS = [
   { src: "/google-analytics.svg", alt: "Google Search Console" },
-  { src: "/icons-google-analytics.png", alt: "Google Analytics" },
+  { src: "/platform-semrush.svg", alt: "SEMrush" },
+  { src: "/platform-wordpress.svg", alt: "WordPress" },
   { src: "/platform-shopify.png", alt: "Shopify" },
 ];
 

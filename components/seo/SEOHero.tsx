@@ -89,7 +89,7 @@ export default function SEOHero() {
         <img
           alt=""
           className="object-cover absolute inset-0 w-full h-full"
-          src="/landscape-for-landing-3.png"
+          src="/image.png"
         />
         <div
           className="absolute inset-0"
@@ -106,7 +106,7 @@ export default function SEOHero() {
           {/* LEFT */}
           <div className="flex-1 min-w-0 w-full lg:max-w-[36%] xl:max-w-[34%] mt-0">
             <h1
-              className="hero-fade-up font-bold tracking-[-0.03em] text-white leading-[1.08] mb-3 sm:mb-5 md:mb-6 text-[36px] min-[400px]:text-[42px] md:text-[55px] lg:text-[72px]"
+              className="hero-fade-up font-bold tracking-[-0.03em] text-white leading-[1.1] mb-4 sm:mb-5 md:mb-6 text-[42px] sm:text-[48px] md:text-[55px] lg:text-[72px]"
               style={{ fontFamily: "'Satoshi', sans-serif" }}
             >
               AI agent
@@ -116,7 +116,7 @@ export default function SEOHero() {
               your SEO
             </h1>
 
-            <p className="hero-fade-up hero-delay-1 text-[15px] min-[400px]:text-[17px] md:text-[20px] lg:text-[22px] text-white/85 leading-[1.5] md:leading-relaxed mb-4 sm:mb-6 lg:mb-6 max-w-[440px] font-medium">
+            <p className="hero-fade-up hero-delay-1 text-[17px] sm:text-[18px] md:text-[20px] lg:text-[22px] text-white/85 leading-[1.55] md:leading-relaxed mb-4 sm:mb-6 lg:mb-6 max-w-[440px] font-medium">
               Technical audits, content optimization,
               <br className="hidden sm:block" />
               <span className="sm:hidden"> </span>rank tracking — on autopilot

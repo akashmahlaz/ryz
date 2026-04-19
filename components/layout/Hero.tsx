@@ -174,15 +174,12 @@ export default function Hero() {
           </div>
 
           {/* RIGHT — mockup */}
-          <div className="hero-fade-right w-full min-w-0 lg:flex-1 lg:self-start flex justify-center lg:justify-end mt-6 lg:mt-0 overflow-visible lg:max-h-[calc(100vh-160px)]">
-            <div
-              className="relative w-full lg:max-w-none"
-              style={{ height: "min(550px, calc(100vh - 200px))" }}
-            >
+          <div className="hero-fade-right w-full min-w-0 lg:flex-1 mt-6 lg:-mt-[30px] relative">
+            <div className="relative">
               {STACK_CARDS.map((c) => (
                 <div
                   key={c.label}
-                  className="pointer-events-none absolute"
+                  className="pointer-events-none absolute rounded-[6px] overflow-hidden"
                   style={c.style}
                 >
                   <div
@@ -193,7 +190,7 @@ export default function Hero() {
                       wordSpacing: "1px",
                       color: c.textColor,
                       letterSpacing: "0.08em",
-                      textTransform: "uppercase",
+                      textTransform: "uppercase" as const,
                       display: "flex",
                       alignItems: "center",
                       gap: 6,
@@ -206,6 +203,7 @@ export default function Hero() {
                         borderRadius: "50%",
                         backgroundColor: "#4ade80",
                         flexShrink: 0,
+                        display: "inline-block",
                       }}
                     />
                     {c.label}
@@ -213,29 +211,30 @@ export default function Hero() {
                 </div>
               ))}
 
-              <HeroMockup />
-
-              {/* Floating Connect Claude pill */}
-              <a
-                href="#"
-                className="hero-fade-up hero-delay-3 hidden md:flex absolute bottom-2 right-4 lg:right-6 items-center gap-3 bg-[#FFE9D6] hover:bg-[#FFDDC1] transition-colors text-zinc-900 rounded-full pl-3 pr-4 py-2 shadow-[0_8px_28px_rgba(0,0,0,0.12)] border border-white/60 z-30"
-              >
-                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white/70">
-                  <img src="/claude-logo-pixels.png" alt="Claude" className="w-4 h-4 object-contain" />
-                </span>
-                <span className="text-[13px] leading-tight font-medium">
-                  Connect Claude with
-                  <br />
-                  Google &amp; Meta Ads in 1 click
-                </span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="m9 18 6-6-6-6" />
-                </svg>
-              </a>
+              <div style={{ position: "relative", zIndex: 3 }}>
+                <HeroMockup />
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Floating Connect Claude pill — fixed bottom-right */}
+      <a
+        href="#"
+        className="hidden md:flex fixed bottom-6 right-6 items-center gap-3 bg-[#FFE9D6] hover:bg-[#FFDDC1] transition-colors text-zinc-900 rounded-full pl-3 pr-4 py-2.5 shadow-[0_8px_28px_rgba(0,0,0,0.12)] border border-white/60 z-50"
+        style={{ animation: "floatPill 4s ease-in-out infinite" }}
+      >
+        <img src="/claude-logo-pixels.png" alt="Claude" className="w-7 h-7 object-contain" />
+        <span className="text-[13px] leading-tight font-medium">
+          Connect Claude with
+          <br />
+          Google &amp; Meta Ads in 1 click
+        </span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </a>
     </div>
   );
 }

@@ -177,7 +177,7 @@ export default function SEOHero() {
               {STACK_CARDS.map((c) => (
                 <div
                   key={c.label}
-                  className="hidden md:block pointer-events-none absolute rounded-[6px] overflow-hidden"
+                  className="pointer-events-none absolute rounded-[6px] overflow-hidden scale-95 md:scale-100 origin-top"
                   style={c.style}
                 >
                     <div

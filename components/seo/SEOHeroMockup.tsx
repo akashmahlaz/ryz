@@ -8,7 +8,7 @@ import React from "react";
 function Sidebar() {
   const Icon = ({ children, animate }: { children: React.ReactNode; animate?: "dash" | "mark" }) => (
     <div
-      className="w-9 h-9 rounded-[3px] flex items-center justify-center"
+      className="w-7 h-7 sm:w-9 sm:h-9 rounded-[3px] flex items-center justify-center"
       style={
         animate === "dash"
           ? { animation: "dashHighlight 30s ease-in-out infinite" }
@@ -28,8 +28,8 @@ function Sidebar() {
     strokeWidth: 2,
   });
   return (
-    <div className="w-[55px] bg-white border-r border-neutral-100 flex flex-col items-center pt-3 pb-2 shrink-0 gap-0.5">
-      <div className="w-7 h-7 mb-3">
+    <div className="w-10 sm:w-[55px] bg-white border-r border-neutral-100 flex flex-col items-center pt-2 sm:pt-3 pb-1.5 sm:pb-2 shrink-0 gap-0.5">
+      <div className="w-5 h-5 sm:w-7 sm:h-7 mb-2 sm:mb-3">
         <img src="/main-logo-sun-2.png" alt="" className="w-full h-full object-contain" />
       </div>
       <Icon animate="dash">
@@ -86,19 +86,19 @@ function KpiTile({
   l1, l2, v1, v2, d1, d2, d1Pos = true, d2Pos = true,
 }: { l1: string; l2: string; v1: string; v2: string; d1: string; d2: string; d1Pos?: boolean; d2Pos?: boolean; }) {
   return (
-    <div className="bg-white p-3">
-      <div className="flex items-center justify-between mb-1">
-        <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest">{l1}</span>
-        <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest">{l2}</span>
+    <div className="bg-white p-2 sm:p-3">
+      <div className="flex items-center justify-between mb-1 gap-2">
+        <span className="text-[9px] sm:text-[11px] font-medium text-slate-400 uppercase tracking-widest">{l1}</span>
+        <span className="text-[9px] sm:text-[11px] font-medium text-slate-400 uppercase tracking-widest">{l2}</span>
       </div>
-      <div className="flex items-baseline justify-between">
-        <div className="flex items-baseline gap-1.5">
-          <span className="text-[20px] font-semibold text-slate-900 tracking-tight">{v1}</span>
-          <span className={`text-[11px] font-medium ${d1Pos ? "text-emerald-400" : "text-slate-400"}`}>{d1}</span>
+      <div className="flex items-baseline justify-between gap-2">
+        <div className="flex items-baseline gap-1">
+          <span className="text-[13px] sm:text-[20px] font-semibold text-slate-900 tracking-tight">{v1}</span>
+          <span className={`text-[8px] sm:text-[11px] font-medium ${d1Pos ? "text-emerald-400" : "text-slate-400"}`}>{d1}</span>
         </div>
-        <div className="flex items-baseline gap-1.5">
-          <span className="text-[20px] font-semibold text-slate-900 tracking-tight">{v2}</span>
-          <span className={`text-[11px] font-medium ${d2Pos ? "text-emerald-400" : "text-slate-400"}`}>{d2}</span>
+        <div className="flex items-baseline gap-1">
+          <span className="text-[13px] sm:text-[20px] font-semibold text-slate-900 tracking-tight">{v2}</span>
+          <span className={`text-[8px] sm:text-[11px] font-medium ${d2Pos ? "text-emerald-400" : "text-slate-400"}`}>{d2}</span>
         </div>
       </div>
     </div>
@@ -618,7 +618,7 @@ function SeoScoreRing() {
 
 function DashboardScene() {
   return (
-    <div className="space-y-3 px-4 py-4 bg-[#f8f9fb]">
+    <div className="space-y-2 sm:space-y-3 px-2.5 sm:px-4 py-2.5 sm:py-4 bg-[#f8f9fb]">
       <CrawlVisualizer />
 
       <SeoScoreRing />
@@ -695,18 +695,21 @@ function DashboardScene() {
 
 function ChatScene() {
   return (
-    <div className="pointer-events-none absolute inset-0 flex" style={{ animation: "chatPhase 30s ease-in-out infinite" }}>
-      <div className="w-[55px] shrink-0" />
+    <div
+      className="pointer-events-none absolute inset-0 flex origin-top-left scale-[0.78] sm:scale-[0.92] md:scale-100"
+      style={{ animation: "chatPhase 30s ease-in-out infinite", width: "128%", height: "128%", marginLeft: "-14%" }}
+    >
+      <div className="w-10 sm:w-[55px] shrink-0" />
       <div className="pointer-events-auto flex-1 flex flex-col bg-[#f4f5f7] overflow-hidden">
         <div className="flex-1 overflow-hidden relative">
           <div style={{ animation: "chatScroll 30s ease-in-out infinite" }}>
-            <div className="px-5 py-5 space-y-5">
+            <div className="px-3 sm:px-5 py-3 sm:py-5 space-y-3 sm:space-y-5">
               {/* User message */}
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 flex-shrink-0" />
-                <div className="flex-1 flex justify-end items-start gap-2.5">
-                  <div className="bg-black/[0.06] rounded-[3px] px-4 py-2.5 max-w-[440px]">
-                    <p className="text-[13px] text-black leading-relaxed">
+              <div className="flex items-start gap-2 sm:gap-3">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+                <div className="flex-1 flex justify-end items-start gap-2">
+                  <div className="bg-black/[0.06] rounded-[3px] px-3 sm:px-4 py-2 sm:py-2.5 max-w-[300px] sm:max-w-[440px]">
+                    <p className="text-[11px] sm:text-[13px] text-black leading-relaxed">
                       Run a full SEO audit on my website and fix everything
                     </p>
                   </div>
@@ -717,43 +720,43 @@ function ChatScene() {
               </div>
 
               {/* Agent SEO audit response */}
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-black flex-shrink-0 flex items-center justify-center text-white text-[9px] font-bold mt-0.5">
+              <div className="flex items-start gap-2 sm:gap-3">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-black flex-shrink-0 flex items-center justify-center text-white text-[8px] sm:text-[9px] font-bold mt-0.5">
                   R
                 </div>
-                <div className="flex-1 min-w-0 mr-[34px]">
-                  <span className="text-[12px] font-semibold text-black mb-1.5 block">Ryze SEO agent</span>
-                  <div className="rounded-[3px] bg-white p-4 border border-black/[0.06]">
+                <div className="flex-1 min-w-0 mr-2 sm:mr-[34px]">
+                  <span className="text-[10px] sm:text-[12px] font-semibold text-black mb-1 sm:mb-1.5 block">Ryze SEO agent</span>
+                  <div className="rounded-[3px] bg-white p-2.5 sm:p-4 border border-black/[0.06]">
                     <p className="text-[12px] text-black/65 leading-[1.7] mb-4">
                       I&apos;ve crawled <strong className="text-black font-semibold">velvetstudio.com</strong> — 912 pages analyzed. Here&apos;s the full audit:
                     </p>
-                    <div className="flex gap-4 mb-0">
-                      <div className="relative w-[60px] h-[60px] shrink-0">
+                    <div className="flex gap-2 sm:gap-4 mb-0">
+                      <div className="relative w-[42px] h-[42px] sm:w-[60px] sm:h-[60px] shrink-0">
                         <svg viewBox="0 0 120 120" className="w-full h-full">
                           <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(0,0,0,0.04)" strokeWidth="10" />
                           <circle cx="60" cy="60" r="50" fill="none" stroke="rgb(52,211,153)" strokeWidth="10" strokeDasharray="314" strokeDashoffset="50" strokeLinecap="round" transform="rotate(-90 60 60)" />
                         </svg>
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-[20px] font-bold text-black">84</span>
+                          <span className="text-[14px] sm:text-[20px] font-bold text-black">84</span>
                         </div>
                       </div>
-                      <div className="flex-1 min-w-0 flex gap-3">
+                      <div className="flex-1 min-w-0 flex gap-2 sm:gap-3">
                         <div className="flex-1">
-                          <div className="text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-1.5">Issues Found</div>
+                          <div className="text-[7px] sm:text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-1">Issues Found</div>
                           {["12 broken internal links (404)", "34 missing meta descriptions", "8 duplicate H1 tags"].map((t) => (
                             <div key={t} className="flex items-start gap-1 mb-1">
                               <span className="w-1 h-1 bg-black rounded-full shrink-0 mt-[4px]" />
-                              <span className="text-[10px] text-black/70 leading-snug">{t}</span>
+                              <span className="text-[8px] sm:text-[10px] text-black/70 leading-snug">{t}</span>
                             </div>
                           ))}
                         </div>
                         <div className="w-px bg-black/[0.06]" />
                         <div className="flex-1">
-                          <div className="text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-1.5">Strong</div>
+                          <div className="text-[7px] sm:text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-1">Strong</div>
                           {["Core Web Vitals passing", "SSL + HTTPS configured", "Mobile-first responsive"].map((t) => (
                             <div key={t} className="flex items-start gap-1 mb-1">
                               <span className="w-1 h-1 bg-[rgb(52,211,153)] rounded-full shrink-0 mt-[4px]" />
-                              <span className="text-[10px] text-black/50 leading-snug">{t}</span>
+                              <span className="text-[8px] sm:text-[10px] text-black/50 leading-snug">{t}</span>
                             </div>
                           ))}
                         </div>
@@ -807,11 +810,11 @@ function ChatScene() {
               </div>
 
               {/* User message 2 */}
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 flex-shrink-0" />
-                <div className="flex-1 flex justify-end items-start gap-2.5">
-                  <div className="bg-black/[0.06] rounded-[3px] px-4 py-2.5 max-w-[440px]">
-                    <p className="text-[13px] text-black leading-relaxed">Optimize my top 10 pages for better rankings</p>
+              <div className="flex items-start gap-2 sm:gap-3">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+                <div className="flex-1 flex justify-end items-start gap-2">
+                  <div className="bg-black/[0.06] rounded-[3px] px-3 sm:px-4 py-2 sm:py-2.5 max-w-[300px] sm:max-w-[440px]">
+                    <p className="text-[11px] sm:text-[13px] text-black leading-relaxed">Optimize my top 10 pages for better rankings</p>
                   </div>
                   <div className="w-6 h-6 rounded-full bg-black/20 flex-shrink-0 flex items-center justify-center text-white text-[9px] font-bold">
                     IB
@@ -820,28 +823,28 @@ function ChatScene() {
               </div>
 
               {/* Agent content optimization response */}
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-black flex-shrink-0 flex items-center justify-center text-white text-[9px] font-bold mt-0.5">
+              <div className="flex items-start gap-2 sm:gap-3">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-black flex-shrink-0 flex items-center justify-center text-white text-[8px] sm:text-[9px] font-bold mt-0.5">
                   R
                 </div>
-                <div className="flex-1 min-w-0 mr-[34px]">
-                  <span className="text-[12px] font-semibold text-black mb-1.5 block">Ryze SEO agent</span>
-                  <div className="rounded-[3px] bg-white p-4 border border-black/[0.06]">
+                <div className="flex-1 min-w-0 mr-2 sm:mr-[34px]">
+                  <span className="text-[10px] sm:text-[12px] font-semibold text-black mb-1 sm:mb-1.5 block">Ryze SEO agent</span>
+                  <div className="rounded-[3px] bg-white p-2.5 sm:p-4 border border-black/[0.06]">
                     <p className="text-[12px] text-black/65 leading-[1.7] mb-4">
                       I&apos;ve analyzed your top 10 pages against competitors. Here&apos;s the optimization plan:
                     </p>
-                    <div className="text-[9px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-1">Content Optimization</div>
-                    <h3 className="text-[14px] font-semibold text-black mb-3">Top 10 Pages — Quick Wins</h3>
-                    <div className="grid grid-cols-3 gap-[1px] bg-black/[0.06] mb-4">
+                    <div className="text-[8px] sm:text-[9px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-1">Content Optimization</div>
+                    <h3 className="text-[12px] sm:text-[14px] font-semibold text-black mb-3">Top 10 Pages — Quick Wins</h3>
+                    <div className="grid grid-cols-3 gap-px bg-black/[0.06] mb-3 sm:mb-4">
                       {[
                         { k: "Pages to optimize", v: "10", sub: "Top traffic pages" },
                         { k: "Est. traffic gain", v: "+42%", sub: "Based on SERP analysis" },
                         { k: "Keywords targeted", v: "156", sub: "Primary + secondary" },
                       ].map((c) => (
-                        <div key={c.k} className="bg-white p-3">
-                          <div className="text-[10px] text-black/40 mb-1">{c.k}</div>
-                          <div className="text-[18px] font-bold text-black leading-none">{c.v}</div>
-                          <div className="text-[10px] text-black/30 mt-1">{c.sub}</div>
+                        <div key={c.k} className="bg-white p-2 sm:p-3">
+                          <div className="text-[8px] sm:text-[10px] text-black/40 mb-1">{c.k}</div>
+                          <div className="text-[13px] sm:text-[18px] font-bold text-black leading-none">{c.v}</div>
+                          <div className="text-[8px] sm:text-[10px] text-black/30 mt-1">{c.sub}</div>
                         </div>
                       ))}
                     </div>
@@ -867,11 +870,11 @@ function ChatScene() {
             </div>
           </div>
         </div>
-        <div className="border-t border-black/[0.06] px-4 py-2.5 bg-white shrink-0">
-          <div className="flex items-center bg-black/[0.03] border border-black/[0.06] rounded-[3px] px-3 py-2 gap-2">
-            <span className="flex-1 text-[12px] text-black/30">Ask Ryze anything about your SEO...</span>
-            <div className="w-6 h-6 bg-black rounded-[3px] flex items-center justify-center shrink-0">
-              <svg className="w-3 h-3 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+        <div className="border-t border-black/[0.06] px-3 sm:px-4 py-2 sm:py-2.5 bg-white shrink-0">
+          <div className="flex items-center bg-black/[0.03] border border-black/[0.06] rounded-[3px] px-2.5 sm:px-3 py-1.5 sm:py-2 gap-2">
+            <span className="flex-1 text-[10px] sm:text-[12px] text-black/30">Ask Ryze anything about your SEO...</span>
+            <div className="w-5 h-5 sm:w-6 sm:h-6 bg-black rounded-[3px] flex items-center justify-center shrink-0">
+              <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </div>
@@ -887,7 +890,7 @@ function ChatScene() {
 export default function SEOHeroMockup() {
   return (
     <div
-      className="pointer-events-auto rounded-[6px] overflow-hidden bg-[#f8f9fb] h-[240px] sm:h-[330px] md:h-[450px]"
+      className="pointer-events-auto rounded-[6px] overflow-hidden bg-[#f8f9fb] h-[220px] sm:h-[320px] md:h-[450px]"
       style={{
         boxShadow: "0 25px 60px -10px rgba(0,0,0,0.20), 0 0 0 1px rgba(0,0,0,0.06)",
         position: "relative",
@@ -895,8 +898,8 @@ export default function SEOHeroMockup() {
       }}
     >
       <div
-        className="flex origin-top-left scale-[0.82] sm:scale-[0.92] md:scale-100"
-        style={{ height: "122%", width: "122%" }}
+        className="flex origin-top scale-[0.78] sm:scale-[0.92] md:scale-100"
+        style={{ height: "128%", width: "128%", marginLeft: "-14%" }}
       >
         <Sidebar />
         <div className="flex-1 relative overflow-hidden">

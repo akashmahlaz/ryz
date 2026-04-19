@@ -101,7 +101,7 @@ export default function SEOHero() {
       </div>
 
       {/* Content row */}
-      <div className="relative flex-1 flex items-start lg:items-center pt-[116px] pb-8 max-lg:pt-[8.25rem] max-[399px]:pt-[7.75rem] max-[399px]:pb-12 lg:pt-20 lg:pb-0 min-w-0 min-h-min max-lg:overflow-visible">
+      <div className="relative flex-1 flex items-start lg:items-center pt-[116px] pb-10 max-lg:pt-[8.25rem] max-[399px]:pt-[7.75rem] max-[399px]:pb-12 lg:pt-20 lg:pb-0 min-w-0 min-h-min max-lg:overflow-visible">
         <div className="max-w-[1400px] mx-auto w-full min-w-0 box-border px-5 min-[400px]:px-6 sm:px-6 md:px-12 flex flex-col max-[399px]:gap-10 lg:flex-row items-stretch max-[399px]:items-stretch lg:items-center gap-12 lg:gap-6 xl:gap-8 max-lg:overflow-visible">
           {/* LEFT */}
           <div className="flex-1 min-w-0 w-full lg:max-w-[36%] xl:max-w-[34%] mt-0">
@@ -172,42 +172,42 @@ export default function SEOHero() {
           </div>
 
           {/* RIGHT — mockup */}
-          <div className="hero-fade-right w-full min-w-0 lg:flex-1 mt-6 lg:-mt-[30px] relative">
-            <div className="relative">
+          <div className="hero-fade-right w-full min-w-0 lg:flex-1 mt-12 sm:mt-9 lg:-mt-[30px] relative">
+            <div className="relative mx-auto w-full sm:w-[94%] md:w-full origin-top scale-100 sm:scale-[0.94] md:scale-100">
               {STACK_CARDS.map((c) => (
                 <div
                   key={c.label}
-                  className="pointer-events-none absolute rounded-[6px] overflow-hidden"
+                  className="hidden md:block pointer-events-none absolute rounded-[6px] overflow-hidden"
                   style={c.style}
                 >
-                  <div
-                    style={{
-                      padding: "5px 12px 0",
-                      fontSize: "10.5px",
-                      fontWeight: 800,
-                      wordSpacing: "1px",
-                      color: c.textColor,
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase" as const,
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                    }}
-                  >
-                    <span
+                    <div
                       style={{
-                        width: 6,
-                        height: 6,
-                        borderRadius: "50%",
-                        backgroundColor: "#4ade80",
-                        flexShrink: 0,
-                        display: "inline-block",
+                        padding: "5px 12px 0",
+                        fontSize: "10.5px",
+                        fontWeight: 800,
+                        wordSpacing: "1px",
+                        color: c.textColor,
+                        letterSpacing: "0.08em",
+                        textTransform: "uppercase" as const,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 6,
                       }}
-                    />
-                    {c.label}
+                    >
+                      <span
+                        style={{
+                          width: 6,
+                          height: 6,
+                          borderRadius: "50%",
+                          backgroundColor: "#4ade80",
+                          flexShrink: 0,
+                          display: "inline-block",
+                        }}
+                      />
+                      {c.label}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
 
               <div style={{ position: "relative", zIndex: 3 }}>
                 <SEOHeroMockup />
@@ -217,19 +217,19 @@ export default function SEOHero() {
         </div>
       </div>
 
-      {/* Floating Connect Claude pill — slightly tightened to better match production */}
+      {/* Floating Claude pill — visible on mobile like production */}
       <a
         href="#"
-        className="hidden md:flex fixed bottom-6 right-4 z-50 items-center gap-2 text-neutral-900 pl-2.5 pr-3.5 py-3 rounded-full shadow-[0_2px_20px_rgba(0,0,0,0.08),-6px_0_15px_rgba(0,0,0,0.06)] border border-neutral-200 hover:brightness-95 hover:scale-105 transition-all no-underline group"
+        className="fixed bottom-3 right-3 md:bottom-6 md:right-4 z-50 flex items-center gap-1.5 md:gap-2 text-neutral-900 pl-2 md:pl-2.5 pr-2.5 md:pr-3.5 py-2 md:py-3 rounded-full shadow-[0_2px_20px_rgba(0,0,0,0.08),-6px_0_15px_rgba(0,0,0,0.06)] border border-neutral-200 hover:brightness-95 hover:scale-105 transition-all no-underline group max-w-[220px] md:max-w-none"
         style={{ background: "linear-gradient(135deg, #FFF6EE 0%, #FFEFE2 50%, #FFDDC4 100%)" }}
       >
-        <img src="/images/mcp-3-steps/claude_logo.png" alt="Claude AI" className="h-[34px] w-[34px] rounded-full object-contain" style={{ animation: "mcpSpin 25s linear infinite" }} />
-        <span className="text-[17px] font-medium leading-tight">
+        <img src="/images/mcp-3-steps/claude_logo.png" alt="Claude AI" className="h-[24px] w-[24px] md:h-[34px] md:w-[34px] rounded-full object-contain shrink-0" style={{ animation: "mcpSpin 25s linear infinite" }} />
+        <span className="text-[11px] md:text-[17px] font-medium leading-tight">
           Audit &amp; optimize your SEO
           <br />
           with Claude in 1 click
         </span>
-        <span className="text-[#FF4801] font-normal text-[44px] leading-none self-center group-hover:translate-x-0.5 transition-transform" style={{ transform: "scaleX(0.5) translateY(-5px)" }}>&gt;</span>
+        <span className="text-[#FF4801] font-normal text-[28px] md:text-[44px] leading-none self-center group-hover:translate-x-0.5 transition-transform" style={{ transform: "scaleX(0.5) translateY(-3px)" }}>&gt;</span>
       </a>
     </div>
   );

@@ -887,15 +887,17 @@ function ChatScene() {
 export default function SEOHeroMockup() {
   return (
     <div
-      className="pointer-events-auto rounded-[6px] overflow-hidden bg-[#f8f9fb]"
+      className="pointer-events-auto rounded-[6px] overflow-hidden bg-[#f8f9fb] h-[240px] sm:h-[330px] md:h-[450px]"
       style={{
         boxShadow: "0 25px 60px -10px rgba(0,0,0,0.20), 0 0 0 1px rgba(0,0,0,0.06)",
-        height: 450,
         position: "relative",
         zIndex: 3,
       }}
     >
-      <div className="flex" style={{ height: "100%" }}>
+      <div
+        className="flex origin-top-left scale-[0.82] sm:scale-[0.92] md:scale-100"
+        style={{ height: "122%", width: "122%" }}
+      >
         <Sidebar />
         <div className="flex-1 relative overflow-hidden">
           <div style={{ animation: "dashPhase 30s ease-in-out infinite" }}>

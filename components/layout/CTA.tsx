@@ -89,11 +89,11 @@ export default function CTA() {
                   </p>
                   <div>
                     <p className="text-[11px] text-zinc-400">Organic visits driven</p>
-                    <p className="text-[28px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>23.5M</p>
+                    <p className="text-[18px] md:text-[22px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>23.5M</p>
                   </div>
                   <div>
                     <p className="text-[11px] text-zinc-400">Keywords on page 1</p>
-                    <p className="text-[28px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>48k+</p>
+                    <p className="text-[18px] md:text-[22px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>48k+</p>
                   </div>
                 </div>
 
@@ -105,11 +105,11 @@ export default function CTA() {
                   </p>
                   <div>
                     <p className="text-[11px] text-zinc-400">AI articles published</p>
-                    <p className="text-[28px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>12k+</p>
+                    <p className="text-[18px] md:text-[22px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>12k+</p>
                   </div>
                   <div>
                     <p className="text-[11px] text-zinc-400">Avg. time to rank</p>
-                    <p className="text-[28px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>14 days</p>
+                    <p className="text-[18px] md:text-[22px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>14 days</p>
                   </div>
                 </div>
 
@@ -121,11 +121,11 @@ export default function CTA() {
                   </p>
                   <div>
                     <p className="text-[11px] text-zinc-400">Issues auto-fixed</p>
-                    <p className="text-[28px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>250k+</p>
+                    <p className="text-[18px] md:text-[22px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>250k+</p>
                   </div>
                   <div>
                     <p className="text-[11px] text-zinc-400">Core Web Vitals pass</p>
-                    <p className="text-[28px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>94%</p>
+                    <p className="text-[18px] md:text-[22px] font-bold text-black tracking-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>94%</p>
                   </div>
                 </div>
               </div>

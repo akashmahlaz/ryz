@@ -34,7 +34,7 @@ export default function Hero() {
           <div className="flex-1 min-w-0 w-full max-w-[1260px] lg:max-w-[45%] xl:max-w-[1260px] mt-0 lg:-mt-[30px] ml-0 lg:ml-[7px]">
             <h1
               ref={h1Ref}
-              className="fade-in-up font-bold tracking-[-0.03em] text-white leading-[1.1] md:leading-[1.08] mb-8 md:mb-10 text-[42px] md:text-[55px] lg:text-[72px]"
+              className="fade-in-up font-bold tracking-[-0.03em] text-white leading-[1.05] md:leading-[1.02] mb-8 md:mb-10 text-[56px] sm:text-[68px] md:text-[80px] lg:text-[96px] xl:text-[100px]"
               style={{ fontFamily: "'Satoshi', sans-serif" }}
             >
               AI agent that
@@ -49,7 +49,6 @@ export default function Hero() {
               className="fade-in-up text-[18px] md:text-[20px] lg:text-[22px] text-white/85 leading-[1.6] md:leading-relaxed mb-12 lg:mb-10 max-w-[440px] font-medium"
             >
               Autonomous technical audits, content
-              <br />
               optimization, and rank tracking — on autopilot
             </p>
 
@@ -107,8 +106,8 @@ export default function Hero() {
           </div>
 
           {/* Right: Stacked glassmorphism cards + video mockup */}
-          <div className="w-full min-w-0 max-w-full lg:flex-1 lg:self-start lg:-mt-[30px] flex justify-center lg:justify-start overflow-visible">
-            <div className="relative w-full max-w-[953px]" style={{ minHeight: 550 }}>
+          <div className="w-full min-w-0 max-w-full lg:flex-1 lg:self-start lg:mt-[60px] flex justify-center lg:justify-start overflow-visible">
+            <div className="relative w-full max-w-[700px]" style={{ minHeight: 550 }}>
               {/* Background card 1: Website builder */}
               <div
                 className="absolute pointer-events-none"
@@ -224,25 +223,23 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Main mockup container with video */}
+              {/* Main mockup — video playing inside */}
               <div
                 className="pointer-events-auto rounded-[6px] overflow-hidden bg-[#f8f9fb] relative"
                 style={{
-                  boxShadow:
-                    "0 25px 60px -10px rgba(0,0,0,0.20), 0 0 0 1px rgba(0,0,0,0.06)",
+                  boxShadow: "0 25px 60px -10px rgba(0,0,0,0.20), 0 0 0 1px rgba(0,0,0,0.06)",
                   height: 550,
                   zIndex: 3,
                 }}
               >
-                {/* Video mockup — autoplay loop like production */}
                 <video
                   autoPlay
                   loop
                   muted
                   playsInline
                   preload="metadata"
-                  className="w-full h-full object-cover"
                   poster="/audit-screen-2-bigger-pixels.png"
+                  className="w-full h-full object-cover"
                 >
                   <source src="/videos/mcp-hero-audit.mp4" type="video/mp4" />
                 </video>

@@ -1,6 +1,7 @@
 import MCPSection from "@/components/layout/MCPSection";
 import WhatYouCanDo from "@/components/layout/WhatYouCanDo";
 import SetupGuide from "@/components/layout/SetupGuide";
+import ConnectCTA from "@/components/layout/ConnectCTA";
 import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/layout/Hero";
 import PressLogos from "@/components/layout/PressLogos";
@@ -25,12 +26,14 @@ export default function Home() {
         <WhatYouCanDo />
         {/* Setup guide — 5-step MCP setup */}
         <SetupGuide />
+        {/* Connect Claude to Your Ads — final CTA + live stats */}
+        <ConnectCTA />
         {/* Press logos bar */}
-        <PressLogos />
+        {/* <PressLogos /> */}
         {/* Client logos trust bar */}
-        <ClientLogos />
+        {/* <ClientLogos /> */}
         {/* Showcase grid — see what Ryze does for SEO */}
-        <ShowcaseGrid />
+        {/* <ShowcaseGrid /> */}
         {/* Mid-page CTA — get a free SEO audit */}
         <AuditCTA />
         {/* Screen 2: 3-column features (matches AI Marketer's "Autonomous PPC / SEO / Website" section) */}

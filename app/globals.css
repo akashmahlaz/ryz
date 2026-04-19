@@ -120,6 +120,23 @@ body {
 .pixel-font {
   font-family: "Press Start 2P", monospace !important;
 }
+.pixel-font-pulse, .pixel-font-pulse * {
+  font-family: "Press Start 2P", monospace !important;
+  font-style: normal !important;
+  -webkit-font-smoothing: none !important;
+  -moz-osx-font-smoothing: unset !important;
+  text-rendering: geometricPrecision !important;
+  animation: pixelPulse 3s ease-in-out infinite;
+}
+@keyframes pixelPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+@keyframes scanLine {
+  0% { top: -1px; }
+  50% { top: 100%; }
+  100% { top: -1px; }
+}
 
 /* Setup guide arrow pulse */
 @keyframes pulseRight {

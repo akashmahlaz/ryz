@@ -1,5 +1,6 @@
 import MCPSection from "@/components/layout/MCPSection";
 import WhatYouCanDo from "@/components/layout/WhatYouCanDo";
+import SetupGuide from "@/components/layout/SetupGuide";
 import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/layout/Hero";
 import PressLogos from "@/components/layout/PressLogos";
@@ -22,6 +23,8 @@ export default function Home() {
         <MCPSection />
         {/* What you can do with Claude Connector */}
         <WhatYouCanDo />
+        {/* Setup guide — 5-step MCP setup */}
+        <SetupGuide />
         {/* Press logos bar */}
         <PressLogos />
         {/* Client logos trust bar */}

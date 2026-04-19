@@ -24,7 +24,7 @@ const STACK_CARDS: StackCard[] = [
     style: {
       top: -88,
       left: -4,
-      right: -24,
+      right: -8,
       bottom: -16,
       transform: "rotate(1.8deg)",
       transformOrigin: "bottom left",
@@ -43,8 +43,8 @@ const STACK_CARDS: StackCard[] = [
     textColor: "rgba(255,255,255,0.92)",
     style: {
       top: -58,
-      left: -8,
-      right: -18,
+      left: -6,
+      right: -5,
       bottom: -12,
       transform: "rotate(1deg)",
       transformOrigin: "bottom left",
@@ -63,9 +63,9 @@ const STACK_CARDS: StackCard[] = [
     textColor: "rgba(255,255,255,0.95)",
     style: {
       top: -26,
-      left: -10,
-      right: -10,
-      bottom: -10,
+      left: -8,
+      right: -2,
+      bottom: -8,
       transform: "rotate(0deg)",
       transformOrigin: "bottom left",
       backdropFilter: "blur(20px)",

@@ -266,6 +266,22 @@ body {
   50%  { transform: translateY(-6px); }
   100% { transform: translateY(0); }
 }
+@keyframes claudeSpin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes crawlPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(1.4); }
+}
+@keyframes crawlScan {
+  0%   { top: 0; }
+  100% { top: 100%; }
+}
+@keyframes crawlFeedScroll {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
 
 :root {
   --background: oklch(1 0 0);

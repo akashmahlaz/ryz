@@ -223,11 +223,11 @@ export default function SEOHero() {
         className="hidden md:flex fixed bottom-6 right-6 items-center gap-3 bg-[#FFE9D6] hover:bg-[#FFDDC1] transition-colors text-zinc-900 rounded-full pl-3 pr-4 py-2.5 shadow-[0_8px_28px_rgba(0,0,0,0.12)] border border-white/60 z-50"
         style={{ animation: "floatPill 4s ease-in-out infinite" }}
       >
-        <img src="/claude-logo-pixels.png" alt="Claude" className="w-7 h-7 object-contain" />
+        <img src="/claude-logo-pixels.png" alt="Claude" className="w-7 h-7 object-contain" style={{ animation: "claudeSpin 8s linear infinite" }} />
         <span className="text-[13px] leading-tight font-medium">
-          Connect Claude with
+          Audit &amp; optimize your SEO
           <br />
-          your SEO tools in 1 click
+          with Claude in 1 click
         </span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="m9 18 6-6-6-6" />

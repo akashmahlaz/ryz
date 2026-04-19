@@ -469,6 +469,72 @@ function HeatmapBlock() {
   );
 }
 
+/* ---------------- Live Crawl Visualizer ---------------- */
+
+const CRAWL_URLS = [
+  { url: "/blog/skincare-routine", status: 200, issues: 0, label: "OK" },
+  { url: "/products/serums", status: 200, issues: 2, label: "2 issues" },
+  { url: "/old-promo-2023", status: 404, issues: 1, label: "404" },
+  { url: "/collections/organic", status: 200, issues: 0, label: "OK" },
+  { url: "/blog/reduce-wrinkles", status: 301, issues: 1, label: "Redirect" },
+  { url: "/products/moisturizer", status: 200, issues: 3, label: "3 issues" },
+  { url: "/about-us", status: 200, issues: 0, label: "OK" },
+  { url: "/discontinued-item", status: 404, issues: 1, label: "404" },
+];
+
+function CrawlVisualizer() {
+  return (
+    <div className="bg-white border border-black/[0.06] overflow-hidden">
+      {/* Mini browser chrome */}
+      <div className="flex items-center gap-2 px-3 py-1.5 bg-[#f3f4f6] border-b border-black/[0.06]">
+        <div className="flex gap-1">
+          <span className="w-[7px] h-[7px] rounded-full bg-[#ff5f57]" />
+          <span className="w-[7px] h-[7px] rounded-full bg-[#ffbd2e]" />
+          <span className="w-[7px] h-[7px] rounded-full bg-[#28c840]" />
+        </div>
+        <div className="flex-1 flex items-center bg-white border border-black/[0.06] rounded-[3px] px-2 py-[2px] gap-1.5">
+          <svg className="w-2.5 h-2.5 text-slate-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0110 0v4" />
+          </svg>
+          <span className="text-[9px] text-slate-400 truncate">velvetstudio.com</span>
+        </div>
+        <div className="flex items-center gap-1.5 shrink-0">
+          <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" style={{ animation: "crawlPulse 1.5s ease-in-out infinite" }} />
+          <span className="text-[9px] font-medium text-emerald-500">Crawling…</span>
+          <span className="text-[9px] text-slate-400">847 / 912</span>
+        </div>
+      </div>
+
+      {/* Crawl feed — scrolling URLs */}
+      <div className="relative h-[72px] overflow-hidden">
+        {/* Scan line overlay */}
+        <div className="absolute inset-x-0 h-[2px] bg-emerald-400/40 z-10 pointer-events-none" style={{ animation: "crawlScan 3s linear infinite" }} />
+
+        <div className="absolute inset-0" style={{ animation: "crawlFeedScroll 12s linear infinite" }}>
+          <div className="px-3 py-1.5 space-y-[1px]">
+            {[...CRAWL_URLS, ...CRAWL_URLS].map((u, i) => (
+              <div key={i} className="flex items-center gap-2 py-[3px]">
+                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                  u.status === 404 ? "bg-red-400" : u.status === 301 ? "bg-amber-400" : u.issues > 0 ? "bg-amber-300" : "bg-emerald-400"
+                }`} />
+                <span className="text-[10px] text-slate-500 truncate flex-1 font-mono">{u.url}</span>
+                <span className={`text-[9px] font-medium shrink-0 ${
+                  u.status === 404 ? "text-red-400" : u.status === 301 ? "text-amber-500" : u.issues > 0 ? "text-amber-500" : "text-emerald-400"
+                }`}>{u.label}</span>
+                <span className="text-[9px] text-slate-300 shrink-0">{u.status}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Top/bottom fade masks */}
+        <div className="absolute inset-x-0 top-0 h-4 bg-gradient-to-b from-white to-transparent pointer-events-none z-[5]" />
+        <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-white to-transparent pointer-events-none z-[5]" />
+      </div>
+    </div>
+  );
+}
+
 /* ---------------- SEO Score Ring ---------------- */
 
 function SeoScoreRing() {
@@ -544,6 +610,8 @@ function SeoScoreRing() {
 function DashboardScene() {
   return (
     <div className="space-y-3 px-4 py-4 bg-[#f8f9fb]">
+      <CrawlVisualizer />
+
       <SeoScoreRing />
 
       <div className="grid grid-cols-3 gap-[1px] bg-black/[0.04]">

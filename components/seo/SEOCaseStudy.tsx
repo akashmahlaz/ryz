@@ -42,30 +42,33 @@ const FEATURED = {
   image: "/images/case-studies/marcus-holt.jpg",
 };
 
-const STORIES = [
-  {
-    company: "Vista Clinics",
-    industry: "Healthcare",
-    stat: "+121%",
-    statLabel: "non-brand clicks",
-    quote:
-      "Local rankings used to take months. Ryze automated the schema work and we saw results in the first month.",
-    person: "Priya Nair",
-    role: "Digital Director",
-    image: "/images/case-studies/priya-nair.jpg",
-  },
-  {
-    company: "ForgeStack",
-    industry: "SaaS",
-    stat: "+89%",
-    statLabel: "trial signups from SEO",
-    quote:
-      "Our docs had a massive internal linking gap. Ryze mapped and fixed it — the trial pipeline from SEO doubled.",
-    person: "Sophie Adler",
-    role: "VP Marketing",
-    image: "/images/case-studies/sophie-adler.jpg",
-  },
-];
+const VIDEO_STORY = {
+  company: "Vista Clinics",
+  industry: "Healthcare",
+  stat: "+121%",
+  statLabel: "non-brand clicks",
+  headline: "Vista Clinics: Local SEO on Autopilot",
+  description:
+    "The healthcare network automated schema markup with Ryze Enterprise and grew non-brand clicks by 121%.",
+  quote:
+    "Local rankings used to take months. Ryze automated the schema work and we saw results in the first month.",
+  person: "Priya Nair",
+  role: "Digital Director",
+  thumbnail: "/images/case-studies/priya-nair.jpg",
+  video: "/vimeo-1053775447.mp4",
+};
+
+const PHOTO_STORY = {
+  company: "ForgeStack",
+  industry: "SaaS",
+  stat: "+89%",
+  statLabel: "trial signups from SEO",
+  quote:
+    "Our docs had a massive internal linking gap. Ryze mapped and fixed it — the trial pipeline from SEO doubled.",
+  person: "Sophie Adler",
+  role: "VP Marketing",
+  image: "/images/case-studies/sophie-adler.jpg",
+};
 
 export default function SEOCaseStudy() {
   return (
@@ -142,49 +145,111 @@ export default function SEOCaseStudy() {
           </article>
         </RevealDiv>
 
-        {/* ── Two compact cards with photos ── */}
+        {/* ── Two cards: video testimonial + photo card ── */}
         <div className="grid md:grid-cols-2 gap-4">
-          {STORIES.map((s, i) => (
-            <RevealDiv key={s.company} delay={i * 80}>
-              <article className="h-full rounded-2xl border border-zinc-200 bg-white overflow-hidden flex flex-col">
 
-                {/* Photo */}
-                <div className="relative aspect-[3/2]">
-                  <Image
-                    src={s.image}
-                    alt={s.person}
-                    fill
-                    className="object-cover object-top"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
+          {/* Video testimonial card */}
+          <RevealDiv>
+            <article className="h-full rounded-2xl border border-zinc-200 bg-white overflow-hidden flex flex-col">
 
-                {/* Content */}
-                <div className="p-7 md:p-8 flex flex-col flex-1">
-                  <p className="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">
-                    {s.company} · {s.industry}
-                  </p>
-
-                  <div className="mb-4">
-                    <p className="text-3xl font-bold tracking-tight text-emerald-600">
-                      {s.stat}
-                    </p>
-                    <p className="text-xs text-zinc-400 mt-0.5">{s.statLabel}</p>
+              {/* Video with overlays */}
+              <div className="relative aspect-[3/2] group cursor-pointer">
+                <video
+                  src={VIDEO_STORY.video}
+                  poster={VIDEO_STORY.thumbnail}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover object-top"
+                />
+                {/* Subtle dark overlay for badges */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                {/* Play button — top left */}
+                <div className="absolute top-4 left-4 z-10">
+                  <div className="w-11 h-11 rounded-full bg-emerald-400 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    <svg width="14" height="16" viewBox="0 0 16 18" fill="none" aria-hidden="true" className="translate-x-px">
+                      <path d="M2 1v16l12-8L2 1z" fill="#18181b" />
+                    </svg>
                   </div>
-
-                  <blockquote className="flex-1 mb-5">
-                    <p className="text-sm text-zinc-500 leading-relaxed">
-                      &ldquo;{s.quote}&rdquo;
-                    </p>
-                  </blockquote>
-
-                  <p className="text-xs text-zinc-400 pt-4 border-t border-zinc-100">
-                    {s.person} · {s.role}
-                  </p>
                 </div>
-              </article>
-            </RevealDiv>
-          ))}
+                {/* Ryze Enterprise badge — top right */}
+                <div className="absolute top-4 right-4 z-10">
+                  <span className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-white bg-zinc-900/70 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-lg">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/main-logo-sun-2.png" alt="" className="w-3.5 h-3.5 object-contain invert" />
+                    Enterprise
+                  </span>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-7 md:p-8 flex flex-col flex-1">
+                <p className="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">
+                  {VIDEO_STORY.company} · {VIDEO_STORY.industry}
+                </p>
+
+                <div className="mb-4">
+                  <p className="text-3xl font-bold tracking-tight text-emerald-600">
+                    {VIDEO_STORY.stat}
+                  </p>
+                  <p className="text-xs text-zinc-400 mt-0.5">{VIDEO_STORY.statLabel}</p>
+                </div>
+
+                <blockquote className="flex-1 mb-5">
+                  <p className="text-sm text-zinc-500 leading-relaxed">
+                    &ldquo;{VIDEO_STORY.quote}&rdquo;
+                  </p>
+                </blockquote>
+
+                <p className="text-xs text-zinc-400 pt-4 border-t border-zinc-100">
+                  {VIDEO_STORY.person} · {VIDEO_STORY.role}
+                </p>
+              </div>
+            </article>
+          </RevealDiv>
+
+          {/* Photo card */}
+          <RevealDiv delay={80}>
+            <article className="h-full rounded-2xl border border-zinc-200 bg-white overflow-hidden flex flex-col">
+
+              {/* Photo */}
+              <div className="relative aspect-[3/2]">
+                <Image
+                  src={PHOTO_STORY.image}
+                  alt={PHOTO_STORY.person}
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+
+              {/* Content */}
+              <div className="p-7 md:p-8 flex flex-col flex-1">
+                <p className="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">
+                  {PHOTO_STORY.company} · {PHOTO_STORY.industry}
+                </p>
+
+                <div className="mb-4">
+                  <p className="text-3xl font-bold tracking-tight text-emerald-600">
+                    {PHOTO_STORY.stat}
+                  </p>
+                  <p className="text-xs text-zinc-400 mt-0.5">{PHOTO_STORY.statLabel}</p>
+                </div>
+
+                <blockquote className="flex-1 mb-5">
+                  <p className="text-sm text-zinc-500 leading-relaxed">
+                    &ldquo;{PHOTO_STORY.quote}&rdquo;
+                  </p>
+                </blockquote>
+
+                <p className="text-xs text-zinc-400 pt-4 border-t border-zinc-100">
+                  {PHOTO_STORY.person} · {PHOTO_STORY.role}
+                </p>
+              </div>
+            </article>
+          </RevealDiv>
+
         </div>
 
         {/* ── CTA ── */}

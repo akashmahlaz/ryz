@@ -396,7 +396,7 @@ export default function SEOCTA() {
                   href="#"
                   className="inline-flex w-full items-center justify-center rounded-[3px] border border-zinc-200 bg-white text-zinc-600 text-[13px] font-medium py-3 hover:bg-zinc-50 transition-colors"
                 >
-                  Start free — no credit card needed
+                  3 Day trail — no credit card needed
                 </a>
               </div>
 

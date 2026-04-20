@@ -48,9 +48,9 @@ const VIDEO_STORY = {
   industry: "Healthcare",
   stat: "+121%",
   statLabel: "non-brand clicks",
-  headline: "Vista Clinics: Local SEO on Autopilot",
+  headline: "Vista Clinics ranked for 200+ local searches without a single manual schema edit.",
   description:
-    "The healthcare network automated schema markup with Ryze Enterprise and grew non-brand clicks by 121%.",
+    "The healthcare network let Ryze handle schema and location signals across 14 clinics. Non-brand clicks grew 121% in three months.",
   quote:
     "Local rankings used to take months. Ryze automated the schema work and we saw results in the first month.",
   person: "Priya Nair",
@@ -69,6 +69,18 @@ const PHOTO_STORY = {
   person: "Sophie Adler",
   role: "VP Marketing",
   image: "/images/case-studies/gpt-two-member-pic1.png",
+};
+
+const STORY5 = {
+  company: "Arclight Digital",
+  industry: "Agency",
+  headline: "Our clients started asking what changed. The answer was Ryze.",
+  quote:
+    "We were shipping great content but the technical foundation was leaking equity everywhere. Ryze fixed that without us having to touch a single dev ticket.",
+  person: "Daniel Osei",
+  role: "Founder & CEO",
+  image: "/images/case-studies/story4.png",
+  bubble: "12 new page-1 rankings since Monday. Thought you'd want to see this before the client call.",
 };
 
 function VideoCard() {
@@ -283,6 +295,66 @@ export default function SEOCaseStudy() {
           </RevealDiv>
 
         </div>
+
+        {/* ── Story 5 — Vouch-style split: text left, photo + bubble right ── */}
+        <RevealDiv className="mt-4">
+          <article className="rounded-2xl bg-zinc-50 border border-zinc-200 overflow-hidden">
+            <div className="grid lg:grid-cols-2 gap-0">
+
+              {/* Left — text content */}
+              <div className="flex flex-col justify-center p-10 md:p-14 lg:p-16">
+                <p className="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-6">
+                  {STORY5.company} · {STORY5.industry}
+                </p>
+                <h4 className="text-3xl md:text-[38px] font-bold leading-[1.15] tracking-tight text-zinc-900 mb-8">
+                  {STORY5.headline}
+                </h4>
+                <a
+                  href="mailto:hello@get-ryze.ai?subject=Free%20SEO%20Audit%20Request"
+                  className="inline-flex items-center gap-2 self-start bg-zinc-900 hover:bg-emerald-600 transition-colors text-white text-sm font-semibold px-5 py-3 rounded-full mb-10"
+                >
+                  See how it works
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </a>
+                <blockquote>
+                  <p className="text-sm text-zinc-500 leading-relaxed mb-5">
+                    &ldquo;{STORY5.quote}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-3">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/main-logo-sun-2.png" alt="Ryze" className="w-7 h-7 object-contain" />
+                    <p className="text-xs text-zinc-400">
+                      {STORY5.person} · {STORY5.role}, {STORY5.company}
+                    </p>
+                  </div>
+                </blockquote>
+              </div>
+
+              {/* Right — photo with chat bubble overlay */}
+              <div className="relative flex items-center justify-center p-8 md:p-10 lg:p-12">
+                {/* Photo card */}
+                <div className="relative w-full rounded-2xl overflow-hidden shadow-xl aspect-[4/3]">
+                  <Image
+                    src={STORY5.image}
+                    alt={STORY5.person}
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
+                {/* Floating chat bubble */}
+                <div className="absolute bottom-14 left-4 md:left-6 lg:left-8 max-w-[260px] bg-white rounded-2xl rounded-bl-sm px-4 py-3 shadow-lg border border-zinc-100">
+                  <p className="text-sm font-medium text-zinc-800 leading-snug">
+                    {STORY5.bubble}
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </article>
+        </RevealDiv>
 
         {/* ── CTA ── */}
         <RevealDiv className="mt-10 text-center">

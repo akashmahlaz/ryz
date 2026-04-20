@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRef, useState } from "react";
 import { useScrollReveal } from "@/lib/useScrollReveal";
 
 function RevealDiv({
@@ -67,8 +68,95 @@ const PHOTO_STORY = {
     "Our docs had a massive internal linking gap. Ryze mapped and fixed it — the trial pipeline from SEO doubled.",
   person: "Sophie Adler",
   role: "VP Marketing",
-  image: "/images/case-studies/sophie-adler.jpg",
+  image: "/images/case-studies/gpt-two-member-pic1.png",
 };
+
+function VideoCard() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
+
+  function togglePlay() {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) {
+      v.play();
+      setPlaying(true);
+    } else {
+      v.pause();
+      setPlaying(false);
+    }
+  }
+
+  return (
+    <article className="h-full rounded-2xl border border-zinc-200 bg-white overflow-hidden flex flex-col">
+
+      {/* Video with overlays */}
+      <div className="relative aspect-[3/2] cursor-pointer" onClick={togglePlay}>
+        <video
+          ref={videoRef}
+          src={VIDEO_STORY.video}
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover object-top"
+          onEnded={() => setPlaying(false)}
+        />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+
+        {/* Play / Pause button — center */}
+        <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+          <div className="w-14 h-14 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg transition-transform duration-300 hover:scale-110">
+            {playing ? (
+              /* Pause icon */
+              <svg width="16" height="18" viewBox="0 0 16 18" fill="none" aria-hidden="true">
+                <rect x="1" y="1" width="5" height="16" rx="1" fill="#18181b" />
+                <rect x="10" y="1" width="5" height="16" rx="1" fill="#18181b" />
+              </svg>
+            ) : (
+              /* Play icon */
+              <svg width="18" height="20" viewBox="0 0 18 20" fill="none" aria-hidden="true" className="translate-x-[1px]">
+                <path d="M2 1.5v17l14-8.5L2 1.5z" fill="#18181b" />
+              </svg>
+            )}
+          </div>
+        </div>
+
+        {/* Ryze Enterprise badge — top right */}
+        <div className="absolute top-4 right-4 z-10">
+          <span className="inline-flex items-center gap-2 text-[12px] font-semibold tracking-wide text-zinc-900 bg-white rounded-full px-3.5 py-2 shadow-md">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/main-logo-sun-2.png" alt="" className="w-4 h-4 object-contain" />
+            Ryze Enterprise
+          </span>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-7 md:p-8 flex flex-col flex-1">
+        <p className="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">
+          {VIDEO_STORY.company} · {VIDEO_STORY.industry}
+        </p>
+
+        <div className="mb-4">
+          <p className="text-3xl font-bold tracking-tight text-emerald-600">
+            {VIDEO_STORY.stat}
+          </p>
+          <p className="text-xs text-zinc-400 mt-0.5">{VIDEO_STORY.statLabel}</p>
+        </div>
+
+        <blockquote className="flex-1 mb-5">
+          <p className="text-sm text-zinc-500 leading-relaxed">
+            &ldquo;{VIDEO_STORY.quote}&rdquo;
+          </p>
+        </blockquote>
+
+        <p className="text-xs text-zinc-400 pt-4 border-t border-zinc-100">
+          {VIDEO_STORY.person} · {VIDEO_STORY.role}
+        </p>
+      </div>
+    </article>
+  );
+}
 
 export default function SEOCaseStudy() {
   return (
@@ -150,63 +238,7 @@ export default function SEOCaseStudy() {
 
           {/* Video testimonial card */}
           <RevealDiv>
-            <article className="h-full rounded-2xl border border-zinc-200 bg-white overflow-hidden flex flex-col">
-
-              {/* Video with overlays */}
-              <div className="relative aspect-[3/2] group cursor-pointer">
-                <video
-                  src={VIDEO_STORY.video}
-                  poster={VIDEO_STORY.thumbnail}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="absolute inset-0 w-full h-full object-cover object-top"
-                />
-                {/* Subtle dark overlay for badges */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-                {/* Play button — top left */}
-                <div className="absolute top-4 left-4 z-10">
-                  <div className="w-11 h-11 rounded-full bg-emerald-400 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    <svg width="14" height="16" viewBox="0 0 16 18" fill="none" aria-hidden="true" className="translate-x-px">
-                      <path d="M2 1v16l12-8L2 1z" fill="#18181b" />
-                    </svg>
-                  </div>
-                </div>
-                {/* Ryze Enterprise badge — top right */}
-                <div className="absolute top-4 right-4 z-10">
-                  <span className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-white bg-zinc-900/70 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-lg">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/main-logo-sun-2.png" alt="" className="w-3.5 h-3.5 object-contain invert" />
-                    Enterprise
-                  </span>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-7 md:p-8 flex flex-col flex-1">
-                <p className="text-xs font-medium tracking-widest uppercase text-zinc-400 mb-4">
-                  {VIDEO_STORY.company} · {VIDEO_STORY.industry}
-                </p>
-
-                <div className="mb-4">
-                  <p className="text-3xl font-bold tracking-tight text-emerald-600">
-                    {VIDEO_STORY.stat}
-                  </p>
-                  <p className="text-xs text-zinc-400 mt-0.5">{VIDEO_STORY.statLabel}</p>
-                </div>
-
-                <blockquote className="flex-1 mb-5">
-                  <p className="text-sm text-zinc-500 leading-relaxed">
-                    &ldquo;{VIDEO_STORY.quote}&rdquo;
-                  </p>
-                </blockquote>
-
-                <p className="text-xs text-zinc-400 pt-4 border-t border-zinc-100">
-                  {VIDEO_STORY.person} · {VIDEO_STORY.role}
-                </p>
-              </div>
-            </article>
+            <VideoCard />
           </RevealDiv>
 
           {/* Photo card */}

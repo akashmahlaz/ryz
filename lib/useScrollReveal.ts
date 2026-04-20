@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
-export function useScrollReveal() {
+export function useScrollReveal(delay?: number) {
   const ref = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -18,7 +18,11 @@ export function useScrollReveal() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.classList.add("visible");
+          if (delay) {
+            setTimeout(() => el.classList.add("visible"), delay);
+          } else {
+            el.classList.add("visible");
+          }
           observer.unobserve(el);
         }
       },
@@ -26,6 +30,6 @@ export function useScrollReveal() {
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [prefersReducedMotion]);
+  }, [prefersReducedMotion, delay]);
   return ref;
 }

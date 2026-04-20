@@ -501,22 +501,22 @@ function AnimatedFixList() {
 
 export default function SEOProof() {
   return (
-    <section className="py-16 md:py-28 bg-[#FEFEF5]">
+    <section className="py-24 md:py-32 bg-[#FEFEF5]">
       <style dangerouslySetInnerHTML={{ __html: PROOF_KEYFRAMES }} />
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12">
+      <div className="max-w-[1100px] mx-auto px-5 sm:px-8">
         {/* ── Section heading ── */}
-        <RevealDiv className="text-center mb-10 md:mb-16">
-          <h2 className="text-[28px] md:text-[36px] lg:text-[42px] font-bold tracking-[-0.03em] text-black leading-[1.08]">
-            See what the SEO
-            <br className="hidden md:block" /> agent finds
+        <RevealDiv className="text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-[40px] leading-tight tracking-tight font-bold text-zinc-900">
+            Your site audited. Issues fixed.
+            <br className="hidden md:block" /> No manual work required.
           </h2>
-          <p className="text-[15px] md:text-[17px] text-zinc-500 leading-relaxed mt-4 max-w-lg mx-auto">
-            Continuous technical audits. Every issue found. Every fix applied.
+          <p className="mt-3 text-base md:text-lg text-zinc-500 max-w-lg mx-auto">
+            Ryze runs continuous technical audits and applies fixes in real time — no tickets, no waiting.
           </p>
         </RevealDiv>
 
         {/* ── Full audit card ── */}
-        <RevealDiv className="max-w-[1000px] mx-auto mb-14 md:mb-20">
+        <RevealDiv className="max-w-[960px] mx-auto mb-14 md:mb-20">
           <div className="bg-white rounded-[6px] border border-black/[0.06] shadow-[0_2px_16px_rgba(0,0,0,0.04)] overflow-hidden">
             {/* Window chrome */}
             <div className="flex items-center px-3 sm:px-4 py-2 sm:py-2.5 bg-[#EFECE4] border-b border-black/[0.06]">
@@ -567,72 +567,17 @@ export default function SEOProof() {
           </div>
         </RevealDiv>
 
-        {/* ── Stat counters ── */}
-        <RevealDiv className="max-w-[900px] mx-auto mb-12 md:mb-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 text-center">
-            {[
-              {
-                value: 2847,
-                suffix: "",
-                label: "Audits run",
-                decimals: 0,
-                prefix: "",
-              },
-              {
-                value: 23.5,
-                suffix: "M",
-                label: "Pages crawled",
-                decimals: 1,
-                prefix: "",
-              },
-              {
-                value: 22,
-                suffix: "%",
-                label: "Avg. CTR lift",
-                decimals: 0,
-                prefix: "+",
-              },
-              {
-                value: 48,
-                suffix: "K+",
-                label: "Keywords tracked",
-                decimals: 0,
-                prefix: "",
-              },
-            ].map((stat, i) => (
-              <div key={i}>
-                <div className="text-[28px] md:text-[36px] font-bold text-black tracking-[-0.02em] leading-none mb-2">
-                  <Counter
-                    value={stat.value}
-                    suffix={stat.suffix}
-                    prefix={stat.prefix}
-                    decimals={stat.decimals}
-                  />
-                </div>
-                <div className="text-[13px] text-zinc-500 font-medium">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="mt-4 text-center text-[11px] text-zinc-400">
-            Based on anonymized rolling 90-day benchmark data.
-          </p>
-        </RevealDiv>
-
         {/* ── Press logos ── */}
-        <RevealDiv className="flex flex-wrap items-center justify-center gap-8 md:gap-14 opacity-40">
+        <RevealDiv className="flex flex-wrap items-center justify-center gap-8 md:gap-14 opacity-30">
           {[
             { src: "/press-wsj.svg", alt: "WSJ" },
             { src: "/press-forbes.svg", alt: "Forbes" },
             { src: "/press-axios.svg", alt: "Axios" },
-            {
-              src: "/press-business-insider.svg",
-              alt: "Business Insider",
-            },
+            { src: "/press-business-insider.svg", alt: "Business Insider" },
             { src: "/press-fortune.svg", alt: "Fortune" },
           ].map((logo) => (
-            <div key={logo.alt} className="h-5 md:h-6 relative">
+            <div key={logo.alt} className="h-4 md:h-5 relative">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 alt={logo.alt}
                 loading="lazy"

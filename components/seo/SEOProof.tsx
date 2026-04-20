@@ -32,6 +32,17 @@ const PROOF_KEYFRAMES = `
   0%   { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(-6px); opacity: 0.4; }
 }
+@keyframes proofClickFlash {
+  0%   { transform: translate(-50%, -50%) scale(0.55); opacity: 0.45; }
+  100% { transform: translate(-50%, -50%) scale(1.9); opacity: 0; }
+}
+@keyframes proofFailShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-2px); }
+  40% { transform: translateX(2px); }
+  60% { transform: translateX(-1px); }
+  80% { transform: translateX(1px); }
+}
 `;
 
 /* ─── Animated counter (reusable, same pattern as ConnectCTA) ─── */
@@ -198,13 +209,24 @@ function RevealDiv({
 
 /* ─── Animated fix list with cursor ─── */
 function AnimatedFixList() {
+  const FAIL_ON_INDEX = 2;
+  const MOVE_MS = 980;
+  const CLICK_MS = 170;
+
   const [activeIdx, setActiveIdx] = useState(-1);
   const [appliedSet, setAppliedSet] = useState<Set<number>>(new Set());
+  const [failedSet, setFailedSet] = useState<Set<number>>(new Set());
+  const [retryingIdx, setRetryingIdx] = useState(-1);
+  const [clickPulseIdx, setClickPulseIdx] = useState(-1);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const [cursorVisible, setCursorVisible] = useState(false);
+  const [clickFlashPos, setClickFlashPos] = useState({ x: 0, y: 0 });
+  const [showClickFlash, setShowClickFlash] = useState(false);
   const [showRipple, setShowRipple] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const timersRef = useRef<number[]>([]);
+  const failedOnceRef = useRef<Set<number>>(new Set());
   const started = useRef(false);
   const fixCount = FIXES.length;
 
@@ -237,16 +259,27 @@ function AnimatedFixList() {
     clearTimers();
     let step = 0;
     setAppliedSet(new Set());
+    setFailedSet(new Set());
+    setRetryingIdx(-1);
+    setClickPulseIdx(-1);
     setActiveIdx(-1);
+    setCursorVisible(false);
+    setShowClickFlash(false);
     setShowRipple(false);
+    failedOnceRef.current = new Set();
 
     const next = () => {
       if (step >= fixCount) {
         // reset after pause
         schedule(() => {
           setAppliedSet(new Set());
+          setFailedSet(new Set());
+          setRetryingIdx(-1);
+          setClickPulseIdx(-1);
           setActiveIdx(-1);
           setCursorPos({ x: 0, y: 0 });
+          setCursorVisible(false);
+          setShowClickFlash(false);
           schedule(runSequence, 1200);
         }, 2500);
         return;
@@ -256,18 +289,48 @@ function AnimatedFixList() {
       const target = getButtonCenter(currentIdx);
       if (target) {
         setCursorPos(target);
+        setClickFlashPos(target);
+        setCursorVisible(true);
       }
 
       // Move cursor to button
       setActiveIdx(currentIdx);
+      setRetryingIdx(-1);
 
       // Click after cursor arrives
       schedule(() => {
+        setClickPulseIdx(currentIdx);
+        setShowClickFlash(true);
         setShowRipple(true);
-        schedule(() => setShowRipple(false), 400);
-
-        // Mark as applied
         schedule(() => {
+          setShowRipple(false);
+          setShowClickFlash(false);
+          setClickPulseIdx(-1);
+        }, 260);
+
+        // Mark as applied, with one realistic fail/retry cycle.
+        schedule(() => {
+          if (currentIdx === FAIL_ON_INDEX && !failedOnceRef.current.has(currentIdx)) {
+            failedOnceRef.current.add(currentIdx);
+            setFailedSet((prev) => {
+              const nextSet = new Set(prev);
+              nextSet.add(currentIdx);
+              return nextSet;
+            });
+            setRetryingIdx(currentIdx);
+
+            schedule(() => {
+              setFailedSet((prev) => {
+                const nextSet = new Set(prev);
+                nextSet.delete(currentIdx);
+                return nextSet;
+              });
+              setRetryingIdx(-1);
+              schedule(next, 240);
+            }, 520);
+            return;
+          }
+
           setAppliedSet((prev) => {
             const nextSet = new Set(prev);
             nextSet.add(currentIdx);
@@ -275,8 +338,8 @@ function AnimatedFixList() {
           });
           step = currentIdx + 1;
           schedule(next, 600);
-        }, 300);
-      }, 800);
+        }, CLICK_MS);
+      }, MOVE_MS);
     };
 
     // Start after initial delay
@@ -309,12 +372,13 @@ function AnimatedFixList() {
           Auto-Fixes Ready
         </span>
         <span className="text-[10px] text-zinc-400">
-          {appliedSet.size}/{fixCount} applied · {appliedSet.size === fixCount ? "done ✓" : "running…"}
+          {appliedSet.size}/{fixCount} applied · {retryingIdx >= 0 ? "retrying…" : appliedSet.size === fixCount ? "done ✓" : "running…"}
         </span>
       </div>
       <div className="space-y-2">
         {FIXES.map((fix, i) => {
           const isApplied = appliedSet.has(i);
+          const isFailed = failedSet.has(i);
           const isTarget = activeIdx === i && !isApplied;
           return (
             <div
@@ -322,10 +386,12 @@ function AnimatedFixList() {
               className={`flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 py-2.5 px-3 md:px-4 rounded-[3px] border transition-all duration-500 ${
                 isApplied
                   ? "bg-emerald-50/60 border-emerald-200/60"
+                  : isFailed
+                  ? "bg-rose-50/70 border-rose-200"
                   : isTarget
                   ? "bg-zinc-100/80 border-zinc-200 scale-[1.01]"
                   : "bg-zinc-50/80 border-zinc-100"
-              }`}
+              } ${isFailed ? "animate-[proofFailShake_0.28s_ease-in-out]" : ""}`}
             >
               <div className="flex items-center gap-2 flex-1 min-w-0">
                 {/* Check icon or bullet */}
@@ -335,10 +401,10 @@ function AnimatedFixList() {
                       <path d="M3 8.5l3.5 3.5L13 4" />
                     </svg>
                   ) : (
-                    <div className={`w-1.5 h-1.5 rounded-full ${isTarget ? "bg-zinc-900" : "bg-zinc-300"}`} />
+                    <div className={`w-1.5 h-1.5 rounded-full ${isFailed ? "bg-rose-500" : isTarget ? "bg-zinc-900" : "bg-zinc-300"}`} />
                   )}
                 </div>
-                <span className={`text-[12px] md:text-[13px] leading-snug transition-all duration-500 relative ${isApplied ? "text-zinc-400" : "text-zinc-600"}`}>
+                <span className={`text-[12px] md:text-[13px] leading-snug transition-all duration-500 relative ${isApplied ? "text-zinc-400" : isFailed ? "text-rose-600" : "text-zinc-600"}`}>
                   {fix.text}
                   {isApplied && (
                     <span className="absolute left-0 top-1/2 h-px bg-zinc-300" style={{ animation: "proofStrikethrough 0.3s ease-out forwards" }} />
@@ -346,22 +412,24 @@ function AnimatedFixList() {
                 </span>
               </div>
               <div className="flex items-center gap-2 sm:gap-3 ml-6 sm:ml-0">
-                <span className={`text-[11px] font-medium shrink-0 transition-colors duration-500 ${isApplied ? "text-emerald-500" : "text-emerald-500/70"}`}>
+                <span className={`text-[11px] font-medium shrink-0 transition-colors duration-500 ${isApplied ? "text-emerald-500" : isFailed ? "text-rose-500" : "text-emerald-500/70"}`}>
                   {fix.impact}
                 </span>
                 <button
                   ref={(el) => {
                     buttonRefs.current[i] = el;
                   }}
-                  className={`text-[10px] px-2.5 py-1 rounded-[3px] font-medium shrink-0 transition-all duration-300 ${
+                  className={`text-[10px] px-2.5 py-1 rounded-[3px] font-medium shrink-0 transition-all duration-200 ${
                     isApplied
                       ? "bg-emerald-500 text-white"
+                      : isFailed
+                      ? "bg-rose-500 text-white"
                       : isTarget
                       ? "bg-zinc-900 text-white ring-2 ring-zinc-900/20 scale-105"
                       : "bg-zinc-900 text-white hover:bg-zinc-700"
-                  }`}
+                  } ${clickPulseIdx === i ? "scale-95 brightness-110" : ""}`}
                 >
-                  {isApplied ? "Done ✓" : "Apply"}
+                  {isApplied ? "Done ✓" : isFailed ? "Retry" : "Apply"}
                 </button>
               </div>
             </div>
@@ -371,7 +439,7 @@ function AnimatedFixList() {
 
       {/* Animated cursor */}
       <div
-        className="absolute pointer-events-none z-20 hidden md:block transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+        className={`absolute pointer-events-none z-20 hidden md:block transition-all duration-900 ease-[cubic-bezier(0.22,1,0.36,1)] ${cursorVisible ? "opacity-100" : "opacity-0"}`}
         style={{ left: `${cursorPos.x}px`, top: `${cursorPos.y}px`, transform: "translate(-50%, -50%)" }}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="white" stroke="black" strokeWidth="1.2">
@@ -381,6 +449,12 @@ function AnimatedFixList() {
           <div className="absolute top-1 left-1 w-3 h-3 rounded-full bg-zinc-900/20" style={{ animation: "proofRipple 0.4s ease-out forwards" }} />
         )}
       </div>
+      {showClickFlash && (
+        <div
+          className="absolute pointer-events-none z-10 hidden md:block w-6 h-6 rounded-full bg-zinc-900/15"
+          style={{ left: `${clickFlashPos.x}px`, top: `${clickFlashPos.y}px`, animation: "proofClickFlash 0.24s ease-out forwards" }}
+        />
+      )}
     </div>
   );
 }

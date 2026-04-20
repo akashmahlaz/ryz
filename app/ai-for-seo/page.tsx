@@ -4,6 +4,11 @@ import SEOHero from "@/components/seo/SEOHero";
 import SEOCapabilities from "@/components/seo/SEOCapabilities";
 import SEOProof from "@/components/seo/SEOProof";
 import SEOCTA from "@/components/seo/SEOCTA";
+import SEOCaseStudy from "@/components/seo/SEOCaseStudy";
+import SEOComparison from "@/components/seo/SEOComparison";
+import SEOIntegrations from "@/components/seo/SEOIntegrations";
+import SEOFAQ from "@/components/seo/SEOFAQ";
+import SEOMobileStickyCTA from "@/components/seo/SEOMobileStickyCTA";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://get-ryze.ai"),
@@ -78,7 +83,12 @@ export default function AIForSEO() {
         <SEOHero />
         <SEOCapabilities />
         <SEOProof />
+        <SEOCaseStudy />
+        <SEOComparison />
+        <SEOIntegrations />
+        <SEOFAQ />
         <SEOCTA />
+        <SEOMobileStickyCTA />
       </main>
     </div>
   );

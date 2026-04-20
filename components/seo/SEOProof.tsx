@@ -1,7 +1,38 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { useScrollReveal } from "@/lib/useScrollReveal";
+
+/* ─── Component-scoped keyframes ─── */
+const PROOF_KEYFRAMES = `
+@keyframes proofCursorMove {
+  0%   { top: 20%; left: 60%; opacity: 0; }
+  5%   { top: 20%; left: 60%; opacity: 1; }
+  15%  { top: var(--target-y); left: var(--target-x); opacity: 1; }
+  18%  { transform: scale(0.8); }
+  20%  { transform: scale(1); }
+  25%  { top: var(--target-y); left: var(--target-x); opacity: 1; }
+  30%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes proofRipple {
+  0%   { transform: scale(0); opacity: 0.5; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+@keyframes proofCheckPop {
+  0%   { transform: scale(0) rotate(-45deg); opacity: 0; }
+  50%  { transform: scale(1.2) rotate(0deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes proofStrikethrough {
+  0%   { width: 0; }
+  100% { width: 100%; }
+}
+@keyframes proofSlideUp {
+  0%   { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-6px); opacity: 0.4; }
+}
+`;
 
 /* ─── Animated counter (reusable, same pattern as ConnectCTA) ─── */
 function Counter({
@@ -165,12 +196,161 @@ function RevealDiv({
   );
 }
 
+/* ─── Animated fix list with cursor ─── */
+function AnimatedFixList() {
+  const [activeIdx, setActiveIdx] = useState(-1);
+  const [appliedSet, setAppliedSet] = useState<Set<number>>(new Set());
+  const [cursorPos, setCursorPos] = useState({ x: "70%", y: "20%" });
+  const [showRipple, setShowRipple] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const started = useRef(false);
+  const fixCount = FIXES.length;
+
+  const runSequence = useCallback(() => {
+    let step = 0;
+    setAppliedSet(new Set());
+    setActiveIdx(-1);
+
+    const next = () => {
+      if (step >= fixCount) {
+        // reset after pause
+        setTimeout(() => {
+          setAppliedSet(new Set());
+          setActiveIdx(-1);
+          setCursorPos({ x: "70%", y: "20%" });
+          setTimeout(runSequence, 1200);
+        }, 2500);
+        return;
+      }
+
+      const btnY = `${18 + step * 13}%`;
+      const btnX = "92%";
+
+      // Move cursor to button
+      setCursorPos({ x: btnX, y: btnY });
+      setActiveIdx(step);
+
+      // Click after cursor arrives
+      setTimeout(() => {
+        setShowRipple(true);
+        setTimeout(() => setShowRipple(false), 400);
+
+        // Mark as applied
+        setTimeout(() => {
+          setAppliedSet((prev) => new Set(prev).add(step));
+          step++;
+          setTimeout(next, 600);
+        }, 300);
+      }, 800);
+    };
+
+    // Start after initial delay
+    setTimeout(next, 1000);
+  }, [fixCount]);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          runSequence();
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    obs.observe(containerRef.current);
+    return () => obs.disconnect();
+  }, [runSequence]);
+
+  return (
+    <div ref={containerRef} className="relative">
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500">
+          Auto-Fixes Ready
+        </span>
+        <span className="text-[10px] text-zinc-400">
+          {appliedSet.size}/{fixCount} applied · {appliedSet.size === fixCount ? "done ✓" : "running…"}
+        </span>
+      </div>
+      <div className="space-y-2">
+        {FIXES.map((fix, i) => {
+          const isApplied = appliedSet.has(i);
+          const isTarget = activeIdx === i && !isApplied;
+          return (
+            <div
+              key={i}
+              className={`flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 py-2.5 px-3 md:px-4 rounded-[3px] border transition-all duration-500 ${
+                isApplied
+                  ? "bg-emerald-50/60 border-emerald-200/60"
+                  : isTarget
+                  ? "bg-zinc-100/80 border-zinc-200 scale-[1.01]"
+                  : "bg-zinc-50/80 border-zinc-100"
+              }`}
+            >
+              <div className="flex items-center gap-2 flex-1 min-w-0">
+                {/* Check icon or bullet */}
+                <div className="w-4 h-4 shrink-0 flex items-center justify-center">
+                  {isApplied ? (
+                    <svg className="w-4 h-4 text-emerald-500" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ animation: "proofCheckPop 0.4s ease-out forwards" }}>
+                      <path d="M3 8.5l3.5 3.5L13 4" />
+                    </svg>
+                  ) : (
+                    <div className={`w-1.5 h-1.5 rounded-full ${isTarget ? "bg-zinc-900" : "bg-zinc-300"}`} />
+                  )}
+                </div>
+                <span className={`text-[12px] md:text-[13px] leading-snug transition-all duration-500 relative ${isApplied ? "text-zinc-400" : "text-zinc-600"}`}>
+                  {fix.text}
+                  {isApplied && (
+                    <span className="absolute left-0 top-1/2 h-px bg-zinc-300" style={{ animation: "proofStrikethrough 0.3s ease-out forwards" }} />
+                  )}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 sm:gap-3 ml-6 sm:ml-0">
+                <span className={`text-[11px] font-medium shrink-0 transition-colors duration-500 ${isApplied ? "text-emerald-500" : "text-emerald-500/70"}`}>
+                  {fix.impact}
+                </span>
+                <button
+                  className={`text-[10px] px-2.5 py-1 rounded-[3px] font-medium shrink-0 transition-all duration-300 ${
+                    isApplied
+                      ? "bg-emerald-500 text-white"
+                      : isTarget
+                      ? "bg-zinc-900 text-white ring-2 ring-zinc-900/20 scale-105"
+                      : "bg-zinc-900 text-white hover:bg-zinc-700"
+                  }`}
+                >
+                  {isApplied ? "Done ✓" : "Apply"}
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Animated cursor */}
+      <div
+        className="absolute pointer-events-none z-20 hidden md:block transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+        style={{ left: cursorPos.x, top: cursorPos.y }}
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white" stroke="black" strokeWidth="1.2">
+          <path d="M5 3l14 8-6 2-4 6z" />
+        </svg>
+        {showRipple && (
+          <div className="absolute top-1 left-1 w-3 h-3 rounded-full bg-zinc-900/20" style={{ animation: "proofRipple 0.4s ease-out forwards" }} />
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function SEOProof() {
   return (
-    <section className="py-20 md:py-28 bg-[#FEFEF5]">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+    <section className="py-16 md:py-28 bg-[#FEFEF5]">
+      <style dangerouslySetInnerHTML={{ __html: PROOF_KEYFRAMES }} />
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12">
         {/* ── Section heading ── */}
-        <RevealDiv className="text-center mb-12 md:mb-16">
+        <RevealDiv className="text-center mb-10 md:mb-16">
           <h2 className="text-[28px] md:text-[36px] lg:text-[42px] font-bold tracking-[-0.03em] text-black leading-[1.08]">
             See what the SEO
             <br className="hidden md:block" /> agent finds
@@ -181,16 +361,16 @@ export default function SEOProof() {
         </RevealDiv>
 
         {/* ── Full audit card ── */}
-        <RevealDiv className="max-w-[1000px] mx-auto mb-16 md:mb-20">
+        <RevealDiv className="max-w-[1000px] mx-auto mb-14 md:mb-20">
           <div className="bg-white rounded-[6px] border border-black/[0.06] shadow-[0_2px_16px_rgba(0,0,0,0.04)] overflow-hidden">
             {/* Window chrome */}
-            <div className="flex items-center px-4 py-2.5 bg-[#EFECE4] border-b border-black/[0.06]">
+            <div className="flex items-center px-3 sm:px-4 py-2 sm:py-2.5 bg-[#EFECE4] border-b border-black/[0.06]">
               <div className="flex items-center gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
                 <div className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
                 <div className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
               </div>
-              <span className="flex-1 text-center text-[11px] text-zinc-400 font-medium tracking-wide">
+              <span className="flex-1 text-center text-[10px] sm:text-[11px] text-zinc-400 font-medium tracking-wide">
                 Full Site Audit — yourdomain.com
               </span>
               <span className="flex items-center gap-1 text-[10px] text-emerald-500 font-medium">
@@ -199,24 +379,24 @@ export default function SEOProof() {
               </span>
             </div>
 
-            <div className="p-5 md:p-8">
+            <div className="p-4 sm:p-5 md:p-8">
               {/* Score grid */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-6 md:mb-8">
                 {AUDIT_CATS.map((cat) => (
                   <div key={cat.label}>
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500">
+                      <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500">
                         {cat.label}
                       </span>
-                      <span className="text-[20px] md:text-[24px] font-bold text-black leading-none">
+                      <span className="text-[18px] sm:text-[20px] md:text-[24px] font-bold text-black leading-none">
                         {cat.score}
-                        <span className="text-[11px] text-zinc-400 font-normal ml-0.5">
+                        <span className="text-[10px] sm:text-[11px] text-zinc-400 font-normal ml-0.5">
                           %
                         </span>
                       </span>
                     </div>
                     <AnimatedBar width={cat.score} color={cat.color} />
-                    <p className="text-[10px] text-zinc-400 leading-relaxed mt-2">
+                    <p className="text-[9px] sm:text-[10px] text-zinc-400 leading-relaxed mt-1.5 sm:mt-2">
                       {cat.desc}
                     </p>
                   </div>
@@ -224,37 +404,10 @@ export default function SEOProof() {
               </div>
 
               {/* Divider */}
-              <div className="h-px bg-zinc-100 mb-6" />
+              <div className="h-px bg-zinc-100 mb-5 md:mb-6" />
 
-              {/* Fix list */}
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500">
-                    Auto-Fixes Ready
-                  </span>
-                  <span className="text-[10px] text-zinc-400">
-                    6 issues · est. time 4.2s
-                  </span>
-                </div>
-                <div className="space-y-2">
-                  {FIXES.map((fix, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-3 py-2.5 px-3 md:px-4 rounded-[3px] bg-zinc-50/80 border border-zinc-100 hover:border-zinc-200 transition-colors"
-                    >
-                      <span className="text-[12px] md:text-[13px] text-zinc-600 flex-1 leading-snug">
-                        {fix.text}
-                      </span>
-                      <span className="text-[11px] text-emerald-500 font-medium shrink-0">
-                        {fix.impact}
-                      </span>
-                      <span className="text-[10px] bg-zinc-900 text-white px-2.5 py-1 rounded-[3px] font-medium shrink-0 cursor-pointer hover:bg-zinc-700 transition-colors">
-                        Apply
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              {/* Animated fix list with cursor */}
+              <AnimatedFixList />
             </div>
           </div>
         </RevealDiv>

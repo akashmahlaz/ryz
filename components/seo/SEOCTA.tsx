@@ -87,20 +87,19 @@ export default function SEOCTA() {
   })();
 
   return (
-    <section className="relative w-full min-h-screen overflow-hidden grid grid-cols-1 lg:grid-cols-3">
+    <section className="relative w-full lg:min-h-screen overflow-hidden grid grid-cols-1 lg:grid-cols-3">
       {/* ── Left panel: SEO Stats ── */}
       <div
         className="relative flex items-stretch justify-center px-4 md:px-8 lg:px-12 overflow-hidden"
         style={{ background: "#F5FAF0" }}
       >
-        {/* Grid lines */}
+        {/* Subtle grid lines */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(120,170,100,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(120,170,100,0.06) 1px, transparent 1px)",
+              "linear-gradient(rgba(120,170,100,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(120,170,100,0.05) 1px, transparent 1px)",
             backgroundSize: "40px 40px",
-            opacity: 0,
           }}
         />
 
@@ -132,8 +131,8 @@ export default function SEOCTA() {
 
         {/* Stats content */}
         <div
-          className="relative z-10 w-full max-w-[335px] flex flex-col justify-center h-full py-12 lg:py-0"
-          style={{ transform: "translateY(-30px)" }}
+          className="relative z-10 w-full max-w-[335px] flex flex-col justify-center py-10 lg:py-0 lg:h-full"
+          style={{ transform: "translateY(0)" }}
         >
           {/* Title */}
           <div className="mb-7">
@@ -272,7 +271,7 @@ export default function SEOCTA() {
         </div>
 
         {/* Footer links */}
-        <div className="absolute bottom-0 left-0 right-0 px-4 md:px-8 lg:px-12 pb-1 z-10">
+        <div className="relative lg:absolute lg:bottom-0 lg:left-0 lg:right-0 px-4 md:px-8 lg:px-12 pb-3 lg:pb-1 pt-6 lg:pt-0 z-10">
           <div className="flex items-center gap-3 md:gap-5 flex-wrap mb-3">
             <a
               href="/about"
@@ -310,7 +309,7 @@ export default function SEOCTA() {
             alt=""
             loading="lazy"
             decoding="async"
-            className="object-cover object-bottom-right"
+            className="object-cover object-right-bottom"
             style={{
               position: "absolute",
               height: "100%",

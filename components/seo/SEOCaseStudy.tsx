@@ -2,6 +2,21 @@
 
 import { useScrollReveal } from "@/lib/useScrollReveal";
 
+function RevealDiv({
+  className,
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) {
+  const ref = useScrollReveal();
+  return (
+    <div ref={ref} className={`fade-in-up ${className ?? ""}`}>
+      {children}
+    </div>
+  );
+}
+
 const CASE_STUDIES = [
   {
     brand: "Nimbus Commerce",
@@ -27,12 +42,10 @@ const CASE_STUDIES = [
 ];
 
 export default function SEOCaseStudy() {
-  const ref = useScrollReveal();
-
   return (
     <section className="bg-[#FEFEF5] py-14 md:py-20 border-t border-black/5">
-      <div className="max-w-[1367px] mx-auto px-4 sm:px-6 md:px-12 xl:px-16" ref={ref}>
-        <div className="flex items-end justify-between gap-4 mb-8 md:mb-10 fade-in-up">
+      <div className="max-w-[1367px] mx-auto px-4 sm:px-6 md:px-12 xl:px-16">
+        <RevealDiv className="flex items-end justify-between gap-4 mb-8 md:mb-10">
           <div>
             <p className="text-[11px] uppercase tracking-[0.14em] font-semibold text-zinc-500 mb-2">Proof, not promises</p>
             <h3 className="text-[28px] md:text-[38px] leading-[1.02] tracking-[-0.03em] font-bold text-zinc-900">
@@ -42,9 +55,9 @@ export default function SEOCaseStudy() {
           <span className="hidden md:inline-flex px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[12px] font-medium">
             90-day snapshots
           </span>
-        </div>
+        </RevealDiv>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-4 fade-in-up">
+        <RevealDiv className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-4">
           {CASE_STUDIES.map((study) => (
             <article
               key={study.brand}
@@ -70,7 +83,7 @@ export default function SEOCaseStudy() {
               </ul>
             </article>
           ))}
-        </div>
+        </RevealDiv>
       </div>
     </section>
   );

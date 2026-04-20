@@ -91,7 +91,7 @@ const capabilities = [
 export default function SEOCapabilities() {
   return (
     <section className="py-16 md:py-28 bg-[#FEFEF5]">
-      <div className="max-w-[1367px] mx-auto px-4 sm:px-6 md:px-12 xl:px-16">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 xl:px-16">
         {/* Section heading */}
         <RevealDiv className="text-center mb-10 md:mb-[41px]">
           <h2 className="text-[28px] md:text-[36px] lg:text-[48px] font-bold tracking-[-0.03em] text-black leading-[1.08]">

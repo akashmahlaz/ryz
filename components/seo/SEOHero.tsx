@@ -254,7 +254,7 @@ export default function SEOHero() {
       <a
         href="#seo-cta-form"
         aria-label="Jump to SEO CTA form"
-        className="fixed bottom-3 right-3 md:bottom-6 md:right-4 z-50 flex items-center gap-1.5 md:gap-2 text-neutral-900 pl-2 md:pl-2.5 pr-2.5 md:pr-3.5 py-2 md:py-3 rounded-full shadow-[0_2px_20px_rgba(0,0,0,0.08),-6px_0_15px_rgba(0,0,0,0.06)] border border-neutral-200 hover:brightness-95 hover:scale-105 transition-all no-underline group max-w-[220px] md:max-w-none"
+        className="fixed bottom-3 right-3 md:bottom-6 md:right-4 z-50 hidden md:flex items-center gap-1.5 md:gap-2 text-neutral-900 pl-2 md:pl-2.5 pr-2.5 md:pr-3.5 py-2 md:py-3 rounded-full shadow-[0_2px_20px_rgba(0,0,0,0.08),-6px_0_15px_rgba(0,0,0,0.06)] border border-neutral-200 hover:brightness-95 hover:scale-105 transition-all no-underline group max-w-[220px] md:max-w-none"
         style={{ background: "linear-gradient(135deg, #FFF6EE 0%, #FFEFE2 50%, #FFDDC4 100%)" }}
       >
         <img src="/images/mcp-3-steps/claude_logo.png" alt="Claude AI" className="h-6 w-6 md:h-[34px] md:w-[34px] rounded-full object-contain shrink-0" style={{ animation: prefersReducedMotion ? "none" : "mcpSpin 25s linear infinite" }} />

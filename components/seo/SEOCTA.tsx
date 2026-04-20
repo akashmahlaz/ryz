@@ -384,7 +384,7 @@ export default function SEOCTA() {
             }}
           >
             <div
-              className="rounded-lg px-8 md:px-10 py-8 md:py-10 flex flex-col items-center text-center"
+              className="rounded-[3px] px-8 md:px-10 py-8 md:py-10 flex flex-col items-center text-center"
               style={{ background: "rgba(255,255,255,0.92)" }}
             >
               <h2 className="text-[26px] md:text-[30px] lg:text-[38px] font-bold tracking-[-0.03em] leading-[0.9] mb-4 text-zinc-900">

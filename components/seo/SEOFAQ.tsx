@@ -3,6 +3,21 @@
 import { useState } from "react";
 import { useScrollReveal } from "@/lib/useScrollReveal";
 
+function RevealDiv({
+  className,
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) {
+  const ref = useScrollReveal();
+  return (
+    <div ref={ref} className={`fade-in-up ${className ?? ""}`}>
+      {children}
+    </div>
+  );
+}
+
 const FAQS = [
   {
     q: "How long does setup take?",
@@ -31,20 +46,19 @@ const FAQS = [
 ];
 
 export default function SEOFAQ() {
-  const ref = useScrollReveal();
   const [openIdx, setOpenIdx] = useState(0);
 
   return (
     <section className="bg-[#FEFEF5] py-14 md:py-20">
-      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-12" ref={ref}>
-        <div className="text-center mb-8 md:mb-10 fade-in-up">
+      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-12">
+        <RevealDiv className="text-center mb-8 md:mb-10">
           <p className="text-[11px] uppercase tracking-[0.14em] font-semibold text-zinc-500 mb-2">FAQ</p>
           <h3 className="text-[28px] md:text-[38px] leading-[1.02] tracking-[-0.03em] font-bold text-zinc-900">
             Common questions before you launch
           </h3>
-        </div>
+        </RevealDiv>
 
-        <div className="space-y-2 fade-in-up">
+        <RevealDiv className="space-y-2">
           {FAQS.map((item, idx) => {
             const open = openIdx === idx;
             return (
@@ -62,7 +76,7 @@ export default function SEOFAQ() {
               </div>
             );
           })}
-        </div>
+        </RevealDiv>
       </div>
     </section>
   );

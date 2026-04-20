@@ -200,53 +200,88 @@ function RevealDiv({
 function AnimatedFixList() {
   const [activeIdx, setActiveIdx] = useState(-1);
   const [appliedSet, setAppliedSet] = useState<Set<number>>(new Set());
-  const [cursorPos, setCursorPos] = useState({ x: "70%", y: "20%" });
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const [showRipple, setShowRipple] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const timersRef = useRef<number[]>([]);
   const started = useRef(false);
   const fixCount = FIXES.length;
 
+  const schedule = useCallback((fn: () => void, delay: number) => {
+    const id = window.setTimeout(fn, delay);
+    timersRef.current.push(id);
+    return id;
+  }, []);
+
+  const clearTimers = useCallback(() => {
+    timersRef.current.forEach((id) => window.clearTimeout(id));
+    timersRef.current = [];
+  }, []);
+
+  const getButtonCenter = useCallback((idx: number) => {
+    const container = containerRef.current;
+    const button = buttonRefs.current[idx];
+    if (!container || !button) return null;
+
+    const cRect = container.getBoundingClientRect();
+    const bRect = button.getBoundingClientRect();
+
+    return {
+      x: bRect.left - cRect.left + bRect.width / 2,
+      y: bRect.top - cRect.top + bRect.height / 2,
+    };
+  }, []);
+
   const runSequence = useCallback(() => {
+    clearTimers();
     let step = 0;
     setAppliedSet(new Set());
     setActiveIdx(-1);
+    setShowRipple(false);
 
     const next = () => {
       if (step >= fixCount) {
         // reset after pause
-        setTimeout(() => {
+        schedule(() => {
           setAppliedSet(new Set());
           setActiveIdx(-1);
-          setCursorPos({ x: "70%", y: "20%" });
-          setTimeout(runSequence, 1200);
+          setCursorPos({ x: 0, y: 0 });
+          schedule(runSequence, 1200);
         }, 2500);
         return;
       }
 
-      const btnY = `${18 + step * 13}%`;
-      const btnX = "92%";
+      const currentIdx = step;
+      const target = getButtonCenter(currentIdx);
+      if (target) {
+        setCursorPos(target);
+      }
 
       // Move cursor to button
-      setCursorPos({ x: btnX, y: btnY });
-      setActiveIdx(step);
+      setActiveIdx(currentIdx);
 
       // Click after cursor arrives
-      setTimeout(() => {
+      schedule(() => {
         setShowRipple(true);
-        setTimeout(() => setShowRipple(false), 400);
+        schedule(() => setShowRipple(false), 400);
 
         // Mark as applied
-        setTimeout(() => {
-          setAppliedSet((prev) => new Set(prev).add(step));
-          step++;
-          setTimeout(next, 600);
+        schedule(() => {
+          setAppliedSet((prev) => {
+            const nextSet = new Set(prev);
+            nextSet.add(currentIdx);
+            return nextSet;
+          });
+          step = currentIdx + 1;
+          schedule(next, 600);
         }, 300);
       }, 800);
     };
 
     // Start after initial delay
-    setTimeout(next, 1000);
-  }, [fixCount]);
+    schedule(next, 1000);
+  }, [fixCount, getButtonCenter, clearTimers, schedule]);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -261,8 +296,11 @@ function AnimatedFixList() {
       { threshold: 0.3 }
     );
     obs.observe(containerRef.current);
-    return () => obs.disconnect();
-  }, [runSequence]);
+    return () => {
+      obs.disconnect();
+      clearTimers();
+    };
+  }, [runSequence, clearTimers]);
 
   return (
     <div ref={containerRef} className="relative">
@@ -312,6 +350,9 @@ function AnimatedFixList() {
                   {fix.impact}
                 </span>
                 <button
+                  ref={(el) => {
+                    buttonRefs.current[i] = el;
+                  }}
                   className={`text-[10px] px-2.5 py-1 rounded-[3px] font-medium shrink-0 transition-all duration-300 ${
                     isApplied
                       ? "bg-emerald-500 text-white"
@@ -331,7 +372,7 @@ function AnimatedFixList() {
       {/* Animated cursor */}
       <div
         className="absolute pointer-events-none z-20 hidden md:block transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
-        style={{ left: cursorPos.x, top: cursorPos.y }}
+        style={{ left: `${cursorPos.x}px`, top: `${cursorPos.y}px`, transform: "translate(-50%, -50%)" }}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="white" stroke="black" strokeWidth="1.2">
           <path d="M5 3l14 8-6 2-4 6z" />

@@ -336,7 +336,7 @@ export default function SEOCTA() {
               color: "transparent",
             }}
             sizes="100vw"
-            src="/landscape-for-landing-3.png"
+            src="/images/case-studies/cta3.png"
           />
           {/* Darker overlay for text readability */}
           <div

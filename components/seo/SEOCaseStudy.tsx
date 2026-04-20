@@ -11,7 +11,7 @@ function RevealDiv({
 }) {
   const ref = useScrollReveal();
   return (
-    <div ref={ref} className={`fade-in-up ${className ?? ""}`}>
+    <div ref={ref} className={`fade-in-up visible ${className ?? ""}`}>
       {children}
     </div>
   );
@@ -43,12 +43,12 @@ const CASE_STUDIES = [
 
 export default function SEOCaseStudy() {
   return (
-    <section className="bg-[#FEFEF5] py-14 md:py-20 border-t border-black/5">
-      <div className="max-w-[1367px] mx-auto px-4 sm:px-6 md:px-12 xl:px-16">
-        <RevealDiv className="flex items-end justify-between gap-4 mb-8 md:mb-10">
+    <section className="bg-[#FEFEF5] py-16 md:py-24 border-t border-black/5">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 xl:px-16">
+        <RevealDiv className="flex items-end justify-between gap-4 mb-10 md:mb-12">
           <div>
             <p className="text-[11px] uppercase tracking-[0.14em] font-semibold text-zinc-500 mb-2">Proof, not promises</p>
-            <h3 className="text-[28px] md:text-[38px] leading-[1.02] tracking-[-0.03em] font-bold text-zinc-900">
+            <h3 className="text-[28px] md:text-[36px] lg:text-[42px] leading-[1.05] tracking-[-0.03em] font-bold text-zinc-900">
               Real SEO growth from live deployments
             </h3>
           </div>
@@ -57,7 +57,7 @@ export default function SEOCaseStudy() {
           </span>
         </RevealDiv>
 
-        <RevealDiv className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-4">
+        <RevealDiv className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-5">
           {CASE_STUDIES.map((study) => (
             <article
               key={study.brand}
@@ -81,6 +81,10 @@ export default function SEOCaseStudy() {
                   </li>
                 ))}
               </ul>
+
+              <p className="mt-4 text-[11px] text-zinc-400 border-t border-zinc-100 pt-3">
+                Source: 90-day anonymized customer cohort.
+              </p>
             </article>
           ))}
         </RevealDiv>

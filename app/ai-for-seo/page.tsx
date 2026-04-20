@@ -79,7 +79,7 @@ export default function AIForSEO() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(seoServiceJsonLd) }}
       />
       <Navbar />
-      <main>
+      <main className="pb-24 md:pb-0">
         <SEOHero />
         <SEOCapabilities />
         <SEOProof />

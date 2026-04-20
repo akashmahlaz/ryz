@@ -11,7 +11,7 @@ function RevealDiv({
 }) {
   const ref = useScrollReveal();
   return (
-    <div ref={ref} className={`fade-in-up ${className ?? ""}`}>
+    <div ref={ref} className={`fade-in-up visible ${className ?? ""}`}>
       {children}
     </div>
   );
@@ -27,33 +27,40 @@ const ROWS = [
 
 export default function SEOComparison() {
   return (
-    <section className="bg-[#FEFEF5] py-14 md:py-20">
-      <div className="max-w-[1367px] mx-auto px-4 sm:px-6 md:px-12 xl:px-16">
-        <RevealDiv className="mb-7 md:mb-9">
+    <section className="bg-[#FEFEF5] py-16 md:py-24 border-t border-black/5">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 xl:px-16">
+        <RevealDiv className="mb-10 md:mb-12">
           <p className="text-[11px] uppercase tracking-[0.14em] font-semibold text-zinc-500 mb-2">Why teams switch</p>
-          <h3 className="text-[28px] md:text-[38px] leading-[1.02] tracking-[-0.03em] font-bold text-zinc-900">
+          <h3 className="text-[28px] md:text-[36px] lg:text-[42px] leading-[1.05] tracking-[-0.03em] font-bold text-zinc-900">
             Ryze vs manual SEO, agency workflows, and point tools
           </h3>
+          <p className="mt-3 text-[12px] text-zinc-500 md:hidden">
+            Swipe horizontally to compare all columns.
+          </p>
         </RevealDiv>
 
         <RevealDiv className="rounded-[8px] border border-zinc-200 bg-white overflow-hidden">
-          <div className="grid grid-cols-5 bg-zinc-900 text-white text-[12px] md:text-[13px] font-semibold">
-            <div className="p-3 md:p-4">Capability</div>
-            <div className="p-3 md:p-4">Ryze</div>
-            <div className="p-3 md:p-4">Manual</div>
-            <div className="p-3 md:p-4">Agency</div>
-            <div className="p-3 md:p-4">Tools only</div>
-          </div>
+          <div className="overflow-x-auto">
+            <div className="min-w-[720px]">
+              <div className="grid grid-cols-[1.35fr_1fr_1fr_1fr_1fr] bg-zinc-900 text-white text-[12px] md:text-[13px] font-semibold">
+                <div className="p-3 md:p-4">Capability</div>
+                <div className="p-3 md:p-4">Ryze</div>
+                <div className="p-3 md:p-4">Manual</div>
+                <div className="p-3 md:p-4">Agency</div>
+                <div className="p-3 md:p-4">Tools only</div>
+              </div>
 
-          {ROWS.map((row, i) => (
-            <div key={row.label} className={`grid grid-cols-5 text-[12px] md:text-[13px] ${i % 2 === 0 ? "bg-zinc-50/60" : "bg-white"}`}>
-              <div className="p-3 md:p-4 text-zinc-700 font-medium">{row.label}</div>
-              <div className="p-3 md:p-4 text-emerald-700 font-semibold">{row.ryze}</div>
-              <div className="p-3 md:p-4 text-zinc-500">{row.manual}</div>
-              <div className="p-3 md:p-4 text-zinc-500">{row.agency}</div>
-              <div className="p-3 md:p-4 text-zinc-500">{row.tools}</div>
+              {ROWS.map((row, i) => (
+                <div key={row.label} className={`grid grid-cols-[1.35fr_1fr_1fr_1fr_1fr] text-[12px] md:text-[13px] ${i % 2 === 0 ? "bg-zinc-50/60" : "bg-white"}`}>
+                  <div className="p-3 md:p-4 text-zinc-700 font-medium">{row.label}</div>
+                  <div className="p-3 md:p-4 text-emerald-700 font-semibold">{row.ryze}</div>
+                  <div className="p-3 md:p-4 text-zinc-500">{row.manual}</div>
+                  <div className="p-3 md:p-4 text-zinc-500">{row.agency}</div>
+                  <div className="p-3 md:p-4 text-zinc-500">{row.tools}</div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </RevealDiv>
       </div>
     </section>

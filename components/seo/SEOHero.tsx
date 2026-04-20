@@ -180,27 +180,32 @@ export default function SEOHero() {
                   </svg>
                 </button>
               </form>
-              <p
-                id="hero-form-message"
-                className={`mt-2 text-[12px] sm:text-[13px] min-h-[18px] ${
-                  error ? "text-red-200" : isSubmitted ? "text-emerald-200" : "text-transparent"
-                }`}
-              >
-                {error || (isSubmitted ? "Thanks. We will reach out with your SEO audit setup." : "")}
+              {(error || isSubmitted) && (
+                <p
+                  id="hero-form-message"
+                  className={`mt-1 text-[12px] sm:text-[13px] ${
+                    error ? "text-red-200" : "text-emerald-200"
+                  }`}
+                >
+                  {error || "Thanks. We will reach out with your SEO audit setup."}
+                </p>
+              )}
+              <p className="text-[10px] sm:text-[11px] text-white/75 mt-1 leading-tight">
+                No spam. One onboarding email and a sample audit walkthrough.
               </p>
-            </div>
 
-            {/* Logo strip */}
-            <div className="hero-fade-up hero-delay-3 flex flex-wrap items-center gap-4 sm:gap-5 mt-4 sm:mt-6 md:mt-8">
-              {HERO_LOGOS.map((logo) => (
-                <div key={logo.alt} className="h-6 w-9 sm:h-7 sm:w-11 relative">
-                  <img
-                    alt={logo.alt}
-                    className="object-contain brightness-0 invert absolute inset-0 w-full h-full"
-                    src={logo.src}
-                  />
-                </div>
-              ))}
+              {/* Logo strip */}
+              <div className="hero-fade-up hero-delay-3 flex flex-wrap items-center gap-3 sm:gap-3.5 mt-1.5 sm:mt-2 md:mt-2.5">
+                {HERO_LOGOS.map((logo) => (
+                  <div key={logo.alt} className="h-6 w-9 sm:h-7 sm:w-11 relative">
+                    <img
+                      alt={logo.alt}
+                      className="object-contain brightness-0 invert absolute inset-0 w-full h-full"
+                      src={logo.src}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 

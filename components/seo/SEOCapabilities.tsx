@@ -35,7 +35,11 @@ const capabilities = [
         color: "bg-violet-400",
       },
     ],
-    platforms: ["/google-analytics.svg", "/icons-google-analytics.png"],
+    platforms: [
+      "/google-analytics.svg",
+      "/platform-semrush.svg",
+      "/platform-wordpress.svg",
+    ],
   },
   {
     num: "02",
@@ -51,9 +55,9 @@ const capabilities = [
       },
     ],
     platforms: [
-      "/icons-google-analytics.png",
+      "/platform-wordpress.svg",
       "/platform-shopify.png",
-      "/platform-perplexity.png",
+      "/platform-semrush.svg",
     ],
   },
   {
@@ -69,7 +73,11 @@ const capabilities = [
         color: "bg-fuchsia-400",
       },
     ],
-    platforms: ["/google-analytics.svg"],
+    platforms: [
+      "/platform-semrush.svg",
+      "/google-analytics.svg",
+      "/platform-perplexity.png",
+    ],
   },
   {
     num: "04",
@@ -84,7 +92,11 @@ const capabilities = [
         color: "bg-cyan-400",
       },
     ],
-    platforms: ["/icons-google-analytics.png", "/platform-shopify.png"],
+    platforms: [
+      "/google-analytics.svg",
+      "/platform-wordpress.svg",
+      "/platform-shopify.png",
+    ],
   },
 ];
 

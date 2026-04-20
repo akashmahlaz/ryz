@@ -12,7 +12,7 @@ function RevealDiv({
 }) {
   const ref = useScrollReveal();
   return (
-    <div ref={ref} className={`fade-in-up ${className ?? ""}`}>
+    <div ref={ref} className={`fade-in-up visible ${className ?? ""}`}>
       {children}
     </div>
   );
@@ -49,11 +49,11 @@ export default function SEOFAQ() {
   const [openIdx, setOpenIdx] = useState(0);
 
   return (
-    <section className="bg-[#FEFEF5] py-14 md:py-20">
+    <section className="bg-[#FEFEF5] py-16 md:py-24 border-t border-black/5">
       <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-12">
-        <RevealDiv className="text-center mb-8 md:mb-10">
+        <RevealDiv className="text-center mb-10 md:mb-12">
           <p className="text-[11px] uppercase tracking-[0.14em] font-semibold text-zinc-500 mb-2">FAQ</p>
-          <h3 className="text-[28px] md:text-[38px] leading-[1.02] tracking-[-0.03em] font-bold text-zinc-900">
+          <h3 className="text-[28px] md:text-[36px] lg:text-[42px] leading-[1.05] tracking-[-0.03em] font-bold text-zinc-900">
             Common questions before you launch
           </h3>
         </RevealDiv>

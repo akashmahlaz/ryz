@@ -586,9 +586,9 @@ export default function SEOProof() {
                 prefix: "",
               },
               {
-                value: 142,
+                value: 22,
                 suffix: "%",
-                label: "Avg. traffic lift",
+                label: "Avg. CTR lift",
                 decimals: 0,
                 prefix: "+",
               },
@@ -615,6 +615,9 @@ export default function SEOProof() {
               </div>
             ))}
           </div>
+          <p className="mt-4 text-center text-[11px] text-zinc-400">
+            Based on anonymized rolling 90-day benchmark data.
+          </p>
         </RevealDiv>
 
         {/* ── Press logos ── */}

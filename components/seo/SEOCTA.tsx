@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 /* ─── Animated counter ─── */
 function Counter({
@@ -17,8 +18,16 @@ function Counter({
   const ref = useRef<HTMLSpanElement>(null);
   const [display, setDisplay] = useState("0");
   const started = useRef(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setDisplay(
+        decimals > 0 ? value.toFixed(decimals) : Math.round(value).toLocaleString()
+      );
+      return;
+    }
+
     if (!ref.current) return;
     const obs = new IntersectionObserver(
       ([entry]) => {
@@ -45,7 +54,7 @@ function Counter({
     );
     obs.observe(ref.current);
     return () => obs.disconnect();
-  }, [value, decimals]);
+  }, [value, decimals, prefersReducedMotion]);
 
   return (
     <span ref={ref}>
@@ -75,6 +84,30 @@ const DOTS = [
 
 export default function SEOCTA() {
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError("");
+    setIsSubmitted(false);
+
+    const trimmed = email.trim();
+    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed);
+
+    if (!validEmail) {
+      setError("Please enter a valid work email.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    window.setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      setEmail("");
+    }, 900);
+  };
 
   const yesterday = (() => {
     const d = new Date();
@@ -136,7 +169,7 @@ export default function SEOCTA() {
         >
           {/* Title */}
           <div className="mb-7">
-            <span className="text-[20px] md:text-[23px] lg:text-[26px] tracking-[0.02em] text-black">
+            <span id="about-seo-agent" className="text-[20px] md:text-[23px] lg:text-[26px] tracking-[0.02em] text-black">
               <span className="font-medium">SEO results across</span>
               <br />
               <span className="font-extrabold">2,000+ sites</span>
@@ -274,19 +307,19 @@ export default function SEOCTA() {
         <div className="relative lg:absolute lg:bottom-0 lg:left-0 lg:right-0 px-4 md:px-8 lg:px-12 pb-3 lg:pb-1 pt-6 lg:pt-0 z-10">
           <div className="flex items-center gap-3 md:gap-5 flex-wrap mb-3">
             <a
-              href="/about"
+              href="#about-seo-agent"
               className="text-[13px] text-zinc-400 hover:text-zinc-600 transition-colors"
             >
               About
             </a>
             <a
-              href="/privacy"
+              href="#privacy-note"
               className="text-[13px] text-zinc-400 hover:text-zinc-600 transition-colors"
             >
               Privacy Policy
             </a>
             <a
-              href="/term-services"
+              href="#terms-note"
               className="text-[13px] text-zinc-400 hover:text-zinc-600 transition-colors"
             >
               Terms of Service
@@ -297,6 +330,14 @@ export default function SEOCTA() {
             >
               hello@get-ryze.ai
             </a>
+          </div>
+          <div className="space-y-1 pb-2">
+            <p id="privacy-note" className="text-[11px] text-zinc-500 leading-relaxed">
+              Privacy: We only use your email to send product updates and onboarding support.
+            </p>
+            <p id="terms-note" className="text-[11px] text-zinc-500 leading-relaxed">
+              Terms: Frontend preview experience. Final production policies are applied at launch.
+            </p>
           </div>
         </div>
       </div>
@@ -356,23 +397,31 @@ export default function SEOCTA() {
                 content optimization, and rank tracking — on autopilot.
               </p>
               <form
-                onSubmit={(e) => e.preventDefault()}
+                id="seo-cta-form"
+                onSubmit={handleSubmit}
                 className="relative w-full max-w-sm"
+                noValidate
               >
                 <div className="flex items-stretch rounded-[3px] bg-white shadow-sm border border-zinc-200 min-h-12.5 overflow-hidden">
                   <input
                     type="email"
                     placeholder="work@email.com"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (error) setError("");
+                    }}
+                    aria-invalid={Boolean(error)}
+                    aria-describedby="cta-form-message"
                     className="flex-1 min-w-0 basis-0 bg-transparent border-none outline-none pl-4 pr-3 sm:px-5 text-[15px] text-zinc-900 placeholder:text-zinc-400 h-full min-h-12.5"
                   />
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     className="shrink-0 bg-zinc-900 text-white px-3.5 sm:px-5 md:px-7 h-full min-h-12.5 font-medium whitespace-nowrap hover:bg-zinc-700 transition-all flex items-center justify-center gap-1.5 sm:gap-2 disabled:opacity-70 rounded-[3px] translate-x-[1.5px]"
                   >
                     <span className="text-[13px] sm:text-[15px]">
-                      Get started
+                      {isSubmitting ? "Submitting..." : "Get started"}
                     </span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -392,6 +441,14 @@ export default function SEOCTA() {
                     </svg>
                   </button>
                 </div>
+                <p
+                  id="cta-form-message"
+                  className={`mt-2 text-left text-[12px] min-h-[18px] ${
+                    error ? "text-red-500" : isSubmitted ? "text-emerald-600" : "text-transparent"
+                  }`}
+                >
+                  {error || (isSubmitted ? "Great. We will follow up with your SEO onboarding details." : "")}
+                </p>
               </form>
             </div>
           </div>

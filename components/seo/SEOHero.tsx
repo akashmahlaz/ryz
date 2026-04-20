@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import SEOHeroMockup from "./SEOHeroMockup";
+import SEOHeroMockup from "@/components/seo/SEOHeroMockup";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 const HERO_LOGOS = [
   { src: "/google-analytics.svg", alt: "Google Search Console" },
@@ -81,6 +82,31 @@ const STACK_CARDS: StackCard[] = [
 
 export default function SEOHero() {
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError("");
+    setIsSubmitted(false);
+
+    const trimmed = email.trim();
+    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed);
+
+    if (!validEmail) {
+      setError("Please enter a valid work email.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    window.setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      setEmail("");
+    }, 850);
+  };
 
   return (
     <div className="relative min-h-screen lg:min-h-screen flex flex-col bg-white w-full min-w-0 overflow-hidden">
@@ -124,27 +150,44 @@ export default function SEOHero() {
 
             <div className="hero-fade-up hero-delay-2 w-full max-w-[373px] mt-2 sm:mt-4 md:mt-6">
               <form
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={handleSubmit}
                 className="flex items-center rounded-[3px] bg-white shadow-sm border border-zinc-200 h-11 sm:h-[46px] md:h-[49px] overflow-hidden transition-all focus-within:ring-2 focus-within:ring-[#FF4801]/20 focus-within:border-[#FF4801]/40"
+                noValidate
               >
                 <input
                   type="email"
                   required
                   placeholder="Enter your email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (error) setError("");
+                  }}
+                  aria-invalid={Boolean(error)}
+                  aria-describedby="hero-form-message"
                   className="flex-1 bg-transparent border-none outline-none px-3 sm:px-4 md:px-5 text-[15px] sm:text-[17px] md:text-[19px] text-black placeholder:text-black/40 min-w-0 h-full"
                 />
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="bg-zinc-900 text-white px-4 sm:px-5 md:px-6 h-full font-medium whitespace-nowrap hover:bg-zinc-700 transition-all flex items-center gap-1.5 sm:gap-2 disabled:opacity-70 rounded-[3px] translate-x-[1.5px]"
                 >
-                  <span className="text-[14px] sm:text-[16px] md:text-[18px]">Get started</span>
+                  <span className="text-[14px] sm:text-[16px] md:text-[18px]">
+                    {isSubmitting ? "Submitting..." : "Get started"}
+                  </span>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true">
                     <path d="m9 18 6-6-6-6" />
                   </svg>
                 </button>
               </form>
+              <p
+                id="hero-form-message"
+                className={`mt-2 text-[12px] sm:text-[13px] min-h-[18px] ${
+                  error ? "text-red-200" : isSubmitted ? "text-emerald-200" : "text-transparent"
+                }`}
+              >
+                {error || (isSubmitted ? "Thanks. We will reach out with your SEO audit setup." : "")}
+              </p>
             </div>
 
             {/* Logo strip */}
@@ -209,11 +252,12 @@ export default function SEOHero() {
 
       {/* Floating Connect Claude pill — mobile + desktop */}
       <a
-        href="#"
+        href="#seo-cta-form"
+        aria-label="Jump to SEO CTA form"
         className="fixed bottom-3 right-3 md:bottom-6 md:right-4 z-50 flex items-center gap-1.5 md:gap-2 text-neutral-900 pl-2 md:pl-2.5 pr-2.5 md:pr-3.5 py-2 md:py-3 rounded-full shadow-[0_2px_20px_rgba(0,0,0,0.08),-6px_0_15px_rgba(0,0,0,0.06)] border border-neutral-200 hover:brightness-95 hover:scale-105 transition-all no-underline group max-w-[220px] md:max-w-none"
         style={{ background: "linear-gradient(135deg, #FFF6EE 0%, #FFEFE2 50%, #FFDDC4 100%)" }}
       >
-        <img src="/images/mcp-3-steps/claude_logo.png" alt="Claude AI" className="h-6 w-6 md:h-[34px] md:w-[34px] rounded-full object-contain shrink-0" style={{ animation: "mcpSpin 25s linear infinite" }} />
+        <img src="/images/mcp-3-steps/claude_logo.png" alt="Claude AI" className="h-6 w-6 md:h-[34px] md:w-[34px] rounded-full object-contain shrink-0" style={{ animation: prefersReducedMotion ? "none" : "mcpSpin 25s linear infinite" }} />
         <span className="text-[12px] md:text-[17px] font-medium leading-tight">
           <span className="hidden md:inline">Audit &amp; optimize your SEO<br />with Claude in 1 click</span>
           <span className="md:hidden">SEO audit with Claude</span>

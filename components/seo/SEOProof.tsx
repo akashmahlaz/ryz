@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import { useScrollReveal } from "@/lib/useScrollReveal";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 /* ─── Component-scoped keyframes ─── */
 const PROOF_KEYFRAMES = `
@@ -60,8 +61,16 @@ function Counter({
   const ref = useRef<HTMLSpanElement>(null);
   const [display, setDisplay] = useState("0");
   const started = useRef(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setDisplay(
+        decimals > 0 ? value.toFixed(decimals) : Math.round(value).toLocaleString()
+      );
+      return;
+    }
+
     if (!ref.current) return;
     const obs = new IntersectionObserver(
       ([entry]) => {
@@ -88,7 +97,7 @@ function Counter({
     );
     obs.observe(ref.current);
     return () => obs.disconnect();
-  }, [value, decimals]);
+  }, [value, decimals, prefersReducedMotion]);
 
   return (
     <span ref={ref}>
@@ -103,8 +112,14 @@ function Counter({
 function AnimatedBar({ width, color }: { width: number; color: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setVisible(true);
+      return;
+    }
+
     if (!ref.current) return;
     const obs = new IntersectionObserver(
       ([entry]) => {
@@ -117,7 +132,7 @@ function AnimatedBar({ width, color }: { width: number; color: string }) {
     );
     obs.observe(ref.current);
     return () => obs.disconnect();
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <div
@@ -223,6 +238,7 @@ function AnimatedFixList() {
   const [clickFlashPos, setClickFlashPos] = useState({ x: 0, y: 0 });
   const [showClickFlash, setShowClickFlash] = useState(false);
   const [showRipple, setShowRipple] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const timersRef = useRef<number[]>([]);
@@ -256,6 +272,18 @@ function AnimatedFixList() {
   }, []);
 
   const runSequence = useCallback(() => {
+    if (prefersReducedMotion) {
+      setAppliedSet(new Set(FIXES.map((_, i) => i)));
+      setFailedSet(new Set());
+      setRetryingIdx(-1);
+      setClickPulseIdx(-1);
+      setActiveIdx(-1);
+      setCursorVisible(false);
+      setShowClickFlash(false);
+      setShowRipple(false);
+      return;
+    }
+
     clearTimers();
     let step = 0;
     setAppliedSet(new Set());
@@ -344,9 +372,21 @@ function AnimatedFixList() {
 
     // Start after initial delay
     schedule(next, 1000);
-  }, [fixCount, getButtonCenter, clearTimers, schedule]);
+  }, [fixCount, getButtonCenter, clearTimers, schedule, prefersReducedMotion]);
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setAppliedSet(new Set(FIXES.map((_, i) => i)));
+      setFailedSet(new Set());
+      setRetryingIdx(-1);
+      setClickPulseIdx(-1);
+      setActiveIdx(-1);
+      setCursorVisible(false);
+      setShowClickFlash(false);
+      setShowRipple(false);
+      return;
+    }
+
     if (!containerRef.current) return;
     const obs = new IntersectionObserver(
       ([entry]) => {
@@ -363,7 +403,7 @@ function AnimatedFixList() {
       obs.disconnect();
       clearTimers();
     };
-  }, [runSequence, clearTimers]);
+  }, [runSequence, clearTimers, prefersReducedMotion]);
 
   return (
     <div ref={containerRef} className="relative">

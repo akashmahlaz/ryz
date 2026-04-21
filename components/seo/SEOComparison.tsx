@@ -62,7 +62,8 @@ export default function SEOComparison() {
   }, []);
 
   return (
-    <section className="relative bg-linear-to-b from-[#f8fbff] via-[#f3f8ff] to-[#eef6ff] py-24 md:py-32 overflow-hidden">
+    <section className="relative bg-linear-to-b from-[#f8fbff] via-[#f3f8ff] to-[#eef6ff] pt-18 md:pt-24 pb-24 md:pb-32 overflow-hidden">
+      <div className="pointer-events-none absolute top-0 left-0 right-0 h-16 bg-linear-to-b from-[#eef6ff] to-transparent" />
 
       {/* Ambient glow — transitions with state */}
       <div

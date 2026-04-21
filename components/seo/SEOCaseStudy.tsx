@@ -172,9 +172,10 @@ function VideoCard() {
 
 export default function SEOCaseStudy() {
   return (
-    <section className="relative bg-linear-to-b from-[#f8fbff] via-white to-[#f4f9ff] py-24 md:py-32 overflow-hidden">
+    <section className="relative bg-linear-to-b from-[#f8fbff] via-white to-[#f4f9ff] pt-24 md:pt-32 pb-18 md:pb-24 overflow-hidden">
       <div className="pointer-events-none absolute top-16 left-0 w-72 h-72 rounded-full bg-cyan-200/35 blur-3xl" />
       <div className="pointer-events-none absolute bottom-20 right-0 w-80 h-80 rounded-full bg-emerald-200/30 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-linear-to-b from-transparent to-[#eef6ff]" />
       <div className="max-w-275 mx-auto px-5 sm:px-8 relative z-10">
 
         {/* ── Header ── */}
@@ -361,7 +362,7 @@ export default function SEOCaseStudy() {
         </RevealDiv>
 
         {/* ── CTA ── */}
-        <RevealDiv className="mt-10 text-center">
+        <RevealDiv className="mt-12 md:mt-14 text-center">
           <a
             href="mailto:hello@get-ryze.ai?subject=Free%20SEO%20Audit%20Request"
             className="inline-flex items-center gap-2 text-sm font-medium text-slate-700 hover:text-emerald-600 transition-colors"

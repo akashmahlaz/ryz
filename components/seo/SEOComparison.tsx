@@ -154,7 +154,7 @@ export default function SEOComparison() {
                 : "rgba(255, 255, 255, 0.52)",
             }}
             transition={{ duration: 0.9, ease: "easeInOut" }}
-            className="relative rounded-2xl border overflow-hidden backdrop-blur-2xl shadow-[0_30px_70px_rgba(14,116,144,0.2)]"
+            className="group/card relative rounded-2xl border overflow-hidden backdrop-blur-2xl shadow-[0_30px_70px_rgba(14,116,144,0.2)]"
           >
             <motion.div
               className="pointer-events-none absolute -inset-1 rounded-[18px]"
@@ -177,6 +177,7 @@ export default function SEOComparison() {
                 filter: "blur(9px)",
               }}
             />
+            <div className="pointer-events-none absolute inset-0 hidden md:block opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 bg-linear-to-r from-cyan-200/22 via-white/10 to-emerald-200/22" />
             <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-white/70 via-white/20 to-transparent" />
             <motion.div
               className="pointer-events-none absolute -top-8 left-8 h-24 w-48 rotate-[-8deg] bg-white/55 blur-2xl"

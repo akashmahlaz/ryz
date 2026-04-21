@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useScrollReveal } from "@/lib/useScrollReveal";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import {
   Clock,
   AlertTriangle,
@@ -51,6 +52,7 @@ function RevealDiv({
 
 export default function SEOComparison() {
   const [isAfter, setIsAfter] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
   const items = isAfter ? AFTER : BEFORE;
 
   // Auto-cycle every 3.4s
@@ -74,7 +76,11 @@ export default function SEOComparison() {
 
       <div className="max-w-2xl mx-auto px-5 sm:px-8 relative z-10">
         <div className="pointer-events-none absolute -inset-x-1 top-10 bottom-1 rounded-3xl bg-white/35 border border-white/65 backdrop-blur-2xl shadow-[0_35px_80px_rgba(14,116,144,0.18)]" />
-        <div className="pointer-events-none absolute inset-x-14 top-2 h-28 rounded-full bg-linear-to-r from-sky-200/45 via-cyan-200/55 to-emerald-200/45 blur-3xl" />
+        <motion.div
+          className="pointer-events-none absolute inset-x-14 top-2 h-28 rounded-full bg-linear-to-r from-sky-200/45 via-cyan-200/55 to-emerald-200/45 blur-3xl"
+          animate={prefersReducedMotion ? undefined : { x: [0, 16, -10, 0], opacity: [0.62, 0.78, 0.68, 0.62] }}
+          transition={prefersReducedMotion ? undefined : { duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        />
 
         {/* Header */}
         <RevealDiv className="relative text-center mb-14">
@@ -150,9 +156,38 @@ export default function SEOComparison() {
             transition={{ duration: 0.9, ease: "easeInOut" }}
             className="relative rounded-2xl border overflow-hidden backdrop-blur-2xl shadow-[0_30px_70px_rgba(14,116,144,0.2)]"
           >
+            <motion.div
+              className="pointer-events-none absolute -inset-1 rounded-[18px]"
+              animate={
+                prefersReducedMotion
+                  ? { opacity: isAfter ? 0.35 : 0 }
+                  : {
+                      opacity: isAfter ? [0.18, 0.38, 0.24, 0.35] : 0,
+                      rotate: isAfter ? [0, 10, -6, 0] : 0,
+                    }
+              }
+              transition={
+                prefersReducedMotion
+                  ? { duration: 0.35, ease: "easeOut" }
+                  : { duration: 7.5, repeat: Infinity, ease: "easeInOut" }
+              }
+              style={{
+                background:
+                  "conic-gradient(from 210deg at 50% 50%, rgba(34,211,238,0.45), rgba(59,130,246,0.35), rgba(16,185,129,0.4), rgba(244,63,94,0.25), rgba(34,211,238,0.45))",
+                filter: "blur(9px)",
+              }}
+            />
             <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-white/70 via-white/20 to-transparent" />
-            <div className="pointer-events-none absolute -top-8 left-8 h-24 w-48 rotate-[-8deg] bg-white/55 blur-2xl" />
-            <div className="pointer-events-none absolute -right-7 top-12 h-36 w-18 rounded-full bg-linear-to-b from-cyan-200/55 to-transparent blur-xl" />
+            <motion.div
+              className="pointer-events-none absolute -top-8 left-8 h-24 w-48 rotate-[-8deg] bg-white/55 blur-2xl"
+              animate={prefersReducedMotion ? undefined : { x: [0, 14, -6, 0], opacity: [0.62, 0.8, 0.68, 0.62] }}
+              transition={prefersReducedMotion ? undefined : { duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="pointer-events-none absolute -right-7 top-12 h-36 w-18 rounded-full bg-linear-to-b from-cyan-200/55 to-transparent blur-xl"
+              animate={prefersReducedMotion ? undefined : { y: [0, 10, -6, 0], opacity: [0.5, 0.72, 0.56, 0.5] }}
+              transition={prefersReducedMotion ? undefined : { duration: 7.2, repeat: Infinity, ease: "easeInOut" }}
+            />
             {/* Terminal top bar */}
             <motion.div
               animate={{
@@ -214,7 +249,27 @@ export default function SEOComparison() {
                           : "bg-white/55 border-slate-300/45 backdrop-blur-2xl shadow-[0_12px_26px_rgba(14,116,144,0.12)]"
                       }`}
                     >
-                      <div className="pointer-events-none absolute inset-0 rounded-xl bg-linear-to-r from-white/45 via-transparent to-cyan-100/25" />
+                      <motion.div
+                        className="pointer-events-none absolute inset-0 rounded-xl bg-linear-to-r from-white/45 via-transparent to-cyan-100/25"
+                        animate={
+                          prefersReducedMotion
+                            ? undefined
+                            : {
+                                backgroundPositionX: ["0%", "100%", "0%"],
+                              }
+                        }
+                        transition={
+                          prefersReducedMotion
+                            ? undefined
+                            : {
+                                duration: 6.5,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: i * 0.2,
+                              }
+                        }
+                        style={{ backgroundSize: "220% 100%" }}
+                      />
                       <div
                         className={`relative shrink-0 w-8 h-8 rounded-lg flex items-center justify-center ${
                           isAfter ? "bg-emerald-500/15" : "bg-rose-500/15"

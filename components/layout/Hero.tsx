@@ -103,12 +103,12 @@ export default function Hero() {
       </div>
 
       {/* Content row */}
-      <div className="relative flex-1 flex items-start lg:items-center pt-[116px] pb-8 max-lg:pt-[8.25rem] max-[399px]:pt-[7.75rem] max-[399px]:pb-12 lg:pt-20 lg:pb-0 min-w-0 min-h-min max-lg:overflow-visible">
-        <div className="max-w-[1400px] mx-auto w-full min-w-0 box-border px-5 min-[400px]:px-6 sm:px-6 md:px-12 flex flex-col max-[399px]:gap-10 lg:flex-row items-stretch max-[399px]:items-stretch lg:items-center gap-12 lg:gap-6 xl:gap-8 max-lg:overflow-visible">
+      <div className="relative flex-1 flex items-start lg:items-center pt-29 pb-8 max-lg:pt-33 max-[399px]:pt-31 max-[399px]:pb-12 lg:pt-20 lg:pb-0 min-w-0 min-h-min max-lg:overflow-visible">
+        <div className="max-w-350 mx-auto w-full min-w-0 box-border px-5 min-[400px]:px-6 sm:px-6 md:px-12 flex flex-col max-[399px]:gap-10 lg:flex-row items-stretch max-[399px]:items-stretch lg:items-center gap-12 lg:gap-6 xl:gap-8 max-lg:overflow-visible">
           {/* LEFT */}
           <div className="flex-1 min-w-0 w-full lg:max-w-[36%] xl:max-w-[34%] mt-0">
             <h1
-              className="hero-fade-up font-bold tracking-[-0.03em] text-white leading-[1.1] md:leading-[1.08] mb-5 md:mb-6 text-[42px] max-[399px]:text-[2.1rem] max-[399px]:leading-[1.12] max-[399px]:break-words md:text-[55px] lg:text-[72px]"
+              className="hero-fade-up font-bold tracking-[-0.03em] text-white leading-[1.1] md:leading-[1.08] mb-5 md:mb-6 text-[42px] max-[399px]:text-[2.1rem] max-[399px]:leading-[1.12] max-[399px]:wrap-break-word md:text-[55px] lg:text-[72px]"
               style={{ fontFamily: "'Satoshi', sans-serif" }}
             >
               AI runs your
@@ -118,15 +118,15 @@ export default function Hero() {
               and website
             </h1>
 
-            <p className="hero-fade-up hero-delay-1 text-[18px] max-[399px]:text-[16px] md:text-[20px] lg:text-[22px] text-white/85 leading-[1.6] md:leading-relaxed mb-6 max-[399px]:mb-4 lg:mb-6 max-w-[440px] max-[399px]:max-w-full font-medium max-[399px]:break-words">
+            <p className="hero-fade-up hero-delay-1 text-[18px] max-[399px]:text-[16px] md:text-[20px] lg:text-[22px] text-white/85 leading-[1.6] md:leading-relaxed mb-6 max-[399px]:mb-4 lg:mb-6 max-w-110 max-[399px]:max-w-full font-medium max-[399px]:wrap-break-word">
               More customers on autopilot
               <br />— or let our experts run it for you
             </p>
 
-            <div className="hero-fade-up hero-delay-2 w-full max-w-[373px] max-[399px]:max-w-full mt-4 md:mt-6">
+            <div className="hero-fade-up hero-delay-2 w-full max-w-93.25 max-[399px]:max-w-full mt-4 md:mt-6">
               <form
                 onSubmit={(e) => e.preventDefault()}
-                className="flex items-center rounded-[3px] bg-white shadow-sm border border-zinc-200 h-[46px] md:h-[49px] overflow-hidden transition-all focus-within:ring-2 focus-within:ring-[#FF4801]/20 focus-within:border-[#FF4801]/40"
+                className="flex items-center rounded-[3px] bg-white shadow-sm border border-zinc-200 h-11.5 md:h-12.25 overflow-hidden transition-all focus-within:ring-2 focus-within:ring-[#FF4801]/20 focus-within:border-[#FF4801]/40"
               >
                 <input
                   type="email"
@@ -138,7 +138,7 @@ export default function Hero() {
                 />
                 <button
                   type="submit"
-                  className="bg-zinc-900 text-white px-[20px] md:px-[24px] h-full font-medium whitespace-nowrap hover:bg-zinc-700 transition-all flex items-center gap-2 disabled:opacity-70 rounded-[3px] translate-x-[1.5px]"
+                  className="bg-zinc-900 text-white px-5 md:px-6 h-full font-medium whitespace-nowrap hover:bg-zinc-700 transition-all flex items-center gap-2 disabled:opacity-70 rounded-[3px] translate-x-[1.5px]"
                 >
                   <span className="text-[16px] md:text-[18px]">Get started</span>
                   <svg
@@ -174,7 +174,7 @@ export default function Hero() {
           </div>
 
           {/* RIGHT — mockup */}
-          <div className="hero-fade-right w-full min-w-0 lg:flex-1 mt-6 lg:-mt-[30px] relative">
+          <div className="hero-fade-right w-full min-w-0 lg:flex-1 mt-6 lg:-mt-7.5 relative">
             <div className="relative">
               {STACK_CARDS.map((c) => (
                 <div

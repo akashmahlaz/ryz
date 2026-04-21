@@ -503,7 +503,7 @@ export default function SEOProof() {
   return (
     <section className="py-24 md:py-32 bg-[#FEFEF5]">
       <style dangerouslySetInnerHTML={{ __html: PROOF_KEYFRAMES }} />
-      <div className="max-w-[1100px] mx-auto px-5 sm:px-8">
+      <div className="max-w-275 mx-auto px-5 sm:px-8">
         {/* ── Section heading ── */}
         <RevealDiv className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-[40px] leading-tight tracking-tight font-bold text-zinc-900">
@@ -516,10 +516,10 @@ export default function SEOProof() {
         </RevealDiv>
 
         {/* ── Full audit card ── */}
-        <RevealDiv className="max-w-[960px] mx-auto mb-14 md:mb-20">
-          <div className="bg-white rounded-[6px] border border-black/[0.06] shadow-[0_2px_16px_rgba(0,0,0,0.04)] overflow-hidden">
+        <RevealDiv className="max-w-240 mx-auto mb-14 md:mb-20">
+          <div className="bg-white rounded-[6px] border border-black/6 shadow-[0_2px_16px_rgba(0,0,0,0.04)] overflow-hidden">
             {/* Window chrome */}
-            <div className="flex items-center px-3 sm:px-4 py-2 sm:py-2.5 bg-[#EFECE4] border-b border-black/[0.06]">
+            <div className="flex items-center px-3 sm:px-4 py-2 sm:py-2.5 bg-[#EFECE4] border-b border-black/6">
               <div className="flex items-center gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
                 <div className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />

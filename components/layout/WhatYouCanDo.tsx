@@ -38,7 +38,7 @@ function ScreenshotCard({
   return (
     <Reveal>
       <div className="flex items-center gap-2.5 mb-2.5">
-        <span className="w-[3px] h-[18px] bg-[#E8622B] rounded-full shrink-0" />
+        <span className="w-0.75 h-4.5 bg-[#E8622B] rounded-full shrink-0" />
         <h3 className="text-[18px] md:text-[21px] font-semibold text-black tracking-[-0.02em]">
           {title}
         </h3>
@@ -80,7 +80,7 @@ export default function WhatYouCanDo() {
 
       {/* ─── Screenshot cards grid + full-width audit ─── */}
       <section className="px-6 lg:px-10 xl:px-16 bg-white pt-6 pb-20 relative overflow-hidden">
-        <div className="max-w-[1200px] 2xl:max-w-[1367px] mx-auto relative z-10">
+        <div className="max-w-300 2xl:max-w-341.75 mx-auto relative z-10">
           {/* 2×2 grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-10">
             <ScreenshotCard
@@ -126,8 +126,8 @@ export default function WhatYouCanDo() {
       </section>
 
       {/* ─── Connect any AI tool with any ad account ─── */}
-      <section className="pt-6 pb-[40px] bg-[#FAF9F6] overflow-x-hidden">
-        <div className="max-w-6xl mx-auto text-center px-6 md:px-8 xl:px-16 pt-8 pb-[38px] w-full min-w-0">
+      <section className="pt-6 pb-10 bg-[#FAF9F6] overflow-x-hidden">
+        <div className="max-w-6xl mx-auto text-center px-6 md:px-8 xl:px-16 pt-8 pb-9.5 w-full min-w-0">
           <Reveal className="mb-8 md:mb-10">
             <h3 className="text-[28px] md:text-[36px] lg:text-[42px] font-bold tracking-[-0.03em] leading-tight text-black text-center max-w-full px-1">
               Connect any AI tool with any ad account
@@ -138,7 +138,7 @@ export default function WhatYouCanDo() {
             {/* AI tools */}
             <div className="flex flex-wrap md:flex-nowrap items-center justify-center gap-x-8 gap-y-6 md:gap-14 lg:gap-20 min-w-0 max-w-full">
               <div className="flex flex-col items-center gap-3.5 min-w-0 shrink-0">
-                <img src="/claude-logo-pixels.png" alt="Claude" className="h-[52px] md:h-[60px] object-contain" />
+                <img src="/claude-logo-pixels.png" alt="Claude" className="h-13 md:h-15 object-contain" />
                 <span className="text-[15px] sm:text-[18px] text-black font-semibold tracking-wide">Claude</span>
               </div>
               <div className="flex flex-col items-center gap-3.5 min-w-0 shrink-0">
@@ -153,7 +153,7 @@ export default function WhatYouCanDo() {
 
             {/* Plus separator */}
             <span
-              className="text-4xl md:text-5xl font-medium text-zinc-500 shrink-0 md:mx-10 lg:mx-16 md:-translate-y-[14px]"
+              className="text-4xl md:text-5xl font-medium text-zinc-500 shrink-0 md:mx-10 lg:mx-16 md:-translate-y-3.5"
               aria-hidden="true"
             >
               +
@@ -168,7 +168,7 @@ export default function WhatYouCanDo() {
                 </span>
               </div>
               <div className="flex flex-col items-center gap-3.5 min-w-0 shrink-0">
-                <img src="/meta.png" alt="Meta Ads" className="h-[50px] md:h-[59px] object-contain" />
+                <img src="/meta.png" alt="Meta Ads" className="h-12.5 md:h-14.75 object-contain" />
                 <span className="text-[15px] sm:text-[18px] text-black font-semibold tracking-wide text-center leading-tight">
                   Meta<br />Ads
                 </span>

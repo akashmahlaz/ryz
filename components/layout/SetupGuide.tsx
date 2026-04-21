@@ -88,10 +88,10 @@ export default function SetupGuide() {
   const step = STEPS[active];
 
   return (
-    <section className="px-6 lg:px-10 xl:px-16 pt-[73px] pb-24 bg-white">
-      <div className="max-w-[1275px] mx-auto w-full">
+    <section className="px-6 lg:px-10 xl:px-16 pt-18.25 pb-24 bg-white">
+      <div className="max-w-318.75 mx-auto w-full">
         {/* Heading */}
-        <Reveal className="text-center mb-[22px] px-2">
+        <Reveal className="text-center mb-5.5 px-2">
           <h2 className="text-[28px] md:text-[36px] lg:text-[44px] font-bold tracking-[-0.03em] text-black">
             <span
               className="pixel-font text-[22px] md:text-[26px] tracking-wide bg-clip-text text-transparent"
@@ -119,7 +119,7 @@ export default function SetupGuide() {
             <button
               key={i}
               onClick={() => setActive(i)}
-              className="px-3 md:px-5 py-2 text-sm font-bold transition-all duration-200 rounded-t-[3px] flex-shrink-0 cursor-pointer border-none"
+              className="px-3 md:px-5 py-2 text-sm font-bold transition-all duration-200 rounded-t-[3px] shrink-0 cursor-pointer border-none"
               style={{
                 backgroundColor: active === i ? ACTIVE_BG[i] : INACTIVE_BG[i],
                 color: active === i ? "#fff" : "#6B5B50",
@@ -132,10 +132,10 @@ export default function SetupGuide() {
         </div>
 
         {/* Step content panel */}
-        <div className="bg-[#F7F8FA] border border-zinc-200/60 rounded-b-[3px] rounded-tr-[3px] p-6 md:p-10 shadow-[0_2px_16px_rgba(0,0,0,0.04)] min-h-[502px]">
+        <div className="bg-[#F7F8FA] border border-zinc-200/60 rounded-b-[3px] rounded-tr-[3px] p-6 md:p-10 shadow-[0_2px_16px_rgba(0,0,0,0.04)] min-h-125.5">
           <div className="flex flex-col md:flex-row gap-8 md:gap-10 md:items-start h-full">
             {/* Left: title + bullets */}
-            <div className="md:w-[17%] flex-shrink-0 flex flex-col justify-center md:py-4">
+            <div className="md:w-[17%] shrink-0 flex flex-col justify-center md:py-4">
               <h3 className="text-[28px] md:text-[32px] lg:text-[36px] font-bold tracking-[-0.02em] text-black leading-tight mb-4 mt-0">
                 {step.title}
               </h3>
@@ -145,7 +145,7 @@ export default function SetupGuide() {
                     key={i}
                     className="text-zinc-800 text-base leading-relaxed flex items-start gap-2.5"
                   >
-                    <span className="inline-block w-1.5 h-1.5 bg-[#C4501A] flex-shrink-0 mt-[9px]" />
+                    <span className="inline-block w-1.5 h-1.5 bg-[#C4501A] shrink-0 mt-2.25" />
                     {b}
                   </li>
                 ))}
@@ -161,7 +161,7 @@ export default function SetupGuide() {
             </div>
 
             {/* Right: screenshot + arrow */}
-            <div className="flex items-center ml-0 lg:ml-[45px] flex-1 min-w-0">
+            <div className="flex items-center ml-0 lg:ml-11.25 flex-1 min-w-0">
               <div className="w-full bg-white rounded-[3px] shadow-[0_2px_4px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] overflow-hidden">
                 <img
                   alt={step.alt}
@@ -177,12 +177,12 @@ export default function SetupGuide() {
               {active < 4 && (
                 <button
                   onClick={() => setActive(active + 1)}
-                  className="flex-shrink-0 w-10 h-10 flex items-center justify-center cursor-pointer bg-transparent border-none ml-2 hover:scale-110 active:scale-95 transition-transform duration-150"
+                  className="shrink-0 w-10 h-10 flex items-center justify-center cursor-pointer bg-transparent border-none ml-2 hover:scale-110 active:scale-95 transition-transform duration-150"
                 >
                   <img
                     src="/next-arrow-2.png"
                     alt="Next step"
-                    className="w-[249px] brightness-75 animate-[pulseRight_1.5s_ease-in-out_infinite]"
+                    className="w-62.25 brightness-75 animate-[pulseRight_1.5s_ease-in-out_infinite]"
                     style={{ transform: "scaleY(1.75)" }}
                   />
                 </button>

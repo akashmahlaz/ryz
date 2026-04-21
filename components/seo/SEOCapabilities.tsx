@@ -103,9 +103,9 @@ const capabilities = [
 export default function SEOCapabilities() {
   return (
     <section className="py-16 md:py-28 bg-[#FEFEF5]">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 xl:px-16">
+      <div className="max-w-350 mx-auto px-4 sm:px-6 md:px-12 xl:px-16">
         {/* Section heading */}
-        <RevealDiv className="text-center mb-10 md:mb-[41px]">
+        <RevealDiv className="text-center mb-10 md:mb-10.25">
           <h2 className="text-[28px] md:text-[36px] lg:text-[48px] font-bold tracking-[-0.03em] text-black leading-[1.08]">
             Everything the SEO agent does
           </h2>
@@ -118,7 +118,7 @@ export default function SEOCapabilities() {
         {/* Row 1: Cards 01 + 02 */}
         <div className="flex flex-col md:flex-row gap-2 mb-2">
           {/* Card 01 — narrower */}
-          <RevealDiv className="md:w-[calc(41.67%-4px+20px)] rounded-[3px] py-5 sm:py-[26px] px-4 sm:px-6 border border-zinc-300 bg-transparent hover:border-zinc-400 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-500">
+          <RevealDiv className="md:w-[calc(41.67%-4px+20px)] rounded-[3px] py-5 sm:py-6.5 px-4 sm:px-6 border border-zinc-300 bg-transparent hover:border-zinc-400 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-500">
             <div className="flex items-start gap-4 sm:gap-5">
               <span className="text-[36px] md:text-[49px] font-bold bg-linear-to-b from-zinc-300 to-zinc-400/50 bg-clip-text text-transparent leading-none shrink-0">
                 {capabilities[0].num}
@@ -200,7 +200,7 @@ export default function SEOCapabilities() {
           </RevealDiv>
 
           {/* Card 02 — wider */}
-          <RevealDiv className="md:w-[calc(58.33%-4px-20px)] rounded-[3px] py-5 sm:py-[26px] px-4 sm:px-6 border border-zinc-300 bg-transparent hover:border-zinc-400 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-500">
+          <RevealDiv className="md:w-[calc(58.33%-4px-20px)] rounded-[3px] py-5 sm:py-6.5 px-4 sm:px-6 border border-zinc-300 bg-transparent hover:border-zinc-400 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-500">
             <div className="flex items-start gap-4 sm:gap-5">
               <span className="text-[36px] md:text-[49px] font-bold bg-linear-to-b from-zinc-300 to-zinc-400/50 bg-clip-text text-transparent leading-none shrink-0">
                 {capabilities[1].num}
@@ -279,7 +279,7 @@ export default function SEOCapabilities() {
         {/* Row 2: Cards 03 + 04 */}
         <div className="flex flex-col md:flex-row gap-2">
           {/* Card 03 — wider */}
-          <RevealDiv className="md:w-[calc(58.33%-4px-65px)] rounded-[3px] py-5 sm:py-[26px] px-4 sm:px-6 border border-zinc-300 bg-transparent hover:border-zinc-400 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-500">
+          <RevealDiv className="md:w-[calc(58.33%-4px-65px)] rounded-[3px] py-5 sm:py-6.5 px-4 sm:px-6 border border-zinc-300 bg-transparent hover:border-zinc-400 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-500">
             <div className="flex items-start gap-4 sm:gap-5">
               <span className="text-[36px] md:text-[49px] font-bold bg-linear-to-b from-zinc-300 to-zinc-400/50 bg-clip-text text-transparent leading-none shrink-0">
                 {capabilities[2].num}
@@ -350,7 +350,7 @@ export default function SEOCapabilities() {
           </RevealDiv>
 
           {/* Card 04 — narrower */}
-          <RevealDiv className="md:w-[calc(41.67%-4px+65px)] rounded-[3px] py-5 sm:py-[26px] px-4 sm:px-6 border border-zinc-300 bg-transparent hover:border-zinc-400 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-500">
+          <RevealDiv className="md:w-[calc(41.67%-4px+65px)] rounded-[3px] py-5 sm:py-6.5 px-4 sm:px-6 border border-zinc-300 bg-transparent hover:border-zinc-400 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-500">
             <div className="flex items-start gap-4 sm:gap-5">
               <span className="text-[36px] md:text-[49px] font-bold bg-linear-to-b from-zinc-300 to-zinc-400/50 bg-clip-text text-transparent leading-none shrink-0">
                 {capabilities[3].num}
@@ -394,7 +394,7 @@ export default function SEOCapabilities() {
                           <span className="font-bold text-zinc-800 tabular-nums">
                             {v.value}
                           </span>
-                          <span className="text-[8px] text-emerald-500 font-medium px-1 py-0.5 bg-emerald-50 rounded-[2px]">
+                          <span className="text-[8px] text-emerald-500 font-medium px-1 py-0.5 bg-emerald-50 rounded-xs">
                             {v.status}
                           </span>
                         </div>

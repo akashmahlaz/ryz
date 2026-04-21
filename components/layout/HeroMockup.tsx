@@ -25,7 +25,7 @@ function HeatCell({ value }: { value: number }) {
     value <= 0
       ? "rgba(0,0,0,0.03)"
       : `rgba(52, 211, 153, ${Math.max(0.11, value).toFixed(3)})`;
-  return <div className="aspect-[2/1]" style={{ backgroundColor: bg }} />;
+  return <div className="aspect-2/1" style={{ backgroundColor: bg }} />;
 }
 
 /* ---------------- subcomponents ---------------- */
@@ -53,7 +53,7 @@ function Sidebar() {
     strokeWidth: 2,
   });
   return (
-    <div className="w-[55px] bg-white border-r border-neutral-100 flex flex-col items-center pt-3 pb-2 shrink-0 gap-0.5">
+    <div className="w-13.75 bg-white border-r border-neutral-100 flex flex-col items-center pt-3 pb-2 shrink-0 gap-0.5">
       <div className="w-7 h-7 mb-3">
         <img src="/main-logo-sun-2.png" alt="" className="w-full h-full object-contain" />
       </div>
@@ -132,9 +132,9 @@ function KpiTile({
 
 function MiniChart({ heights }: { heights: number[] }) {
   return (
-    <div className="relative h-[80px]">
+    <div className="relative h-20">
       <div className="absolute left-0 right-0 top-0 bottom-0">
-        <div className="flex items-end gap-[1px] h-full">
+        <div className="flex items-end gap-px h-full">
           {heights.map((h, i) => (
             <div key={i} className="flex-1 bg-slate-300" style={{ height: `${h}%` }} />
           ))}
@@ -162,8 +162,8 @@ const CHANNEL_ROWS = [
 
 function ChannelTable() {
   return (
-    <div className="bg-white border border-black/[0.06] overflow-hidden">
-      <div className="grid grid-cols-[1.4fr_1fr_0.6fr_0.7fr_0.9fr] text-[10px] font-medium text-slate-400 uppercase tracking-widest px-4 py-2 border-b border-black/[0.06]">
+    <div className="bg-white border border-black/6 overflow-hidden">
+      <div className="grid grid-cols-[1.4fr_1fr_0.6fr_0.7fr_0.9fr] text-[10px] font-medium text-slate-400 uppercase tracking-widest px-4 py-2 border-b border-black/6">
         <span>Channel</span>
         <span>Ad Spend</span>
         <span>ROAS</span>
@@ -171,13 +171,13 @@ function ChannelTable() {
         <span>Score</span>
       </div>
       {CHANNEL_ROWS.map((r) => (
-        <div key={r.name} className="grid grid-cols-[1.4fr_1fr_0.6fr_0.7fr_0.9fr] items-center px-4 py-2.5 border-b border-black/[0.04] last:border-b-0">
+        <div key={r.name} className="grid grid-cols-[1.4fr_1fr_0.6fr_0.7fr_0.9fr] items-center px-4 py-2.5 border-b border-black/4 last:border-b-0">
           <span className="flex items-center gap-2">
             <img alt={r.name} width={14} height={14} className="object-contain" src={r.logo} />
             <span className="text-[12px] font-medium text-slate-800">{r.name}</span>
           </span>
           <span className="flex items-center gap-2">
-            <div className="w-14 h-[4px] bg-black/[0.04] overflow-hidden">
+            <div className="w-14 h-1 bg-black/4 overflow-hidden">
               <div className="h-full bg-slate-400" style={{ width: `${r.spendW}%` }} />
             </div>
             <span className="text-[12px] text-slate-500">{r.spend}</span>
@@ -185,7 +185,7 @@ function ChannelTable() {
           <span className="text-[12px] text-slate-600">{r.roas}</span>
           <span className="text-[12px] text-slate-600">{r.conv}</span>
           <span className="flex items-center gap-1.5">
-            <div className="w-12 h-[4px] bg-black/[0.04] overflow-hidden">
+            <div className="w-12 h-1 bg-black/4 overflow-hidden">
               <div className={`h-full ${r.scoreColor}`} style={{ width: `${r.score}%` }} />
             </div>
             <span className="text-[12px] text-slate-500">{r.score}%</span>
@@ -213,7 +213,7 @@ function FunnelOrWaste({
             <span className="text-[11px] text-slate-400 shrink-0 truncate" style={{ width: labelW }}>
               {r.l}
             </span>
-            <div className="flex-1 h-[4px] bg-black/[0.04] overflow-hidden">
+            <div className="flex-1 h-1 bg-black/4 overflow-hidden">
               <div className="h-full bg-slate-400" style={{ width: `${r.w}%` }} />
             </div>
             <span className="text-[11px] font-medium text-slate-600 w-10 text-right shrink-0">{r.v}</span>
@@ -233,21 +233,21 @@ const SUGGESTED = [
 
 function SuggestedCreatives() {
   return (
-    <div className="bg-white border border-black/[0.06] p-3">
+    <div className="bg-white border border-black/6 p-3">
       <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest block mb-3">
         Suggested Creatives
       </span>
-      <div className="grid grid-cols-4 gap-[1px] bg-black/[0.04]">
+      <div className="grid grid-cols-4 gap-px bg-black/4">
         {SUGGESTED.map((s) => (
           <div key={s.title} className="bg-[#f8f9fb] overflow-hidden">
-            <div className="aspect-[3/4] relative overflow-hidden">
+            <div className="aspect-3/4 relative overflow-hidden">
               <img alt={s.title} className="object-cover absolute inset-0 w-full h-full" style={{ objectPosition: "center 15%" }} src={s.src} />
               <span className="absolute top-1.5 left-1.5 text-[9px] font-semibold text-slate-700 bg-white/80 backdrop-blur-sm px-1.5 py-0.5">{s.tag}</span>
             </div>
             <div className="p-2">
               <h4 className="text-[11px] font-medium text-slate-700 mb-1.5 truncate">{s.title}</h4>
-              <div className="flex gap-[1px]">
-                <button className="flex-1 text-[10px] text-slate-400 bg-black/[0.03] py-1">Deny</button>
+              <div className="flex gap-px">
+                <button className="flex-1 text-[10px] text-slate-400 bg-black/3 py-1">Deny</button>
                 <button className="flex-1 text-[10px] text-emerald-400 bg-emerald-400/10 py-1">Approve</button>
               </div>
             </div>
@@ -269,20 +269,20 @@ const ALERTS = [
 
 function AlertsTable() {
   return (
-    <div className="bg-white border border-black/[0.06] overflow-hidden">
-      <div className="grid grid-cols-[0.4fr_1.6fr_1.2fr_0.5fr] text-[10px] font-medium text-slate-400 uppercase tracking-widest px-4 py-2 border-b border-black/[0.06]">
+    <div className="bg-white border border-black/6 overflow-hidden">
+      <div className="grid grid-cols-[0.4fr_1.6fr_1.2fr_0.5fr] text-[10px] font-medium text-slate-400 uppercase tracking-widest px-4 py-2 border-b border-black/6">
         <span>Type</span>
         <span>Issue</span>
         <span>Action</span>
         <span />
       </div>
       {ALERTS.map((a, i) => (
-        <div key={i} className="grid grid-cols-[0.4fr_1.6fr_1.2fr_0.5fr] items-center px-4 py-2 border-b border-black/[0.04] last:border-b-0">
+        <div key={i} className="grid grid-cols-[0.4fr_1.6fr_1.2fr_0.5fr] items-center px-4 py-2 border-b border-black/4 last:border-b-0">
           <span className="text-[11px] font-medium text-slate-400">{a.type}</span>
           <span className="text-[11px] text-slate-600 pr-2">{a.issue}</span>
           <span className="text-[11px] text-slate-400 pr-2">{a.action}</span>
-          <div className="flex gap-[1px]">
-            <button className="text-[10px] text-slate-400 bg-black/[0.03] px-2 py-0.5">Deny</button>
+          <div className="flex gap-px">
+            <button className="text-[10px] text-slate-400 bg-black/3 px-2 py-0.5">Deny</button>
             <button className="text-[10px] text-emerald-400 bg-emerald-400/10 px-2 py-0.5">OK</button>
           </div>
         </div>
@@ -306,7 +306,7 @@ const REGIONS = [
 
 function PacingAndRegions() {
   return (
-    <div className="grid grid-cols-2 gap-[1px] bg-black/[0.04]">
+    <div className="grid grid-cols-2 gap-px bg-black/4">
       <div className="bg-white p-3">
         <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest block mb-3">Monthly Pacing</span>
         <div className="space-y-2.5">
@@ -316,12 +316,12 @@ function PacingAndRegions() {
                 <span className="text-[11px] text-slate-500">{r.l}</span>
                 <span className="text-[10px] text-slate-400">{r.v}</span>
               </div>
-              <div className="w-full h-[4px] bg-black/[0.04] overflow-hidden">
+              <div className="w-full h-1 bg-black/4 overflow-hidden">
                 <div className={`h-full ${r.color}`} style={{ width: `${r.w}%` }} />
               </div>
             </div>
           ))}
-          <div className="border-t border-black/[0.06] pt-2">
+          <div className="border-t border-black/6 pt-2">
             <div className="flex justify-between text-[11px]">
               <span className="text-slate-400">Total</span>
               <span className="font-medium text-slate-700">$20.2K / $26K</span>
@@ -338,12 +338,12 @@ function PacingAndRegions() {
                 <span className="text-[11px] text-slate-500">{r.l}</span>
                 <span className="text-[10px] text-slate-400">{r.v}</span>
               </div>
-              <div className="w-full h-[4px] bg-black/[0.04] overflow-hidden">
+              <div className="w-full h-1 bg-black/4 overflow-hidden">
                 <div className="h-full bg-emerald-400/50" style={{ width: `${r.w}%` }} />
               </div>
             </div>
           ))}
-          <div className="border-t border-black/[0.06] pt-2">
+          <div className="border-t border-black/6 pt-2">
             <div className="flex justify-between text-[11px]">
               <span className="text-slate-400">Avg. ROAS</span>
               <span className="font-medium text-slate-700">4.6x across 23 states</span>
@@ -365,9 +365,9 @@ const AUCTION = [
 
 function AuctionInsights() {
   return (
-    <div className="bg-white border border-black/[0.06] p-3">
+    <div className="bg-white border border-black/6 p-3">
       <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest block mb-3">Auction Insights</span>
-      <div className="grid grid-cols-[1.4fr_1fr_0.6fr_0.6fr] text-[10px] font-medium text-slate-400 uppercase tracking-widest pb-1.5 border-b border-black/[0.06]">
+      <div className="grid grid-cols-[1.4fr_1fr_0.6fr_0.6fr] text-[10px] font-medium text-slate-400 uppercase tracking-widest pb-1.5 border-b border-black/6">
         <span>Competitor</span>
         <span>Impr. Share</span>
         <span>Overlap</span>
@@ -376,11 +376,11 @@ function AuctionInsights() {
       {AUCTION.map((r) => (
         <div
           key={r.name}
-          className={`grid grid-cols-[1.4fr_1fr_0.6fr_0.6fr] py-1.5 ${r.highlight ? "bg-emerald-400/[0.06] -mx-3 px-3" : ""}`}
+          className={`grid grid-cols-[1.4fr_1fr_0.6fr_0.6fr] py-1.5 ${r.highlight ? "bg-emerald-400/6 -mx-3 px-3" : ""}`}
         >
           <span className={`text-[11px] ${r.highlight ? "font-semibold text-emerald-400" : "text-slate-600"}`}>{r.name}</span>
           <span className="flex items-center gap-1.5">
-            <div className="w-14 h-[4px] bg-black/[0.04] overflow-hidden">
+            <div className="w-14 h-1 bg-black/4 overflow-hidden">
               <div className={`h-full ${r.highlight ? "bg-emerald-400/50" : "bg-slate-300"}`} style={{ width: `${r.w}%` }} />
             </div>
             <span className="text-[11px] text-slate-400">{r.share}</span>
@@ -395,12 +395,12 @@ function AuctionInsights() {
 
 function HeatmapBlock() {
   return (
-    <div className="bg-white border border-black/[0.06] px-3 py-2">
+    <div className="bg-white border border-black/6 px-3 py-2">
       <div className="flex items-center justify-between mb-1.5">
         <span className="text-[11px] font-medium text-slate-400 uppercase tracking-widest">Performance by Day &amp; Hour</span>
         <span className="text-[11px] text-slate-400">Conversions · Last 30d</span>
       </div>
-      <div className="grid grid-cols-[24px_repeat(24,1fr)] gap-[2px]">
+      <div className="grid grid-cols-[24px_repeat(24,1fr)] gap-0.5">
         <span />
         {HOURS.map((h, i) => (
           <span key={i} className="text-[7px] text-slate-400 text-center leading-none">
@@ -425,7 +425,7 @@ function HeatmapBlock() {
 function DashboardScene() {
   return (
     <div className="space-y-3 px-4 py-4 bg-[#f8f9fb]">
-      <div className="grid grid-cols-3 gap-[1px] bg-black/[0.04]">
+      <div className="grid grid-cols-3 gap-px bg-black/4">
         <KpiTile l1="Cost" l2="ROAS" v1="$12,450" v2="4.2x" d1="+12%" d2="+8%" />
         <KpiTile l1="Conversions" l2="Conv. Rate" v1="508" v2="3.6%" d1="+15%" d2="+5%" />
         <KpiTile l1="Clicks" l2="CTR" v1="14,200" v2="3.8%" d1="+10%" d2="-2%" d2Pos={false} />
@@ -433,12 +433,12 @@ function DashboardScene() {
 
       <HeatmapBlock />
 
-      <div className="grid grid-cols-2 gap-[1px] bg-black/[0.04]">
+      <div className="grid grid-cols-2 gap-px bg-black/4">
         <div className="bg-white p-3">
           <div className="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
             <div className="w-2 h-2 bg-slate-500" />
             <span>COST</span>
-            <div className="w-2.5 h-[2px] bg-emerald-400" />
+            <div className="w-2.5 h-0.5 bg-emerald-400" />
             <span>ROAS</span>
           </div>
           <MiniChart heights={[55, 40, 65, 50, 70, 80, 90, 60, 45, 85, 95, 70, 50, 80, 60, 75, 90, 65]} />
@@ -447,7 +447,7 @@ function DashboardScene() {
           <div className="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
             <div className="w-2 h-2 bg-slate-500" />
             <span>CONVERSIONS</span>
-            <div className="w-2.5 h-[2px] bg-emerald-400" />
+            <div className="w-2.5 h-0.5 bg-emerald-400" />
             <span>CONV. RATE</span>
           </div>
           <MiniChart heights={[30, 25, 40, 35, 50, 80, 30, 25, 35, 45, 90, 40, 30, 35, 50, 85, 25, 40]} />
@@ -456,7 +456,7 @@ function DashboardScene() {
 
       <ChannelTable />
 
-      <div className="grid grid-cols-2 gap-[1px] bg-black/[0.04]">
+      <div className="grid grid-cols-2 gap-px bg-black/4">
         <FunnelOrWaste
           title="Conversion Funnel"
           subAccent="0.06%"
@@ -496,21 +496,21 @@ function DashboardScene() {
 function ChatScene() {
   return (
     <div className="pointer-events-none absolute inset-0 flex" style={{ animation: "chatPhase 30s ease-in-out infinite" }}>
-      <div className="w-[55px] shrink-0" />
+      <div className="w-13.75 shrink-0" />
       <div className="pointer-events-auto flex-1 flex flex-col bg-[#f4f5f7] overflow-hidden">
         <div className="flex-1 overflow-hidden relative">
           <div style={{ animation: "chatScroll 30s ease-in-out infinite" }}>
             <div className="px-5 py-5 space-y-5">
               {/* User message */}
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 flex-shrink-0" />
+                <div className="w-6 h-6 shrink-0" />
                 <div className="flex-1 flex justify-end items-start gap-2.5">
-                  <div className="bg-black/[0.06] rounded-[3px] px-4 py-2.5 max-w-[440px]">
+                  <div className="bg-black/6 rounded-[3px] px-4 py-2.5 max-w-110">
                     <p className="text-[13px] text-black leading-relaxed">
                       Launch a campaign to get more bookings this month
                     </p>
                   </div>
-                  <div className="w-6 h-6 rounded-full bg-black/20 flex-shrink-0 flex items-center justify-center text-white text-[9px] font-bold">
+                  <div className="w-6 h-6 rounded-full bg-black/20 shrink-0 flex items-center justify-center text-white text-[9px] font-bold">
                     IB
                   </div>
                 </div>
@@ -518,19 +518,19 @@ function ChatScene() {
 
               {/* Agent campaign setup */}
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-black flex-shrink-0 flex items-center justify-center text-white text-[9px] font-bold mt-0.5">
+                <div className="w-6 h-6 rounded-full bg-black shrink-0 flex items-center justify-center text-white text-[9px] font-bold mt-0.5">
                   R
                 </div>
-                <div className="flex-1 min-w-0 mr-[34px]">
+                <div className="flex-1 min-w-0 mr-8.5">
                   <span className="text-[12px] font-semibold text-black mb-1.5 block">Ryze agent</span>
-                  <div className="rounded-[3px] bg-white p-4 border border-black/[0.06]">
+                    <div className="rounded-[3px] bg-white p-4 border border-black/6">
                     <p className="text-[12px] text-black/65 leading-[1.7] mb-4">
                       Got it. I&apos;ve built a campaign for{" "}
                       <strong className="text-black font-semibold">Velvet Studio</strong> to maximize bookings in Scottsdale this month.
                     </p>
                     <div className="text-[9px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-1">Campaign Setup</div>
                     <h3 className="text-[14px] font-semibold text-black mb-3">Velvet Studio — March bookings</h3>
-                    <div className="grid grid-cols-3 gap-[1px] bg-black/[0.06] mb-4">
+                    <div className="grid grid-cols-3 gap-px bg-black/6 mb-4">
                       {[
                         { k: "Daily budget", v: "$85", sub: "$2,550/mo" },
                         { k: "Est. clicks/mo", v: "840", sub: "Based on local CPCs" },
@@ -550,13 +550,13 @@ function ChatScene() {
                       ["Bidding", "Maximize conversions"],
                       ["Landing page", "velvetstudio.com/book"],
                     ].map(([k, v], i) => (
-                      <div key={k} className={`flex justify-between py-2 text-[11px] ${i < 4 ? "border-b border-black/[0.04]" : ""}`}>
+                      <div key={k} className={`flex justify-between py-2 text-[11px] ${i < 4 ? "border-b border-black/4" : ""}`}>
                         <span className="text-black/40">{k}</span>
                         <span className="font-semibold text-black">{v}</span>
                       </div>
                     ))}
-                    <div className="flex justify-end gap-[1px] mt-4">
-                      <button className="text-[10px] font-semibold text-black/50 bg-black/[0.04] px-3 py-1.5 rounded-[3px]">Edit first</button>
+                    <div className="flex justify-end gap-px mt-4">
+                      <button className="text-[10px] font-semibold text-black/50 bg-black/4 px-3 py-1.5 rounded-[3px]">Edit first</button>
                       <button className="text-[10px] font-semibold text-white bg-black px-3 py-1.5 rounded-[3px]">Launch campaign</button>
                     </div>
                   </div>
@@ -565,12 +565,12 @@ function ChatScene() {
 
               {/* User message 2 */}
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 flex-shrink-0" />
+                <div className="w-6 h-6 shrink-0" />
                 <div className="flex-1 flex justify-end items-start gap-2.5">
-                  <div className="bg-black/[0.06] rounded-[3px] px-4 py-2.5 max-w-[440px]">
+                  <div className="bg-black/6 rounded-[3px] px-4 py-2.5 max-w-110">
                     <p className="text-[13px] text-black leading-relaxed">Give me a full audit of my Google Ads account</p>
                   </div>
-                  <div className="w-6 h-6 rounded-full bg-black/20 flex-shrink-0 flex items-center justify-center text-white text-[9px] font-bold">
+                  <div className="w-6 h-6 rounded-full bg-black/20 shrink-0 flex items-center justify-center text-white text-[9px] font-bold">
                     IB
                   </div>
                 </div>
@@ -578,17 +578,17 @@ function ChatScene() {
 
               {/* Agent audit response */}
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-full bg-black flex-shrink-0 flex items-center justify-center text-white text-[9px] font-bold mt-0.5">
+                <div className="w-6 h-6 rounded-full bg-black shrink-0 flex items-center justify-center text-white text-[9px] font-bold mt-0.5">
                   R
                 </div>
-                <div className="flex-1 min-w-0 mr-[34px]">
+                <div className="flex-1 min-w-0 mr-8.5">
                   <span className="text-[12px] font-semibold text-black mb-1.5 block">Ryze agent</span>
-                  <div className="rounded-[3px] bg-white p-4 border border-black/[0.06]">
+                  <div className="rounded-[3px] bg-white p-4 border border-black/6">
                     <p className="text-[12px] text-black/65 leading-[1.7] mb-4">
                       I&apos;ve audited <strong className="text-black font-semibold">Velvet Studio</strong> — Google Ads. Here&apos;s what I found:
                     </p>
                     <div className="flex gap-4 mb-0">
-                      <div className="relative w-[60px] h-[60px] shrink-0">
+                      <div className="relative w-15 h-15 shrink-0">
                         <svg viewBox="0 0 120 120" className="w-full h-full">
                           <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(0,0,0,0.04)" strokeWidth="10" />
                           <circle cx="60" cy="60" r="50" fill="none" stroke="rgb(52,211,153)" strokeWidth="10" strokeDasharray="314" strokeDashoffset="88" strokeLinecap="round" transform="rotate(-90 60 60)" />
@@ -602,30 +602,30 @@ function ChatScene() {
                           <div className="text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-1.5">Fix</div>
                           {["Junk placements ($412/mo)", "Overnight ads, zero leads", "Double-counting conversions"].map((t) => (
                             <div key={t} className="flex items-start gap-1 mb-1">
-                              <span className="w-1 h-1 bg-black rounded-full shrink-0 mt-[4px]" />
+                              <span className="w-1 h-1 bg-black rounded-full shrink-0 mt-1" />
                               <span className="text-[10px] text-black/70 leading-snug">{t}</span>
                             </div>
                           ))}
                         </div>
-                        <div className="w-px bg-black/[0.06]" />
+                        <div className="w-px bg-black/6" />
                         <div className="flex-1">
                           <div className="text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-1.5">Strong</div>
                           {["Keywords scoring 92", "Tracking setup at 91", "Page loads in 1.2s"].map((t) => (
                             <div key={t} className="flex items-start gap-1 mb-1">
-                              <span className="w-1 h-1 bg-[rgb(52,211,153)] rounded-full shrink-0 mt-[4px]" />
+                              <span className="w-1 h-1 bg-[rgb(52,211,153)] rounded-full shrink-0 mt-1" />
                               <span className="text-[10px] text-black/50 leading-snug">{t}</span>
                             </div>
                           ))}
                         </div>
                       </div>
                     </div>
-                    <div className="h-px bg-black/[0.06] my-4" />
+                    <div className="h-px bg-black/6 my-4" />
                     <p className="text-[12px] text-black/60 leading-[1.7]">
                       You spent <strong className="text-black">$3,420</strong> last month and got{" "}
                       <strong className="text-black">87 bookings</strong> at <strong className="text-black">$39 each</strong>. That&apos;s a{" "}
                       <strong className="text-black">3.8x ROAS</strong>. But <strong className="text-black">$640/mo is going to waste</strong>.
                     </p>
-                    <div className="h-px bg-black/[0.06] my-4" />
+                    <div className="h-px bg-black/6 my-4" />
                     <div className="text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-2">The biggest problem</div>
                     <p className="text-[12px] text-black/60 leading-[1.7] mb-2">
                       <strong className="text-black">$412/mo is going to junk placements</strong> — 34 low-quality sites generated{" "}
@@ -634,7 +634,7 @@ function ChatScene() {
                     <p className="text-[12px] text-black/60 leading-[1.7]">
                       Your ads run 24/7 but <strong className="text-black">not a single booking after 9pm</strong> in 60 days. That&apos;s $148/mo wasted.
                     </p>
-                    <div className="h-px bg-black/[0.06] my-4" />
+                    <div className="h-px bg-black/6 my-4" />
                     <div className="text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-2">What I&apos;d do</div>
                     <div className="space-y-3">
                       {[
@@ -644,7 +644,7 @@ function ChatScene() {
                         ["Fix conversion tracking", "Book Now button fires twice — inflating bookings by ~15%."],
                       ].map(([t, d], i) => (
                         <div key={i} className="flex gap-2">
-                          <span className="text-[11px] font-bold text-black/20 shrink-0 mt-[1px] w-3 tabular-nums">{i + 1}</span>
+                          <span className="text-[11px] font-bold text-black/20 shrink-0 mt-px w-3 tabular-nums">{i + 1}</span>
                           <div>
                             <p className="text-[12px] text-black leading-snug font-semibold">{t}</p>
                             <p className="text-[11px] text-black/50 mt-0.5 leading-[1.6]">{d}</p>
@@ -652,14 +652,14 @@ function ChatScene() {
                         </div>
                       ))}
                     </div>
-                    <div className="h-px bg-black/[0.06] my-4" />
+                    <div className="h-px bg-black/6 my-4" />
                     <div className="text-[8px] font-semibold text-black/40 uppercase tracking-[0.12em] mb-2">Bottom line</div>
                     <p className="text-[12px] text-black/60 leading-[1.7]">
                       4 fixes save <strong className="text-black">$640/mo</strong> — est.{" "}
                       <strong className="text-black">15–20 more bookings</strong>. ROAS from 3.8x to <strong className="text-black">4.4x</strong>.
                     </p>
-                    <div className="flex justify-end gap-[1px] mt-4">
-                      <button className="text-[10px] font-semibold text-black/50 bg-black/[0.04] px-3 py-1.5 rounded-[3px]">See full report</button>
+                    <div className="flex justify-end gap-px mt-4">
+                      <button className="text-[10px] font-semibold text-black/50 bg-black/4 px-3 py-1.5 rounded-[3px]">See full report</button>
                       <button className="text-[10px] font-semibold text-white bg-black px-3 py-1.5 rounded-[3px]">Fix all 4 issues</button>
                     </div>
                   </div>
@@ -668,8 +668,8 @@ function ChatScene() {
             </div>
           </div>
         </div>
-        <div className="border-t border-black/[0.06] px-4 py-2.5 bg-white shrink-0">
-          <div className="flex items-center bg-black/[0.03] border border-black/[0.06] rounded-[3px] px-3 py-2 gap-2">
+        <div className="border-t border-black/6 px-4 py-2.5 bg-white shrink-0">
+          <div className="flex items-center bg-black/3 border border-black/6 rounded-[3px] px-3 py-2 gap-2">
             <span className="flex-1 text-[12px] text-black/30">Ask Ryze anything about your ads...</span>
             <div className="w-6 h-6 bg-black rounded-[3px] flex items-center justify-center shrink-0">
               <svg className="w-3 h-3 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

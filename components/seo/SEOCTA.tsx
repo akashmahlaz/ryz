@@ -138,7 +138,7 @@ export default function SEOCTA() {
 
         {/* Stats content */}
         <div
-          className="relative z-10 w-full max-w-[335px] mx-auto flex-1 flex flex-col justify-center py-10"
+          className="relative z-10 w-full max-w-83.75 mx-auto flex-1 flex flex-col justify-center py-10"
           style={{ transform: "translateY(0)" }}
         >
           {/* Title */}
@@ -324,7 +324,7 @@ export default function SEOCTA() {
             alt=""
             loading="lazy"
             decoding="async"
-            className="object-cover object-right-bottom"
+            className="object-cover object-bottom-right"
             style={{
               position: "absolute",
               height: "100%",

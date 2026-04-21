@@ -10,9 +10,9 @@ function RevealDiv({ className, children, style }: { className?: string; childre
 export default function MCPSection() {
   return (
     <section className="py-20 md:py-28 bg-[#FAF9F6]">
-      <div className="max-w-[1367px] mx-auto px-6 md:px-12 xl:px-16">
+      <div className="max-w-341.75 mx-auto px-6 md:px-12 xl:px-16">
         {/* Heading */}
-        <RevealDiv className="text-center mb-[41px]">
+        <RevealDiv className="text-center mb-10.25">
           <h2 className="text-[28px] md:text-[36px] lg:text-[48px] font-bold tracking-[-0.03em] text-black">
             Ryze AI: Connect Claude to Google &amp; Meta Ads
           </h2>
@@ -21,7 +21,7 @@ export default function MCPSection() {
         {/* Row 1: Cards 01 + 02 */}
         <div className="flex flex-col md:flex-row gap-2 mb-2">
           {/* Card 01 — narrower */}
-          <RevealDiv className="md:w-[calc(41.67%-4px+20px)] rounded-[3px] py-[26px] px-6 border border-zinc-300 bg-transparent hover:border-zinc-400 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-500">
+          <RevealDiv className="md:w-[calc(41.67%-4px+20px)] rounded-[3px] py-6.5 px-6 border border-zinc-300 bg-transparent hover:border-zinc-400 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-500">
             <div className="flex items-center gap-5">
               <span className="text-[36px] md:text-[49px] font-bold bg-linear-to-b from-zinc-300 to-zinc-400/50 bg-clip-text text-transparent leading-none shrink-0">01</span>
               <div className="w-px self-stretch bg-zinc-200/80" />
@@ -42,7 +42,7 @@ export default function MCPSection() {
           </RevealDiv>
 
           {/* Card 02 — wider */}
-          <RevealDiv className="md:w-[calc(58.33%-4px-20px)] rounded-[3px] py-[26px] px-6 border border-zinc-300 bg-transparent hover:border-zinc-400 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-500">
+          <RevealDiv className="md:w-[calc(58.33%-4px-20px)] rounded-[3px] py-6.5 px-6 border border-zinc-300 bg-transparent hover:border-zinc-400 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-500">
             <div className="flex items-center gap-5">
               <span className="text-[36px] md:text-[49px] font-bold bg-linear-to-b from-zinc-300 to-zinc-400/50 bg-clip-text text-transparent leading-none shrink-0">02</span>
               <div className="w-px self-stretch bg-zinc-200/80" />
@@ -73,7 +73,7 @@ export default function MCPSection() {
         {/* Row 2: Cards 03 + 04 */}
         <div className="flex flex-col md:flex-row gap-2">
           {/* Card 03 — wider */}
-          <RevealDiv className="md:w-[calc(58.33%-4px-65px)] rounded-[3px] py-[26px] px-6 border border-zinc-300 bg-transparent hover:border-zinc-400 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-500">
+          <RevealDiv className="md:w-[calc(58.33%-4px-65px)] rounded-[3px] py-6.5 px-6 border border-zinc-300 bg-transparent hover:border-zinc-400 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-500">
             <div className="flex items-center gap-4">
               <span className="text-[36px] md:text-[49px] font-bold bg-linear-to-b from-zinc-300 to-zinc-400/50 bg-clip-text text-transparent leading-none shrink-0">03</span>
               <div className="w-px self-stretch bg-zinc-200/80" />
@@ -94,7 +94,7 @@ export default function MCPSection() {
           </RevealDiv>
 
           {/* Card 04 — narrower */}
-          <RevealDiv className="md:w-[calc(41.67%-4px+65px)] rounded-[3px] py-[26px] px-6 border border-zinc-300 bg-transparent hover:border-zinc-400 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-500">
+          <RevealDiv className="md:w-[calc(41.67%-4px+65px)] rounded-[3px] py-6.5 px-6 border border-zinc-300 bg-transparent hover:border-zinc-400 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06)] transition-all duration-500">
             <div className="flex items-center gap-5">
               <span className="text-[36px] md:text-[49px] font-bold bg-linear-to-b from-zinc-300 to-zinc-400/50 bg-clip-text text-transparent leading-none shrink-0">04</span>
               <div className="w-px self-stretch bg-zinc-200/80" />

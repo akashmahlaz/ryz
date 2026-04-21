@@ -59,22 +59,22 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 w-full z-50 px-6 md:px-12 pt-[7px] pb-[2px] transition-all duration-500 ease-out ${
+        className={`fixed top-0 left-0 right-0 w-full z-50 px-6 md:px-12 pt-1.75 pb-0.5 transition-all duration-500 ease-out ${
           lightMode
             ? "bg-white/90 backdrop-blur-md border-b border-zinc-200 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
             : "bg-transparent"
         }`}
       >
-        <div className="w-full max-w-[1400px] mx-auto flex items-center justify-between relative">
-          <div className="flex items-center gap-2 translate-y-[3px] ml-[2px]">
+        <div className="w-full max-w-350 mx-auto flex items-center justify-between relative">
+          <div className="flex items-center gap-2 translate-y-0.75 ml-0.5">
             <a href="/" className="flex items-center gap-2">
               <img
                 src="/main-logo-sun-2.png"
                 alt="Ryze"
-                className={`object-contain transition-all duration-500 ease-out w-[38px] h-[38px] ${lightMode ? "" : "invert"}`}
+                className={`object-contain transition-all duration-500 ease-out w-9.5 h-9.5 ${lightMode ? "" : "invert"}`}
               />
               <span
-                className={`tracking-[-0.01em] transition-all duration-500 ease-out -translate-y-[2px] text-[33px] ${lightMode ? "text-black" : "text-white"}`}
+                className={`tracking-[-0.01em] transition-all duration-500 ease-out -translate-y-0.5 text-[33px] ${lightMode ? "text-black" : "text-white"}`}
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 800 }}
               >
                 Ryze
@@ -82,7 +82,7 @@ export default function Navbar() {
             </a>
           </div>
 
-          <div className="hidden lg:flex items-center gap-[42px] absolute left-1/2 -translate-x-1/2 whitespace-nowrap transition-all duration-500 ease-out translate-y-[5px]">
+          <div className="hidden lg:flex items-center gap-10.5 absolute left-1/2 -translate-x-1/2 whitespace-nowrap transition-all duration-500 ease-out translate-y-1.25">
             {desktopLinks.map((link) => (
               <a
                 key={link.label}
@@ -102,7 +102,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="flex items-center gap-2 md:gap-4 translate-y-[1px]">
+          <div className="flex items-center gap-2 md:gap-4 translate-y-px">
             <a
               href="#cta"
               className="hidden sm:block font-medium rounded transition-all duration-500 ease-out text-sm px-5 py-2.5 bg-black text-white hover:bg-zinc-800"
@@ -141,7 +141,7 @@ export default function Navbar() {
       </nav>
 
       {mobileOpen && (
-        <div className="lg:hidden fixed inset-0 z-[90] bg-[#f7f7f4] overflow-y-auto">
+        <div className="lg:hidden fixed inset-0 z-90 bg-[#f7f7f4] overflow-y-auto">
           <div className="px-4 pt-3 pb-5 min-h-full flex flex-col">
             <div className="flex items-center justify-between mb-8">
               <a href="/" className="flex items-center gap-2">
@@ -205,7 +205,7 @@ export default function Navbar() {
             <div className="mt-auto pt-8 border-t border-zinc-200">
               <a
                 href="#cta"
-                className="flex w-full items-center justify-center rounded-[4px] bg-black text-white px-4 py-4 text-[15px] font-medium"
+                className="flex w-full items-center justify-center rounded-lg bg-black text-white px-4 py-4 text-[15px] font-medium"
               >
                 Get started
               </a>

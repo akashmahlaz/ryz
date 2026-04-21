@@ -124,7 +124,7 @@ export default function ConnectCTA() {
         {/* Scan line */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div
-            className="absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-300/15 to-transparent"
+            className="absolute left-0 right-0 h-px bg-linear-to-r from-transparent via-emerald-300/15 to-transparent"
             style={{
               animation: "scanLine 8s cubic-bezier(0.45,0,0.55,1) infinite",
             }}
@@ -133,7 +133,7 @@ export default function ConnectCTA() {
 
         {/* Stats content */}
         <div
-          className="relative z-10 w-full max-w-[335px] flex flex-col justify-center h-full py-12 lg:py-0"
+          className="relative z-10 w-full max-w-83.75 flex flex-col justify-center h-full py-12 lg:py-0"
           style={{ transform: "translateY(-30px)" }}
         >
           {/* Title */}
@@ -149,32 +149,32 @@ export default function ConnectCTA() {
             {/* PAID ADS */}
             <div>
               <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-zinc-700 mb-4 flex items-center gap-2">
-                <span className="relative w-[6px] h-[6px] shrink-0">
-                  <span className="absolute inset-[-3px] bg-emerald-400/20 animate-pulse" />
+                <span className="relative w-1.5 h-1.5 shrink-0">
+                  <span className="absolute -inset-0.75 bg-emerald-400/20 animate-pulse" />
                   <span className="absolute inset-0 bg-emerald-400 animate-pulse" />
                 </span>
                 Paid Ads
               </p>
               <div className="space-y-3">
                 <div className="flex items-end gap-3">
-                  <span className="text-[13px] text-zinc-600 leading-tight w-[70px] md:w-[85px] shrink-0 pb-0.5">
+                  <span className="text-[13px] text-zinc-600 leading-tight w-17.5 md:w-21.25 shrink-0 pb-0.5">
                     Avg. client
                     <br />
                     ROAS
                   </span>
                   <div className="flex-1 border-b border-dotted border-zinc-300 mb-1.5" />
-                  <span className="text-[15px] font-normal text-black tabular-nums w-[70px] md:w-[80px] text-right shrink-0 pixel-font-pulse -ml-2">
+                  <span className="text-[15px] font-normal text-black tabular-nums w-17.5 md:w-20 text-right shrink-0 pixel-font-pulse -ml-2">
                     <Counter value={5.6} suffix="x" decimals={1} />
                   </span>
                 </div>
                 <div className="flex items-end gap-3">
-                  <span className="text-[13px] text-zinc-600 leading-tight w-[70px] md:w-[85px] shrink-0 pb-0.5">
+                  <span className="text-[13px] text-zinc-600 leading-tight w-17.5 md:w-21.25 shrink-0 pb-0.5">
                     Revenue
                     <br />
                     driven
                   </span>
                   <div className="flex-1 border-b border-dotted border-zinc-300 mb-1.5" />
-                  <span className="text-[15px] font-normal text-black tabular-nums w-[70px] md:w-[80px] text-right shrink-0 pixel-font-pulse -ml-2">
+                  <span className="text-[15px] font-normal text-black tabular-nums w-17.5 md:w-20 text-right shrink-0 pixel-font-pulse -ml-2">
                     <Counter value={4.2} prefix="$" suffix="M" decimals={1} />
                   </span>
                 </div>
@@ -186,32 +186,32 @@ export default function ConnectCTA() {
             {/* SEO */}
             <div>
               <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-zinc-700 mb-4 flex items-center gap-2">
-                <span className="relative w-[6px] h-[6px] shrink-0">
-                  <span className="absolute inset-[-3px] bg-emerald-400/20 animate-pulse" />
+                <span className="relative w-1.5 h-1.5 shrink-0">
+                  <span className="absolute -inset-0.75 bg-emerald-400/20 animate-pulse" />
                   <span className="absolute inset-0 bg-emerald-400 animate-pulse" />
                 </span>
                 SEO
               </p>
               <div className="space-y-3">
                 <div className="flex items-end gap-3">
-                  <span className="text-[13px] text-zinc-600 leading-tight w-[70px] md:w-[85px] shrink-0 pb-0.5">
+                  <span className="text-[13px] text-zinc-600 leading-tight w-17.5 md:w-21.25 shrink-0 pb-0.5">
                     Organic
                     <br />
                     visits driven
                   </span>
                   <div className="flex-1 border-b border-dotted border-zinc-300 mb-1.5" />
-                  <span className="text-[15px] font-normal text-black tabular-nums w-[70px] md:w-[80px] text-right shrink-0 pixel-font-pulse -ml-2">
+                  <span className="text-[15px] font-normal text-black tabular-nums w-17.5 md:w-20 text-right shrink-0 pixel-font-pulse -ml-2">
                     <Counter value={23.5} suffix="M" decimals={1} />
                   </span>
                 </div>
                 <div className="flex items-end gap-3">
-                  <span className="text-[13px] text-zinc-600 leading-tight w-[70px] md:w-[85px] shrink-0 pb-0.5">
+                  <span className="text-[13px] text-zinc-600 leading-tight w-17.5 md:w-21.25 shrink-0 pb-0.5">
                     Keywords
                     <br />
                     on page 1
                   </span>
                   <div className="flex-1 border-b border-dotted border-zinc-300 mb-1.5" />
-                  <span className="text-[15px] font-normal text-black tabular-nums w-[70px] md:w-[80px] text-right shrink-0 pixel-font-pulse -ml-2">
+                  <span className="text-[15px] font-normal text-black tabular-nums w-17.5 md:w-20 text-right shrink-0 pixel-font-pulse -ml-2">
                     48k+
                   </span>
                 </div>
@@ -223,32 +223,32 @@ export default function ConnectCTA() {
             {/* WEBSITES */}
             <div>
               <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-zinc-700 mb-4 flex items-center gap-2">
-                <span className="relative w-[6px] h-[6px] shrink-0">
-                  <span className="absolute inset-[-3px] bg-emerald-400/20 animate-pulse" />
+                <span className="relative w-1.5 h-1.5 shrink-0">
+                  <span className="absolute -inset-0.75 bg-emerald-400/20 animate-pulse" />
                   <span className="absolute inset-0 bg-emerald-400 animate-pulse" />
                 </span>
                 Websites
               </p>
               <div className="space-y-3">
                 <div className="flex items-end gap-3">
-                  <span className="text-[13px] text-zinc-600 leading-tight w-[70px] md:w-[85px] shrink-0 pb-0.5">
+                  <span className="text-[13px] text-zinc-600 leading-tight w-17.5 md:w-21.25 shrink-0 pb-0.5">
                     Conversion
                     <br />
                     rate lift
                   </span>
                   <div className="flex-1 border-b border-dotted border-zinc-300 mb-1.5" />
-                  <span className="text-[15px] font-normal text-black tabular-nums w-[70px] md:w-[80px] text-right shrink-0 pixel-font-pulse -ml-2">
+                  <span className="text-[15px] font-normal text-black tabular-nums w-17.5 md:w-20 text-right shrink-0 pixel-font-pulse -ml-2">
                     <Counter value={32} prefix="+" suffix="%" />
                   </span>
                 </div>
                 <div className="flex items-end gap-3">
-                  <span className="text-[13px] text-zinc-600 leading-tight w-[70px] md:w-[85px] shrink-0 pb-0.5">
+                  <span className="text-[13px] text-zinc-600 leading-tight w-17.5 md:w-21.25 shrink-0 pb-0.5">
                     Time
                     <br />
                     on site
                   </span>
                   <div className="flex-1 border-b border-dotted border-zinc-300 mb-1.5" />
-                  <span className="text-[15px] font-normal text-black tabular-nums w-[70px] md:w-[80px] text-right shrink-0 pixel-font-pulse -ml-2">
+                  <span className="text-[15px] font-normal text-black tabular-nums w-17.5 md:w-20 text-right shrink-0 pixel-font-pulse -ml-2">
                     <Counter value={45} prefix="+" suffix="%" />
                   </span>
                 </div>
@@ -263,7 +263,7 @@ export default function ConnectCTA() {
               <div>Last updated: {yesterday}</div>
               <div className="text-emerald-500/70 flex items-center gap-1.5">
                 <span className="relative w-1.5 h-1.5 shrink-0">
-                  <span className="absolute inset-[-3px] bg-emerald-400/20 animate-pulse" />
+                  <span className="absolute -inset-0.75 bg-emerald-400/20 animate-pulse" />
                   <span className="absolute inset-0 bg-emerald-400 animate-pulse" />
                 </span>
                 All systems ok
@@ -274,7 +274,7 @@ export default function ConnectCTA() {
 
         {/* Footer links */}
         <div className="absolute bottom-0 left-0 right-0 px-4 md:px-8 lg:px-12 pb-1 z-10">
-          <div className="flex items-center gap-3 md:gap-5 flex-wrap mb-[12px]">
+          <div className="flex items-center gap-3 md:gap-5 flex-wrap mb-3">
             <a
               href="/about"
               className="text-[13px] text-zinc-400 hover:text-zinc-600 transition-colors"
@@ -311,7 +311,7 @@ export default function ConnectCTA() {
             alt=""
             loading="lazy"
             decoding="async"
-            className="object-cover object-right-bottom"
+            className="object-cover object-bottom-right"
             style={{
               position: "absolute",
               height: "100%",
@@ -328,7 +328,7 @@ export default function ConnectCTA() {
         </div>
 
         {/* Glassmorphism card */}
-        <div className="relative z-10 w-full max-w-[509px]">
+        <div className="relative z-10 w-full max-w-127.25">
           <div
             className="backdrop-blur-md rounded-[10px] p-5 shadow-lg"
             style={{
@@ -353,17 +353,17 @@ export default function ConnectCTA() {
                 onSubmit={(e) => e.preventDefault()}
                 className="relative w-full max-w-sm"
               >
-                <div className="flex items-stretch rounded-[3px] bg-white shadow-sm border border-zinc-200 min-h-[50px] overflow-hidden">
+                <div className="flex items-stretch rounded-[3px] bg-white shadow-sm border border-zinc-200 min-h-12.5 overflow-hidden">
                   <input
                     type="email"
                     placeholder="work@email.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="flex-1 min-w-0 basis-0 bg-transparent border-none outline-none pl-4 pr-3 sm:px-5 text-[15px] text-zinc-900 placeholder:text-zinc-400 h-full min-h-[50px]"
+                    className="flex-1 min-w-0 basis-0 bg-transparent border-none outline-none pl-4 pr-3 sm:px-5 text-[15px] text-zinc-900 placeholder:text-zinc-400 h-full min-h-12.5"
                   />
                   <button
                     type="submit"
-                    className="shrink-0 bg-zinc-900 text-white px-3.5 sm:px-5 md:px-7 h-full min-h-[50px] font-medium whitespace-nowrap hover:bg-zinc-700 transition-all flex items-center justify-center gap-1.5 sm:gap-2 disabled:opacity-70 rounded-[3px] translate-x-[1.5px]"
+                    className="shrink-0 bg-zinc-900 text-white px-3.5 sm:px-5 md:px-7 h-full min-h-12.5 font-medium whitespace-nowrap hover:bg-zinc-700 transition-all flex items-center justify-center gap-1.5 sm:gap-2 disabled:opacity-70 rounded-[3px] translate-x-[1.5px]"
                   >
                     <span className="text-[13px] sm:text-[15px]">
                       Get MCP Access

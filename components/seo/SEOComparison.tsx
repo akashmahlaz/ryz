@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useScrollReveal } from "@/lib/useScrollReveal";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
@@ -13,6 +13,7 @@ import {
   CheckCircle2,
   Activity,
   BarChart2,
+  Sparkles,
 } from "lucide-react";
 
 const BEFORE = [
@@ -27,6 +28,14 @@ const AFTER = [
   { icon: CheckCircle2, text: "Technical fixes ship automatically — no ticket",      tag: "Auto"      },
   { icon: Activity,     text: "Weekly content refreshes keep your rankings safe",    tag: "Proactive" },
   { icon: BarChart2,    text: "Live dashboards show what changed and when",          tag: "Live"      },
+];
+
+const CYCLE_MS = 3400;
+
+const STATS = [
+  { value: "94%", label: "less manual work"        },
+  { value: "3×",  label: "faster issue resolution"  },
+  { value: "0",   label: "missed crawl windows"    },
 ];
 
 function RevealDiv({
@@ -54,12 +63,22 @@ export default function SEOComparison() {
   const [isAfter, setIsAfter] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
   const items = isAfter ? AFTER : BEFORE;
+  const pausedRef = useRef<number>(0);
 
-  // Auto-cycle every 3.4s
+  // Auto-cycle every CYCLE_MS, respects manual pause
   useEffect(() => {
-    const id = setInterval(() => setIsAfter((v) => !v), 3400);
+    const id = setInterval(() => {
+      if (Date.now() >= pausedRef.current) {
+        setIsAfter((v) => !v);
+      }
+    }, CYCLE_MS);
     return () => clearInterval(id);
   }, []);
+
+  const handleToggle = () => {
+    pausedRef.current = Date.now() + 8000;
+    setIsAfter((v) => !v);
+  };
 
   return (
     <section className="relative bg-linear-to-b from-[#f8fbff] via-[#f3f8ff] to-[#eef6ff] pt-18 md:pt-24 pb-24 md:pb-32 overflow-hidden">
@@ -85,9 +104,10 @@ export default function SEOComparison() {
 
         {/* Header */}
         <RevealDiv className="relative text-center mb-14">
-          <p className="text-[11px] uppercase tracking-[0.2em] font-semibold text-slate-500 mb-5">
+          <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-sky-700 bg-sky-50 border border-sky-200/70 rounded-full px-3.5 py-2 mb-5">
+            <Sparkles className="w-3.5 h-3.5 text-sky-500" strokeWidth={2} />
             The Shift
-          </p>
+          </div>
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight leading-[1.1] mb-5">
             SEO that runs itself.{" "}
             <br className="hidden sm:block" />
@@ -103,9 +123,9 @@ export default function SEOComparison() {
         {/* Toggle pill */}
         <RevealDiv delay={80} className="relative flex justify-center mb-8">
           <button
-            onClick={() => setIsAfter((v) => !v)}
+            onClick={handleToggle}
             aria-label="Toggle between before and after states"
-            className="relative flex items-center bg-white/60 border border-white/75 rounded-full p-1 gap-0 cursor-pointer backdrop-blur-2xl shadow-[0_18px_45px_rgba(14,116,144,0.2)] focus-visible:outline-2 focus-visible:outline-emerald-500"
+            className="relative flex items-center bg-white/60 border border-white/75 rounded-full p-1 gap-0 cursor-pointer backdrop-blur-2xl shadow-[0_18px_45px_rgba(14,116,144,0.2)] focus-visible:outline-2 focus-visible:outline-emerald-500 overflow-hidden"
           >
             {/* Sliding highlight */}
             <motion.span
@@ -140,6 +160,20 @@ export default function SEOComparison() {
             >
               With Ryze
             </span>
+            {!prefersReducedMotion && (
+              <motion.span
+                key={`bar-${String(isAfter)}`}
+                className="absolute bottom-0 left-0 h-px rounded-full"
+                style={{
+                  backgroundColor: isAfter
+                    ? "rgba(52,211,153,0.85)"
+                    : "rgba(251,113,133,0.85)",
+                }}
+                initial={{ width: "0%" }}
+                animate={{ width: "100%" }}
+                transition={{ duration: CYCLE_MS / 1000, ease: "linear" }}
+              />
+            )}
           </button>
         </RevealDiv>
 
@@ -306,6 +340,19 @@ export default function SEOComparison() {
               </AnimatePresence>
             </div>
           </motion.div>
+        </RevealDiv>
+
+        {/* Stats strip */}
+        <RevealDiv delay={220} className="relative mt-10">
+          <div className="flex items-stretch justify-center rounded-2xl border border-white/70 bg-white/40 backdrop-blur-xl shadow-[0_12px_32px_rgba(14,116,144,0.1)] overflow-hidden divide-x divide-slate-200/50">
+            {STATS.map((stat, i) => (
+              <div key={i} className="flex-1 text-center px-4 py-5">
+                <p className="text-2xl font-bold text-slate-800 tracking-tight">{stat.value}</p>
+                <p className="text-[11px] text-slate-500 font-medium mt-1 leading-snug">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-[11px] text-slate-400 mt-3">Measured across 200+ teams using Ryze</p>
         </RevealDiv>
 
       </div>
